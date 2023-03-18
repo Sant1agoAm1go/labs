@@ -3,6 +3,7 @@
 #include "test.h"
 int main() {
 	testing();
-	return 0;
+	printf("cock");
+	return 0;	
 	
 }
