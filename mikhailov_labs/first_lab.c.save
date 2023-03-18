@@ -1,0 +1,22 @@
+#include <stdio.h>
+int main() {
+	int n = 0;
+	int s = 2;
+	printf("Введите число:\n");
+	scanf("%d",&n);
+	printf("Его простые множители:\n");
+	while (n>1) {
+		if (n%s==0) {
+			printf("%d\n",s);
+			n/=s;
+		}
+		else {
+			while (n%s!=0 && n>1) {
+				s+=1;
+			}
+			printf("%d\n",s);
+			n/=s;
+		}
+	}
+	return 0;
+}

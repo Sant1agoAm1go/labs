@@ -1,0 +1,64 @@
+#include <stdio.h> 
+#include <stdlib.h> 
+#include <time.h> 
+double *array_input(int *len, double * s) {  
+    printf("Elem: "); 
+    scanf("%d", len); 
+    double *data = (double *) malloc(*len * sizeof(double)); 
+    if (!data) { 
+        printf("Error"); 
+            return NULL; 
+        } 
+        for (int i = 0; i < *len; i++) { 
+            printf("data[%d] = ", i); 
+            scanf("%lf", data+i); 
+            (*s)+=data[i]; 
+        } 
+    *s = *s/(*len);
+    printf("Среднее значение: %lf\n", *s); 
+    return data;  
+
+} 
+double *array_input2(int *len, double * s, double *data) {  
+    double *data2 = (double *) malloc(*len * sizeof(double)); 
+    if (!data2) { 
+        printf("Error"); 
+            return NULL; 
+        } 
+        for (int j = 0; j < *len; j++) { 
+            data2[j] = data[j]-(*s);
+        } 
+    return data2;  
+} 
+double *array_remove(int *len1, int *len, double *s, double *data ){ 
+ *len1 = *len;
+ for (int h = 0; h < len1; h++) { 
+            if (data[h]>(*s)) {
+             for(int m = h; m < len1-1; m++ ) {
+              data[m] = data[m+1];
+             }
+             (*len1)--; 
+             h--;
+            }
+        } 
+ return data;
+}
+void array_print(int *len, double *data) { 
+        for (int k = 0; k < *len; k++) { 
+            printf("data[%d] = %lf \n", k, data[k]); 
+        } 
+} 
+int main () { 
+ double s = 0;
+    int len = 0, len1 = 0; 
+    clock_t start = clock();
+    double *data = array_input(&len,&s); 
+    double *data2 = array_input2(&len,&s,data);
+    double end = ((double)(clock()- start)) / CLOCKS_PER_SEC;
+    printf("\nfirst mas\n");
+    array_print(&len, data); 
+    printf("\nsecond mas\n");
+    array_print(&len,data2);
+    data2 = array_remove()
+    printf("\nВремя выполнения функции: %lf\n секунд\n",end);
+    return 0; 

@@ -1,0 +1,8 @@
+Akhmetzianov Artyom Rustemovich:DDD-888:20
+Almakov Ilya Evgenievich:ZZZ-555:18
+Bazhenov Evgeny Vladimirovich:CCC-999:20
+Grishanov Nikolay Vadimovich:YYY-666:18
+Khabarov Vladislav Igorevich:BBB-888:17
+Kuzmin Ignat Nikolaevich:ABC-123:18
+Makienko Nikita Vladimirovich:AAA-777:19
+Mikhailov Alexander Alexandrovich:AAA-777:19
