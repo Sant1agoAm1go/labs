@@ -3,7 +3,6 @@
 #include "test.h"
 int main() {
 	testing();
-	printf("OK");
 	return 0;	
 	
 }
