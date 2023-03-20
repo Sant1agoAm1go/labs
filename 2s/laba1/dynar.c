@@ -27,7 +27,7 @@ void fill_DynamicArray(DynamicArray* dynArr) { //Заполнение случа
 	        }
             break;
         default: 
-            printf("Impossible to fill the array\n"); 
+            //printf("Impossible to fill the array\n"); 
 
     }
 }
@@ -53,6 +53,6 @@ void some_printf(DynamicArray* dynArr) {
             }
             break;
         default:
-            printf("This data type is not supported by the function some_printf\n");
+            //printf("This data type is not supported by the function some_printf\n");
     }    
 }
