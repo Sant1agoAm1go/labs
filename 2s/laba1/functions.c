@@ -56,6 +56,16 @@ void insertion_sort(DynamicArray *base, int(*compar)(const void *, const void *)
 	}
 }
 
+void bubble_sort(DynamicArray *base, int(*compar)(const void *, const void *)) {
+    for(size_t i = 0; i<base->lenght; i++) {
+        for(size_t j = 0; j < base->lenght-i-1; j++) {
+            if(compar(base->data[j], base->data[j+1]) > 0) {
+                swap(base, j, j+1);
+            }
+        }
+    }
+}
+
 void function_int(const void *a) {
     *(int*)a += 1;
 }

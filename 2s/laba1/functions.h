@@ -35,4 +35,7 @@ void some_concat(DynamicArray** dynArr1, DynamicArray* dynArr2);
 DynamicArray* some_concat_hard(DynamicArray* dynArr1, DynamicArray* dynArr2);
 
 void insertion_sort(DynamicArray *base, int(*compar)(const void *, const void *));
+
+void bubble_sort(DynamicArray *base, int(*compar)(const void *, const void *));
+
 #endif

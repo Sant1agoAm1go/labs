@@ -45,7 +45,8 @@ void testing() {
 	printf("first array:\n");
     some_printf(dynArr1);	
 	printf("\n");
-	insertion_sort(dynArr1, comparator);
+	//insertion_sort(dynArr1, comparator);
+	bubble_sort(dynArr1, comparator);
 	printf("first array sorted:\n");
 	some_printf(dynArr1);
 	printf("\n");
