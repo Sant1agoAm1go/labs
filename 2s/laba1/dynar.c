@@ -14,7 +14,7 @@ DynamicArray* create_DynamicArray(size_t size_of_type, size_t lenght) {
     return result;
 }
 
-void fill_DynamicArray(DynamicArray* dynArr) { //Заполнение случайными числами;
+void fill_random_DynamicArray(DynamicArray* dynArr) { //Заполнение случайными числами;
     switch(dynArr->size_of_type) {
         case sizeof(int):
             for(size_t i = 0; i < dynArr->lenght; i++) {

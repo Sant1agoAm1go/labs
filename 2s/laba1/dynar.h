@@ -18,5 +18,5 @@ void some_printf(DynamicArray* dynArr);
 void delete_DynamicArray(DynamicArray* dynArr); 
 
 //Заполняет динамический массив случайными числами
-void fill_DynamicArray(DynamicArray* dynArr);
+void fill_random_DynamicArray(DynamicArray* dynArr);
 #endif
