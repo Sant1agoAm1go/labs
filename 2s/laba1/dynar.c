@@ -26,9 +26,6 @@ void fill_DynamicArray(DynamicArray* dynArr) { //Заполнение случа
 		        *(double*)(dynArr->data[i]) = rand() % 50;
 	        }
             break;
-        default: 
-            //printf("Impossible to fill the array\n"); 
-
     }
 }
 
@@ -52,7 +49,5 @@ void some_printf(DynamicArray* dynArr) {
                 printf("a[%ld] = %f\n", i, *(double*)(dynArr->data[i]));
             }
             break;
-        default:
-            //printf("This data type is not supported by the function some_printf\n");
     }    
 }

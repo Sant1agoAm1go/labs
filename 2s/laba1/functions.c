@@ -133,7 +133,6 @@ DynamicArray* some_where_hard(DynamicArray* dynArr, int (*condition_function)(co
 
 void some_concat(DynamicArray** dynArr1, DynamicArray* dynArr2) {
     if ((*dynArr1)->size_of_type != dynArr2->size_of_type) {
-        //printf("Error in some_concat diffrent type of elements for concatenation\n");
         return;
     }
     DynamicArray* result = create_DynamicArray((*dynArr1)->size_of_type, (*dynArr1)->lenght + dynArr2->lenght);
@@ -152,7 +151,6 @@ void some_concat(DynamicArray** dynArr1, DynamicArray* dynArr2) {
 
 DynamicArray* some_concat_hard(DynamicArray* dynArr1, DynamicArray* dynArr2) {
     if (dynArr1->size_of_type != dynArr2->size_of_type) {
-        //printf("Error in some_concat diffrent type of elements for concatenation\n");
         return dynArr1;
     }
     DynamicArray* result = create_DynamicArray(dynArr1->size_of_type, dynArr1->lenght + dynArr2->lenght);
