@@ -30,7 +30,7 @@ void fill_random_DynamicArray(DynamicArray* dynArr) { //Заполнение с�
     }
 }
 
-void fill_definite_DynamicArray(DynamicArray* dynArr) {
+void create_definite_DynamicArray(DynamicArray* dynArr) {
     switch(dynArr->size_of_type) {
         case sizeof(int):
             int n = 100;
@@ -62,6 +62,8 @@ void DynamicArray_set(DynamicArray* dynArr, void* value, size_t index) {
 }
 
 void * DynamicArray_get(DynamicArray* dynArr, size_t index) {
+    void *value = malloc(sizeof(void* ));
+
     return dynArr->data[index];
 }
 
