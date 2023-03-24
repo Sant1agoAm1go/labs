@@ -30,6 +30,25 @@ void fill_random_DynamicArray(DynamicArray* dynArr) { //Заполнение с�
     }
 }
 
+void fill_definite_DynamicArray(DynamicArray* dynArr) {
+    switch(dynArr->size_of_type) {
+        case sizeof(int):
+            int n = 100;
+            for(size_t i = 0; i < dynArr->lenght; i++) {
+		        *(int*)(dynArr->data[i]) = n;
+                n--;
+	        }
+            break;
+        case sizeof(double):
+            double n = 100.0;
+            for(size_t i = 0; i < dynArr->lenght; i++) {
+		        *(double*)(dynArr->data[i]) = n;
+                n = n - 1.0;
+	        }
+            break;
+    }
+}
+
 void delete_DynamicArray(DynamicArray* dynArr) {
     for (size_t i = 0; i < dynArr->lenght; i++) {
         free(dynArr->data[i]); //Освобождение памяти, выделенной под каждый элемент.
