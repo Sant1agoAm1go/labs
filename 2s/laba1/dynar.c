@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "dynar.h"
 DynamicArray* create_DynamicArray(size_t size_of_type, size_t lenght) {
     DynamicArray* result = NULL;
@@ -35,6 +36,14 @@ void delete_DynamicArray(DynamicArray* dynArr) {
     }
     free(dynArr->data); //Освобождение памяти, выделенной под массив указателей.
     free(dynArr);
+}
+
+void DynamicArray_set(DynamicArray* dynArr, void* value, size_t index) {
+    memcpy(dynArr->data[index], value, sizeof(void *));
+}
+
+void * DynamicArray_get(DynamicArray* dynArr, size_t index) {
+    return dynArr->data[index];
 }
 
 void some_printf(DynamicArray* dynArr) {

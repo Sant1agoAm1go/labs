@@ -38,4 +38,7 @@ void insertion_sort(DynamicArray *base, int(*compar)(const void *, const void *)
 
 void bubble_sort(DynamicArray *base, int(*compar)(const void *, const void *));
 
+//Функция printf для разных типов элементов
+void some_printf(DynamicArray* dynArr);
+
 #endif

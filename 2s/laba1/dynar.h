@@ -10,13 +10,15 @@ typedef struct DynamicArray {
 
 //Создание пустого динамического массива 
 DynamicArray* create_DynamicArray(size_t size_of_type, size_t lenght);
-
-//Функция printf для разных типов элементов
-void some_printf(DynamicArray* dynArr);
  
 //Удаление динамического массива
 void delete_DynamicArray(DynamicArray* dynArr); 
 
 //Заполняет динамический массив случайными числами
 void fill_random_DynamicArray(DynamicArray* dynArr);
+
+void DynamicArray_set(DynamicArray* dynArr, void* value, size_t index); 
+
+void * DynamicArray_get(DynamicArray* dynArr, size_t index);
+
 #endif
