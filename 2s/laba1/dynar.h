@@ -17,8 +17,11 @@ void delete_DynamicArray(DynamicArray* dynArr);
 //Заполняет динамический массив случайными числами
 void fill_random_DynamicArray(DynamicArray* dynArr);
 
+//Заполняет массив определенными числами
+void create_definite_DynamicArray(DynamicArray* dynArr);
+
 void DynamicArray_set(DynamicArray* dynArr, void* value, size_t index); 
 
-void * DynamicArray_get(DynamicArray* dynArr, size_t index);
+void* DynamicArray_get(DynamicArray* dynArr, size_t index);
 
 #endif

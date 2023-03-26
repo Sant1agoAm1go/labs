@@ -121,7 +121,7 @@ DynamicArray* some_where_hard(DynamicArray* dynArr, int (*condition_function)(co
     for (size_t i = 0; i < dynArr->lenght; i++) {
         //Функция возвращает отфильтрованный массив с помощью функции-фильтра
         if(condition_function(dynArr->data[i])) {
-            memcpy(result->data[index],dynArr->data[i], sizeof(dynArr->data[i]));
+            memcpy(result->data[index], dynArr->data[i], result->size_of_type);
             result_lenght++;
             index++;
         }
@@ -139,11 +139,11 @@ void some_concat(DynamicArray** dynArr1, DynamicArray* dynArr2) {
     
     //Копируем указатели из первого массива в новый.
     for (size_t i = 0; i < (*dynArr1)->lenght; i++) {
-        memcpy(result->data[i], (*dynArr1)->data[i], sizeof(void *));
+        memcpy(result->data[i], (*dynArr1)->data[i], result->size_of_type);
     }
     //Копируем указатели из второго массива в новый.
     for (size_t i = 0; i < dynArr2->lenght; i++) {
-        memcpy(result->data[(*dynArr1)->lenght + i], dynArr2->data[i], sizeof(void *));
+        memcpy(result->data[(*dynArr1)->lenght + i], dynArr2->data[i], result->size_of_type);
     }
     delete_DynamicArray((*dynArr1));
     *dynArr1 = result;
@@ -157,11 +157,11 @@ DynamicArray* some_concat_hard(DynamicArray* dynArr1, DynamicArray* dynArr2) {
     
     //Копируем указатели из первого массива в новый.
     for (size_t i = 0; i < dynArr1->lenght; i++) {
-        memcpy(result->data[i], dynArr1->data[i], sizeof(void *));
+        memcpy(result->data[i], dynArr1->data[i], result->size_of_type);
     }
     //Копируем указатели из второго массива в новый.
     for (size_t i = 0; i < dynArr2->lenght; i++) {
-        memcpy(result->data[dynArr1->lenght + i], dynArr2->data[i], sizeof(void *));
+        memcpy(result->data[dynArr1->lenght + i], dynArr2->data[i], result->size_of_type);
     }
     return result;
 }
