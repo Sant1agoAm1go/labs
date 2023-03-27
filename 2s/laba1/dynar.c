@@ -30,7 +30,24 @@ void fill_random_DynamicArray(DynamicArray* dynArr) { //Заполнение с�
     }
 }
 
-void create_definite_DynamicArray(DynamicArray* dynArr) {
+DynamicArray* create_random_DynamicArray(size_t size_of_type, size_t lenght) {
+    DynamicArray* result = create_DynamicArray(size_of_type, lenght);
+    switch(result->size_of_type) {
+        case sizeof(int):
+            for(size_t i = 0; i < result->lenght; i++) {
+                *(int*)(result->data[i]) = rand() % 50;
+            }
+            break;
+        case sizeof(double):
+            for(size_t i = 0; i < result->lenght; i++) {
+                *(double*)(result->data[i]) = rand() % 50;
+            }
+            break;
+    }
+    return result;
+}
+
+void fill_definite_DynamicArray(DynamicArray* dynArr) {
     switch(dynArr->size_of_type) {
         case sizeof(int):
             for(size_t i = 0; i < dynArr->lenght; i++) {
@@ -43,6 +60,23 @@ void create_definite_DynamicArray(DynamicArray* dynArr) {
 	        }
             break;
     }
+}
+
+DynamicArray* create_definite_DynamicArray(size_t size_of_type, size_t lenght) {
+    DynamicArray* result = create_DynamicArray(size_of_type, lenght);
+    switch(result->size_of_type) {
+        case sizeof(int):
+            for(size_t i = 0; i < result->lenght; i++) {
+                scanf("%d",result->data[i]);
+            }
+            break;
+        case sizeof(double):
+            for(size_t i = 0; i < result->lenght; i++) {
+                scanf("%lf",result->data[i]);
+            }
+            break;
+    }
+    return result;
 }
 
 void delete_DynamicArray(DynamicArray* dynArr) {
