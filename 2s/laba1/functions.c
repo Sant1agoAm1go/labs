@@ -165,4 +165,3 @@ DynamicArray* some_concat_hard(DynamicArray* dynArr1, DynamicArray* dynArr2) {
     }
     return result;
 }
-

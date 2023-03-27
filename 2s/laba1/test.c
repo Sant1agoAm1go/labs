@@ -75,7 +75,7 @@ void testing() {
 	//DynamicArray *where_arr = some_where_hard(dynArr1, condition_function);
 	//some_printf(where_arr);
 	printf("\n");
-	
+
 	delete_DynamicArray(dynArr1);
 	delete_DynamicArray(dynArr2);
 	//delete_DynamicArray(concat_arr);
