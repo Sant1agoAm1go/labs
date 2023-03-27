@@ -40,35 +40,42 @@ void testing() {
 			dynArr2 = create_DynamicArray(sizeof(double),lenght2);
 			break;
 	}
+
 	fill_definite_DynamicArray(dynArr1);
 	fill_definite_DynamicArray(dynArr2);
 	printf("first array:\n");
-    some_printf(dynArr1);	
+	some_printf(dynArr1);	
 	printf("\n");
+
 	//insertion_sort(dynArr1, comparator);
 	bubble_sort(dynArr1, comparator);
 	printf("first array sorted:\n");
 	some_printf(dynArr1);
 	printf("\n");
+
     printf("second array:\n");
 	some_printf(dynArr2);
 	printf("\n");
+
 	printf("concatenation of first array and second array:\n");
 	some_concat(&dynArr1, dynArr2);
 	some_printf(dynArr1);
 	//DynamicArray *concat_arr = some_concat_hard(dynArr1, dynArr2);
 	//some_printf(concat_arr);
 	printf("\n");
+
 	printf("map function:\n");
 	some_map(dynArr1, function);
 	some_printf(dynArr1);
 	printf("\n");
+
 	printf("where function:\n");
 	some_where(&dynArr1, condition_function);
 	some_printf(dynArr1);
 	//DynamicArray *where_arr = some_where_hard(dynArr1, condition_function);
 	//some_printf(where_arr);
 	printf("\n");
+	
 	delete_DynamicArray(dynArr1);
 	delete_DynamicArray(dynArr2);
 	//delete_DynamicArray(concat_arr);
