@@ -16,10 +16,14 @@ void delete_DynamicArray(DynamicArray* dynArr);
 
 //Заполняет динамический массив случайными числами
 void fill_random_DynamicArray(DynamicArray* dynArr);
+
+//Создаёт динамический массив со случайными числами
 DynamicArray* create_random_DynamicArray(size_t size_of_type, size_t lenght);
 
 //Заполняет массив определенными числами
 void fill_definite_DynamicArray(DynamicArray* dynArr);
+
+//Создаёт массив с определенными числами
 DynamicArray* create_definite_DynamicArray(size_t size_of_type, size_t lenght);
 
 void DynamicArray_set(DynamicArray* dynArr, void* value, size_t index); 
