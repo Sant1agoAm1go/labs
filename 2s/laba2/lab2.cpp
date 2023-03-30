@@ -9,7 +9,7 @@ int main() {
     DynamicArray<int> data = DynamicArray<int>(lenght);
     for(int i = 0; i < lenght; i++) {
         data.Set(i, rand () % 100);
-        cout << data.Get(i) << endl;
+        cout << "data[" << i << "] = " << data.Get(i) << endl;
     }
     return 0;
 }
