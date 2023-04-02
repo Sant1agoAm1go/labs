@@ -3,8 +3,7 @@
 #include <string.h>
 #include "dynar.h"
 DynamicArray* create_DynamicArray(size_t size_of_type, size_t lenght) {
-    DynamicArray* result = NULL;
-    result = malloc(sizeof(DynamicArray)); //Выделение памяти под структуру.
+    DynamicArray* result = malloc(sizeof(DynamicArray)); //Выделение памяти под структуру.
     result->size_of_type = size_of_type;
     result->lenght = lenght;
     result->data = malloc(sizeof(void *) * lenght); // Выделение памяти под массив указателей (контейнер указателей)

@@ -41,8 +41,8 @@ void testing() {
 			break;
 	}
 
-	fill_definite_DynamicArray(dynArr1);
-	fill_definite_DynamicArray(dynArr2);
+	fill_random_DynamicArray(dynArr1);
+	fill_random_DynamicArray(dynArr2);
 	printf("first array:\n");
 	some_printf(dynArr1);	
 	printf("\n");
