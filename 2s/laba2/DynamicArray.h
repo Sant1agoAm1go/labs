@@ -1,16 +1,22 @@
 ﻿#pragma once
 #include <cassert>
+#include <stdexcept>
 
 //TODO:Тесты на все функции
 // TODO: Добавление в конец.
 
-template <class T> class DynamicArray
+template <typename T> class DynamicArray 
 {
+private:
 	T* data;
 	int lenght;
 
 public:
 // Конструкторы
+	DynamicArray() {
+		data = new T[1];
+		lenght = 0;
+	}
 	DynamicArray(T* items, int count) //	Копировать элементы из переданного массива
 	{
 		data = new T[count];
@@ -25,7 +31,7 @@ public:
 		data = new T[size];
 		lenght = size;
 	}
-	T operator[](int const index)
+	T& operator[](const int index)
 	{
 		return data[index];
 	}
@@ -39,7 +45,7 @@ public:
 		}
 	}
 	
-	//Диструктор
+	//Деструктор
 	~DynamicArray() {
 		delete[] data;
 	}
@@ -51,10 +57,12 @@ public:
 	// или равен числу элементов или указывает на не заданный элемент)
 	T Get(int index)
 	{
-		assert(index >= 0);
-		assert(index < lenght);
+		if(index < 0 || index >= lenght ) {
+			throw std::out_of_range("Out of range");
+		}
 		return data[index];
 	}
+	
 	int GetSize() //	Получить размер массива
 	{
 		return lenght;
@@ -63,9 +71,11 @@ public:
 // Операции
 	void Set(int index, T value) // Задать элемент по индексу. Может выбросить IndexOutOfRange
 	{
-		assert(index>=0);
-		assert(index < lenght);
+		if(index < 0 || index >= lenght) {
+			throw std::out_of_range("Out of range");
+		}
 		data[index] = value;
+		
 	}
 
 	// Изменить размер массива.Если размер увеличивается, все элементы копируются в начало новой памяти.
