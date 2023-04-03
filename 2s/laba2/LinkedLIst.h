@@ -10,9 +10,13 @@ private:
 
 public:
 LinkedList() {
-    head = new Item[1];
-    tail = new Item[1];
+    head = new Item;
+    tail = new Item;
 
+}
+~LinkedList() {
+    delete head;
+    delete tail;
 }
 void LinkedList_delete(LinkedList *LinkedList) {
     Item *ptr = LinkedList->head, *prev;
