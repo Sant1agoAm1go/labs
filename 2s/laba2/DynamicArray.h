@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <cassert>
 #include <stdexcept>
-
+#include <stdlib.h>
 //TODO:Тесты на все функции
 // TODO: Добавление в конец.
 
