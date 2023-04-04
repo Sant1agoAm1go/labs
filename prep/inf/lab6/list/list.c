@@ -9,7 +9,7 @@ List *list_new() {
 void list_delete(List *list) {
     Item *ptr = list->head, *prev;
     while (ptr) {
-        prev = ptr;
+        prev = ptr;    
         ptr = ptr->next;
         free(prev);
     }
@@ -31,10 +31,12 @@ int list_push_back(List *list, char ch) {
     }
     ptr->ch = ch;
     ptr->next = NULL;
+    ptr->prev = NULL;
     if (!list->head) {
         list->head = ptr;
         list->tail = ptr;
     } else {
+        ptr->prev = list->tail;
         list->tail->next = ptr;
         list->tail = ptr;
     }
@@ -47,6 +49,7 @@ int list_push_begin(List *list, char ch) {
 	 }
 	 ptr->ch = ch;
 	 ptr->next = list->head;
+     ptr->prev = NULL;
 	 if(!list->head) {
 	 	list->head = ptr;
 	 	list->tail = ptr;

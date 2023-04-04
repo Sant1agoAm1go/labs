@@ -2,16 +2,27 @@
 #include <iostream>
 #include <cassert>
 #include <stdexcept>
+
+template <typename T> struct Item 
+{
+public:
+    T data;
+    struct Item *next;
+    struct Item *prev;
+
+};    
+
 template <typename T> class LinkedList 
 {
 private:
-    Item *head;
-    Item *tail;
+
+    Item<T> *head;
+    Item<T> *tail;
 
 public:
 LinkedList() {
-    head = new Item;
-    tail = new Item;
+    head = new Item<T>;
+    tail = new Item<T>;
 
 }
 ~LinkedList() {
@@ -19,33 +30,35 @@ LinkedList() {
     delete tail;
 }
 void LinkedList_delete(LinkedList *LinkedList) {
-    Item *ptr = LinkedList->head, *prev;
-    while (ptr) {
-        prev = ptr;
+    Item<T> *ptr = LinkedList->head;
+    while (ptr != nullptr) {
+        ptr->prev = ptr;
         ptr = ptr->next;
-        delete prev;
+        delete ptr->prev;
     }
     delete LinkedList;
 }
 void LinkedList_print(const LinkedList *LinkedList) {
-    Item *ptr = LinkedList->head;
-    while (ptr) {
-        std::cout << ptr->data << endl;
+    Item<T> *ptr = LinkedList->head;
+    while(ptr != nullptr) {
+        std::cout << ptr->data << std::endl;
         ptr = ptr->next;
     }
 }
 
 int LinkedList_push_back(LinkedList *LinkedList, T data) {
-    Item *ptr = (Item *) malloc(sizeof(Item));
-    if (!ptr) {
+    Item<T> *ptr = new Item<T>;
+    if (ptr == nullptr) {
         return 1;
     }
     ptr->data = data;
-    ptr->next = NULL;
-    if (!LinkedList->head) {
+    ptr->next = nullptr;
+    ptr->prev = nullptr;
+    if (LinkedList->head == nullptr) {
         LinkedList->head = ptr;
         LinkedList->tail = ptr;
     } else {
+        ptr->prev = LinkedList->tail;
         LinkedList->tail->next = ptr;
         LinkedList->tail = ptr;
     }
@@ -53,49 +66,52 @@ int LinkedList_push_back(LinkedList *LinkedList, T data) {
 }
 
 int LinkedList_push_begin(LinkedList *LinkedList, T data) {
-	 Item *ptr = (Item *) malloc(sizeof(Item));
-	 if (!ptr) {
+	 Item<T> *ptr = new Item<T>;
+	 if (ptr == nullptr) {
 	 	return 1;
 	 }
 	 ptr->data = data;
 	 ptr->next = LinkedList->head;
+     ptr->prev = nullptr;
 	 if(!LinkedList->head) {
 	 	LinkedList->head = ptr;
 	 	LinkedList->tail = ptr;
 	 }
 	 else {
 	 	LinkedList->head = ptr; 
+        //LinkedList->head->prev = nullptr;
 	 }
 	 return 0;
 }
 
 int LinkedList_insert(LinkedList *LinkedList, T data) {
-    Item *ptr = LinkedList->head, *prev;
-    while (ptr && (ptr->data < data)) {
-        prev = ptr;
+    Item<T> *ptr = LinkedList->head;
+    while (ptr!=nullptr && (ptr->data < data)) {
+        ptr->prev = ptr;
         ptr = ptr->next;
     }
-    Item *new_item = (Item *) malloc(sizeof(Item));
-    if (!new_item) {
+    Item<T> *new_Item = new Item<T>;
+    if (new_Item == nullptr) {
         return 1;
     }
-    new_item->data = data;
-    new_item->next = ptr;
-    if (prev) {
-        prev->next = new_item;
+    new_Item->data = data;
+    new_Item->next = ptr;
+    new_Item->prev = nullptr;
+    if (ptr->prev != nullptr) {
+        ptr->prev->next = new_Item;
     } else {
-        LinkedList->head = new_item;
+        LinkedList->head = new_Item;
     }
-    if (!ptr) {
-        LinkedList->tail = new_item;
+    if (ptr == nullptr) {
+        LinkedList->tail = new_Item;
     }
     return 0;
 }
 
 int LinkedList_remove(LinkedList *LinkedList, T data) {
-    Item *ptr = LinkedList->head, *prev;
-    while (ptr && ptr->data != data) {
-        prev = ptr;
+    Item<T> *ptr = LinkedList->head;
+    while (ptr != nullptr && ptr->data != data) {
+        ptr->prev = ptr;
         ptr = ptr->next;
     }
     if (!ptr) {
@@ -105,19 +121,12 @@ int LinkedList_remove(LinkedList *LinkedList, T data) {
         LinkedList->head = ptr->next;
     }
     if (ptr == LinkedList->tail) {
-        LinkedList->tail = prev;
+        LinkedList->tail = ptr->prev;
     }
-    if (prev) {
-        prev->next = ptr->next;
+    if (ptr->prev != nullptr) {
+        ptr->prev->next = ptr->next;
     }
     delete ptr;
     return 0;
 }
-};
-
-template <typename T> class Item 
-{
-    private:
-    T data;
-    class Item *next;
 };
