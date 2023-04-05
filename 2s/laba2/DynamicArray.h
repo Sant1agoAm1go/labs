@@ -10,35 +10,41 @@ template <typename T> class DynamicArray
 private:
 	T* data;
 	int lenght;
+	int capacity;
 
 public:
 // Конструкторы
 	DynamicArray() {
 		data = new T[1];
 		lenght = 0;
+		capacity = 0;
 	}
 	DynamicArray(T* items, int count) //	Копировать элементы из переданного массива
 	{
 		data = new T[count];
 		lenght = count;
+		capacity = count;
 		for (int i = 0; i < lenght ; i++)
 		{
 			data[i] = items[i];
 		}
+
 	}
 	DynamicArray(int size) //	Создать массив заданной длины
 	{
 		data = new T[size];
-		lenght = size;
+		lenght = 0;
+		capacity = size;
 	}
 	T& operator[](const int index)
 	{
 		return data[index];
 	}
-	DynamicArray(DynamicArray<T>& dynamicArray) //	Копирующий конструктор
+	DynamicArray(DynamicArray<T>& dynamicArray const) //	Копирующий конструктор
 	{
 		lenght = dynamicArray.lenght;
-		data = new T[lenght];
+		capacity = dynamicArray.capacity;
+		data = new T[capacity];
 		for (int i = 0; i < lenght; i++)
 		{
 			data[i] = dynamicArray.Get(i);
@@ -65,6 +71,11 @@ public:
 	
 	int GetSize() //	Получить размер массива
 	{
+		return capacity;
+	}
+
+	int GetLenght() //	Получить длину массива
+	{
 		return lenght;
 	}
 	
@@ -77,36 +88,23 @@ public:
 		data[index] = value;
 		
 	}
-
-	// Изменить размер массива.Если размер увеличивается, все элементы копируются в начало новой памяти.
-	// Если уменьшается – элементы, которые не помещаются, отбрасываются.
 	void Resize(int newSize)
 	{
-		assert(newSize > 0);
+		if(newSize > 0) {
+			throw std::exception("new size less than 0");
+		}
 		T* newData = new T[newSize];
 		/*for (int i = 0; i < newSize; i++)
 			newData[i] = 0;*/
-		int tempSize= 0;
-		tempSize = (newSize > lenght) ? lenght : newSize;
-		for (int i = 0; i < tempSize; i++)
+		int newLenght= 0;
+		newLenght = (newSize > lenght) ? lenght : newSize;
+		for (int i = 0; i < newLenght; i++)
 			newData[i] = data[i];
-		delete data;
+		delete[] data;
 		data = newData;
-		lenght = newSize;
-	}
-	void ResizeRight(int newSize)
-	{
-		assert(newSize > 0);
-		T* newData = new T[newSize];
-		/*for (int i = 0; i < newSize; i++)
-			newData[i] = 0;*/
-		int startIndex = (newSize > lenght)?(newSize - lenght):0;
-		for (int i = startIndex; i < newSize; i++)
-			newData[i] = data[i];
-		delete data;
-		data = newData;
-		lenght = newSize;
-	}
+		lenght = newLenght;
+		capacity = newSize;
+	}	
 };
 
 
