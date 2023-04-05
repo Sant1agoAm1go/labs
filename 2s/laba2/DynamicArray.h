@@ -1,9 +1,6 @@
 ﻿#pragma once
 #include <cassert>
 #include <stdexcept>
-#include <stdlib.h>
-//TODO:Тесты на все функции
-// TODO: Добавление в конец.
 
 template <typename T> class DynamicArray {
 private:
@@ -58,10 +55,6 @@ public:
 	}
 
 // Декомпозиция
-	
-	// Получить элемент по индексу. 
-	// Может выбрасывать исключения :	− IndexOutOfRange(если индекс отрицательный, больше 
-	// или равен числу элементов или указывает на не заданный элемент)
 	T Get(int index) {
 		if(index < 0 || index >= lenght ) {
 			throw std::out_of_range("Out of range");
@@ -79,7 +72,7 @@ public:
 	}
 	
 // Операции
-	void Set(int index, T value) { // Задать элемент по индексу. Может выбросить IndexOutOfRange
+	void Set(int index, T value) { 
 	
 		if(index < 0 || index >= lenght) {
 			throw std::out_of_range("Out of range");

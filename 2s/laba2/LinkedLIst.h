@@ -2,14 +2,13 @@
 #include <iostream>
 #include <cassert>
 #include <stdexcept>
-
 template <typename T> class Item {
 public:
     T data;
-    Item *next;
-    Item *prev;
+    class Item *next;
+    class Item *prev;
 
-};    
+};
 
 template <typename T> class LinkedList {
 private:
@@ -19,92 +18,172 @@ private:
     int lenght;
 
 public:
-LinkedList() {
-    head = new Item<T>;
-    tail = new Item<T>;
-    lenght = 0;
-}
-~LinkedList() {
-    delete head;
-    delete tail;
-}
-
-void LinkedList_print() {
-    Item<T> *ptr = this->head;
-    while(ptr != nullptr) {
-        std::cout << ptr->data << std::endl;
-        ptr = ptr->next;
+    LinkedList() {
+        head = nullptr;
+        tail = nullptr;
+        lenght = 0;
     }
-}
 
-T GetFirst() {
-    if (this->head == nullptr) {
-        throw std::invalid_argument("List is empty");
+    LinkedList(T* items, int count) { //	Копировать элементы из переданного массива
+        head = nullptr;
+        tail = nullptr;
+        for (int i = 0; i < count; i++) {
+            Append(items[i]);
+        }
     }
-    return this->head->data;
-}
 
-T GetLast() {
-    if (this->head == nullptr) {
-        throw std::invalid_argument("List is empty");
+    LinkedList(LinkedList <T>& list) {  // Копирующий конструктор
+        head = nullptr;
+        tail = nullptr;
+        for (int i = 0; i < list.lenght; i++) {
+            Append(list.Get(i));
+        }
     }
-    return this->tail->data;
-} 
 
-T Get(int index) {
-    if(index < 0 || index >= lenght ) {
-		throw std::out_of_range("Out of range");
-	}
-    Item<T>* ptr = this->head; 
-    for(int i = 0; i < index; i++) {
-        ptr = ptr->next;
+    ~LinkedList() {
+        delete head;
+        delete tail;
     }
-    return ptr->data;
-}
 
-int GetLenght() {
-    return this->lenght;
-}
-
-void Append(T item) {
-    Item<T> *ptr = new Item<T>;
-    if (ptr == nullptr) {
-        throw std::invalid_argument("Failed to allocate memory");
+    T GetFirst() {
+        if (this->head == nullptr) {
+            throw std::invalid_argument("List is empty");
+        }
+        return this->head->data;
     }
-    ptr->data = item;
-    ptr->next = nullptr;
-    if (this->head == nullptr) {
-        this->head = ptr;
-        this->head->prev = nullptr;
-        this->tail = ptr;
+
+    T GetLast() {
+        if (this->head == nullptr) {
+            throw std::invalid_argument("List is empty");
+        }
+        return this->tail->data;
     } 
-    else {
-        ptr->prev = this->tail;
-        this->tail->next = ptr;
-        this->tail = ptr;
-    }
-    lenght++;
-}
 
-void Prepend(T item) {
-	Item<T> *ptr = new Item<T>;
-	if (ptr == nullptr) {
-	    throw std::invalid_argument("Failed to allocate memory");
-	}
-    ptr->data = item;
-    ptr->next = this->head;
-    ptr->prev = nullptr;
-    if (this->head == nullptr) {
-        this->head = ptr;
-        this->head->prev = nullptr;
-        this->tail = ptr;
+    T Get(int index) {
+        if(index < 0 || index >= lenght ) {
+            throw std::out_of_range("Out of range");
+        }
+        Item<T>* ptr = this->head; 
+        for(int i = 0; i < index; i++) {
+            ptr = ptr->next;
+        }
+        return ptr->data;
     }
-    else {
-        this-head->prev = ptr;
-        this->head = ptr; 
+
+    int GetLenght() {
+        return this->lenght;
     }
-    lenght++;
-}
+
+    void Append(T item) {
+        Item<T> *ptr = new Item<T>;
+        if (ptr == nullptr) {
+            throw std::invalid_argument("Failed to allocate memory");
+        }
+        ptr->data = item;
+        ptr->next = nullptr;
+        if (this->head == nullptr) {
+            this->head = ptr;
+            this->head->prev = nullptr;
+            this->tail = ptr;
+        } 
+        else {
+            ptr->prev = this->tail;
+            this->tail->next = ptr;
+            this->tail = ptr;
+        }
+        lenght++;
+    }
+
+    void Prepend(T item) {
+        Item<T> *ptr = new Item<T>;
+        if (ptr == nullptr) {
+            throw std::invalid_argument("Failed to allocate memory");
+        }
+        ptr->data = item;
+        ptr->next = this->head;
+        ptr->prev = nullptr;
+        if (this->head == nullptr) {
+            this->head = ptr;
+            this->head->prev = nullptr;
+            this->tail = ptr;
+        }
+        else {
+            this-head->prev = ptr;
+            this->head = ptr; 
+        }
+        (this->lenght)++;
+    }
+
+    void InsertAt(T item, int index) { // Неправильно работает!!!
+        if(index < 0 || index >= lenght) {
+            throw std::out_of_range("Out of range");
+        }
+        Item<T>* itemBefore = (*this)[index]; 
+        if (itemBefore == nullptr) {
+            Append(item);
+        }
+        else {
+
+            Item<T>* ptr = new Item<T>;
+            ptr->data = item;
+            ptr->prev = itemBefore;
+            ptr->next = itemBefore->next;
+            itemBefore->next->prev = ptr;
+            itemBefore->next = ptr;
+            (this->lenght)++;
+        }
+    }
+
+    LinkedList<T>* Concat(LinkedList<T>* list) {
+        for (int i = 0; i < list->lenght; i++)
+            Append(list->Get(i));
+        return this;
+    }
+
+    LinkedList<T>* GetSubList(int startIndex, int endIndex) {
+        if(startIndex < 0 || endIndex < 0 || startIndex >= lenght || endIndex >= lenght) {
+            throw std::out_of_range("Out of range");
+        }
+        LinkedList<T>* ptr = new LinkedList<T>();
+        for (int i = startIndex; i <= endIndex; i++) {
+            ptr->Append(Get(i));
+        }
+        return ptr;
+    }
+}; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 int LinkedList_insert(LinkedList *LinkedList, T data) {
@@ -154,4 +233,3 @@ int LinkedList_remove(LinkedList *LinkedList, T data) {
     delete ptr;
     return 0;
 }*/
-};
