@@ -1,202 +1,132 @@
-﻿#pragma once
-
+#pragma once
 #include <iostream>
-using namespace std;
-
-#pragma inline_depth(2)
-
 #include <cassert>
+#include <stdexcept>
 
-template <typename T> class Item
+template <typename T> class Item 
 {
 public:
-	T data;	// Любые данные
-	Item<T>* next;	//Указатель на следующиий элемент в цепочке
-	Item<T>* previous;
-};
+    T data;
+    class Item *next;
+    class Item *prev;
 
-template <typename T> class LinkedList
+};    
+
+template <typename T> class LinkedList 
 {
-	Item<T>* head;	// Голова списка
-	Item<T>* tail;
-	int lenght;	// Длинна списка
+private:
+
+    Item<T> *head;
+    Item<T> *tail;
+
 public:
-// Конструкторы
-	LinkedList()// Создать пустой список
-	{
-		head = NULL;
-		tail = NULL;
-		lenght = 0;
-	};
-	LinkedList(T* items, int count) //	Копировать элементы из переданного массива
-	{
-		head = NULL;
-		tail = NULL;
+LinkedList() {
+    head = new Item<T>;
+    tail = new Item<T>;
 
-		for (int i = 0; i < count; i++)
-		{
-			Append(items[i]);
-		}
-	}
-	// TODO: Сделать реализацию LinkedList
-	LinkedList(LinkedList <T>& list)  // Копирующий конструктор
-	{
-		head = NULL;
-		tail = NULL;
-		for (int i = 0; i < list.lenght; i++)
-		{
-			Append(list.Get(i));
-		}
-	}; 
-// Декомпозиция
-	T GetFirst() // Получить первый элемент в списке. Может выбрасывать исключения : − IndexOutOfRange(если список пуст)
-	{
-		return T(head->data);
-	}
-	T GetLast() // Получить последний элемент в списке. Может выбрасывать исключения : − IndexOutOfRange(если список пуст)
-	{
-		return T(tail->data);
-	}
-	Item<T>* operator[](int index)
-	{
-		if (index == 0 && lenght == 0)
-			return NULL;
-		//cout << "test - " << "index = " << index << endl;
-		assert(index >= 0);
-		assert(index < lenght);
-		Item<T>* buf = head;
-		//cout << "test - " << "lenght = " << lenght << endl;
-		//cout <<"test - "<<"head->data = "<< head->data<<endl;
-		for (int i = 0; i < index; i++)
-		{
-			buf = buf->next;
-		}
-		return buf;
-	}
-	T Get(int index) // Получить элемент по индексу. Может выбрасывать исключения :− IndexOutOfRange(если индекс отрицательный или больше / равен числу элементов)		
-	{
-		assert(!(index == 0 && lenght == 0));
+}
+~LinkedList() {
+    delete head;
+    delete tail;
+}
+void LinkedList_delete(LinkedList *LinkedList) {
+    Item<T> *ptr = LinkedList->head, *prev;
+    while (ptr != nullptr) {
+        prev = ptr;
+        ptr = ptr->next;
+        delete prev;
+    }
+    delete LinkedList;
+}
+void LinkedList_print(const LinkedList *LinkedList) {
+    Item<T> *ptr = LinkedList->head;
+    while(ptr != nullptr) {
+        std::cout << ptr->data << std::endl;
+        ptr = ptr->next;
+    }
+}
 
-		//cout << "test - " << "index = " << index << endl;
-		assert(index >= 0);
-		assert(index < lenght);
-		Item<T>* buf = head;
-		//cout << "test - " << "lenght = " << lenght << endl;
-		//cout <<"test - "<<"head->data = "<< head->data<<endl;
-		for (int i = 0; i < index; i++)
-		{
-			buf = buf->next;
-		}
-		return buf->data;
-	}
+int LinkedList_push_back(LinkedList *LinkedList, T data) {
+    Item<T> *ptr = new Item<T>;
+    if (ptr == nullptr) {
+        return 1;
+    }
+    ptr->data = data;
+    ptr->next = nullptr;
+    ptr->prev = nullptr;
+    if (LinkedList->head == nullptr) {
+        LinkedList->head = ptr;
+        LinkedList->tail = ptr;
+    } else {
+        ptr->prev = LinkedList->tail;
+        LinkedList->tail->next = ptr;
+        LinkedList->tail = ptr;
+    }
+    return 0;
+}
 
-	// Получить список из всех элементов, начиная с startIndex и заканчивая endIndex.
-	// Может выбрасывать исключения :− IndexOutOfRange(если хотя бы один из 
-	// индексов отрицательный или больше / равен числу элементов)
-	LinkedList<T>* GetSubList(int startIndex, int endIndex) 
-	{
-		assert(startIndex >= 0);
-		assert(endIndex <= lenght);
-		LinkedList<T>* buf = new LinkedList<T>();
-		for (int i = startIndex; i <= endIndex; i++)
-		{
-			buf->Append(Get(i));
-		}
-		return buf;
-	}
+int LinkedList_push_begin(LinkedList *LinkedList, T data) {
+	 Item<T> *ptr = new Item<T>;
+	 if (ptr == nullptr) {
+	 	return 1;
+	 }
+	 ptr->data = data;
+	 ptr->next = LinkedList->head;
+     ptr->prev = nullptr;
+	 if(!LinkedList->head) {
+	 	LinkedList->head = ptr;
+	 	LinkedList->tail = ptr;
+	 }
+	 else {
+	 	LinkedList->head = ptr; 
+	 }
+	 return 0;
+}
 
-	int GetLength()	// Получить длину списка
-	{
-		return lenght;
-	}
+int LinkedList_insert(LinkedList *LinkedList, T data) {
+    Item<T> *ptr = LinkedList->head, *prev;
+    while (ptr!=nullptr && (ptr->data < data)) {
+        prev = ptr;
+        ptr = ptr->next;
+    }
+    Item<T> *new_Item = new Item<T>;
+    if (new_Item == nullptr) {
+        return 1;
+    }
+    new_Item->data = data;
+    new_Item->next = ptr;
+    new_Item->prev = nullptr;
+    if (prev != nullptr) {
+        prev->next = new_Item;
+        new_Item->prev = prev;
+    } else {
+        LinkedList->head = new_Item;
+    }
+    if (ptr == nullptr) {
+        LinkedList->tail = new_Item;
+    }
+    return 0;
+}
 
-	void Set(int index, T data)
-	{
-		assert(!(index == 0 && lenght == 0));
-
-		//cout << "test - " << "index = " << index << endl;
-		assert(index >= 0);
-		assert(index < lenght);
-		Item<T>* buf = head;
-		//cout << "test - " << "lenght = " << lenght << endl;
-		//cout <<"test - "<<"head->data = "<< head->data<<endl;
-		for (int i = 0; i < index; i++)
-		{
-			buf = buf->next;
-		}
-		buf->data = data;
-	}
-
-// Операции
-
-	// Добавляет элемент в конец списка
-	void Append(T item)
-	{
-		lenght++;	//Увеличиваем число элементов на единицу
-		Item<T>* buf = new Item<T>;
-		buf->next = NULL;
-		buf->data = item;
-		if (head == NULL)
-		{
-			head = buf;
-			head->previous = NULL;
-			tail = head;
-		}
-		else
-		{
-			tail->next = buf;
-			buf->previous = tail;
-			tail = buf; // Смещаем хвост
-		}
-	}
-	void Prepend(T item) // Добавляет элемент в начало списка
-	{
-		lenght++;	//Увеличиваем число элементов на единицу
-		Item<T>* buf = new Item<T>;
-		buf->next = NULL;
-		buf->data = item;
-		if (head == NULL)
-		{
-			head = buf;
-			head->previous = NULL;
-			tail = head;
-		}
-		else
-		{
-			head->previous = buf;
-			buf->next = head;
-			head = buf; // Смещаем голову
-		}
-	}
-	void InsertAt(T item, int index) // Вставляет элемент в заданную позицию. 
-									// Может выбрасывать исключения : − IndexOutOfRange(если индекс отрицательный или больше / равен числу элементов)
-	{
-		assert(index>=0);
-		assert(index < lenght); //
-		Item<T>* itemBefor = (*this)[index];
-
-		if (itemBefor == NULL)
-			Append(item);
-		else
-		{
-			Item<T>* buf = new Item<T>;
-			buf->data = item;
-			buf->previous = itemBefor;
-			buf->next = itemBefor->next;
-			itemBefor->next->previous = buf;
-			itemBefor->next = buf;
-			lenght++;
-		}
-
-	}
-	//Сцепляет два списка
-	LinkedList<T>* Concat(LinkedList<T>* list) 
-	{
-		for (int i = 0; i < list->lenght; i++)
-			Append(list->Get(i));
-		return this;
-	}
-	
+int LinkedList_remove(LinkedList *LinkedList, T data) {
+    Item<T> *ptr = LinkedList->head, *prev;
+    while (ptr != nullptr && ptr->data != data) {
+        prev = ptr;
+        ptr = ptr->next;
+    }
+    if (!ptr) {
+        return 1;
+    }
+    if (ptr == LinkedList->head) {
+        LinkedList->head = ptr->next;
+    }
+    if (ptr == LinkedList->tail) {
+        LinkedList->tail = prev;
+    }
+    if (prev != nullptr) {
+        prev->next = ptr->next;
+    }
+    delete ptr;
+    return 0;
+}
 };
-
-
