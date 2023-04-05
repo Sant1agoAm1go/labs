@@ -5,8 +5,7 @@
 //TODO:Тесты на все функции
 // TODO: Добавление в конец.
 
-template <typename T> class DynamicArray 
-{
+template <typename T> class DynamicArray {
 private:
 	T* data;
 	int lenght;
@@ -19,28 +18,30 @@ public:
 		lenght = 0;
 		capacity = 0;
 	}
-	DynamicArray(T* items, int count) //	Копировать элементы из переданного массива
-	{
+
+	DynamicArray(T* items, int count) { //	Копировать элементы из переданного массива
+	
 		data = new T[count];
 		lenght = count;
 		capacity = count;
-		for (int i = 0; i < lenght ; i++)
-		{
+		for (int i = 0; i < lenght ; i++) {
 			data[i] = items[i];
 		}
 
 	}
-	DynamicArray(int size) //	Создать массив заданной длины
-	{
+
+	DynamicArray(int size) { //	Создать массив заданной длины
+	
 		data = new T[size];
-		lenght = 0;
+		lenght = size;
 		capacity = size;
 	}
 	T& operator[](const int index)
 	{
-		return data[index];
+		return this->data[index];
 	}
-	DynamicArray(DynamicArray<T>& dynamicArray const) //	Копирующий конструктор
+
+	DynamicArray(const DynamicArray<T>& dynamicArray) //	Копирующий конструктор
 	{
 		lenght = dynamicArray.lenght;
 		capacity = dynamicArray.capacity;
@@ -61,49 +62,44 @@ public:
 	// Получить элемент по индексу. 
 	// Может выбрасывать исключения :	− IndexOutOfRange(если индекс отрицательный, больше 
 	// или равен числу элементов или указывает на не заданный элемент)
-	T Get(int index)
-	{
+	T Get(int index) {
 		if(index < 0 || index >= lenght ) {
 			throw std::out_of_range("Out of range");
 		}
-		return data[index];
+		return this->data[index];
 	}
 	
-	int GetSize() //	Получить размер массива
-	{
-		return capacity;
+	int GetSize() { //	Получить размер массива
+	
+		return this->capacity;
 	}
 
-	int GetLenght() //	Получить длину массива
-	{
-		return lenght;
+	int GetLenght() { //	Получить длину массива
+		return this->lenght;
 	}
 	
 // Операции
-	void Set(int index, T value) // Задать элемент по индексу. Может выбросить IndexOutOfRange
-	{
+	void Set(int index, T value) { // Задать элемент по индексу. Может выбросить IndexOutOfRange
+	
 		if(index < 0 || index >= lenght) {
 			throw std::out_of_range("Out of range");
 		}
-		data[index] = value;
+		this->data[index] = value;
 		
 	}
-	void Resize(int newSize)
-	{
-		if(newSize > 0) {
-			throw std::exception("new size less than 0");
+
+	void Resize(int newSize) {
+		if(newSize < 0) {
+			throw std::invalid_argument("new size less than 0");
 		}
 		T* newData = new T[newSize];
-		/*for (int i = 0; i < newSize; i++)
-			newData[i] = 0;*/
-		int newLenght= 0;
-		newLenght = (newSize > lenght) ? lenght : newSize;
+		int newLenght =(newSize > lenght) ? lenght : newSize;
 		for (int i = 0; i < newLenght; i++)
 			newData[i] = data[i];
 		delete[] data;
-		data = newData;
-		lenght = newLenght;
-		capacity = newSize;
+		this->data = newData;
+		this>lenght = newLenght;
+		this->capacity = newSize;
 	}	
 };
 

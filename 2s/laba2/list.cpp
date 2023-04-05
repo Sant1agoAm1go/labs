@@ -6,8 +6,8 @@ int main() {
     srand(time(NULL));
     int lenght = 5;
     LinkedList<int>* data = new LinkedList<int>();
-    (*data).LinkedList_push_back(data, rand() % 10);
-    data->LinkedList_print(data);
+    (*data).Append(rand() % 10);
+    data->LinkedList_print();
     delete data;
     return 0;
 }

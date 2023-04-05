@@ -3,86 +3,110 @@
 #include <cassert>
 #include <stdexcept>
 
-template <typename T> class Item 
-{
+template <typename T> class Item {
 public:
     T data;
-    class Item *next;
-    class Item *prev;
+    Item *next;
+    Item *prev;
 
 };    
 
-template <typename T> class LinkedList 
-{
+template <typename T> class LinkedList {
 private:
 
     Item<T> *head;
     Item<T> *tail;
+    int lenght;
 
 public:
 LinkedList() {
     head = new Item<T>;
     tail = new Item<T>;
-
+    lenght = 0;
 }
 ~LinkedList() {
     delete head;
     delete tail;
 }
-void LinkedList_delete(LinkedList *LinkedList) {
-    Item<T> *ptr = LinkedList->head, *prev;
-    while (ptr != nullptr) {
-        prev = ptr;
-        ptr = ptr->next;
-        delete prev;
-    }
-    delete LinkedList;
-}
-void LinkedList_print(const LinkedList *LinkedList) {
-    Item<T> *ptr = LinkedList->head;
+
+void LinkedList_print() {
+    Item<T> *ptr = this->head;
     while(ptr != nullptr) {
         std::cout << ptr->data << std::endl;
         ptr = ptr->next;
     }
 }
 
-int LinkedList_push_back(LinkedList *LinkedList, T data) {
+T GetFirst() {
+    if (this->head == nullptr) {
+        throw std::invalid_argument("List is empty");
+    }
+    return this->head->data;
+}
+
+T GetLast() {
+    if (this->head == nullptr) {
+        throw std::invalid_argument("List is empty");
+    }
+    return this->tail->data;
+} 
+
+T Get(int index) {
+    if(index < 0 || index >= lenght ) {
+		throw std::out_of_range("Out of range");
+	}
+    Item<T>* ptr = this->head; 
+    for(int i = 0; i < index; i++) {
+        ptr = ptr->next;
+    }
+    return ptr->data;
+}
+
+int GetLenght() {
+    return this->lenght;
+}
+
+void Append(T item) {
     Item<T> *ptr = new Item<T>;
     if (ptr == nullptr) {
-        return 1;
+        throw std::invalid_argument("Failed to allocate memory");
     }
-    ptr->data = data;
+    ptr->data = item;
     ptr->next = nullptr;
-    ptr->prev = nullptr;
-    if (LinkedList->head == nullptr) {
-        LinkedList->head = ptr;
-        LinkedList->tail = ptr;
-    } else {
-        ptr->prev = LinkedList->tail;
-        LinkedList->tail->next = ptr;
-        LinkedList->tail = ptr;
+    if (this->head == nullptr) {
+        this->head = ptr;
+        this->head->prev = nullptr;
+        this->tail = ptr;
+    } 
+    else {
+        ptr->prev = this->tail;
+        this->tail->next = ptr;
+        this->tail = ptr;
     }
-    return 0;
+    lenght++;
 }
 
-int LinkedList_push_begin(LinkedList *LinkedList, T data) {
-	 Item<T> *ptr = new Item<T>;
-	 if (ptr == nullptr) {
-	 	return 1;
-	 }
-	 ptr->data = data;
-	 ptr->next = LinkedList->head;
-     ptr->prev = nullptr;
-	 if(!LinkedList->head) {
-	 	LinkedList->head = ptr;
-	 	LinkedList->tail = ptr;
-	 }
-	 else {
-	 	LinkedList->head = ptr; 
-	 }
-	 return 0;
+void Prepend(T item) {
+	Item<T> *ptr = new Item<T>;
+	if (ptr == nullptr) {
+	    throw std::invalid_argument("Failed to allocate memory");
+	}
+    ptr->data = item;
+    ptr->next = this->head;
+    ptr->prev = nullptr;
+    if (this->head == nullptr) {
+        this->head = ptr;
+        this->head->prev = nullptr;
+        this->tail = ptr;
+    }
+    else {
+        this-head->prev = ptr;
+        this->head = ptr; 
+    }
+    lenght++;
 }
 
+/*
 int LinkedList_insert(LinkedList *LinkedList, T data) {
     Item<T> *ptr = LinkedList->head, *prev;
     while (ptr!=nullptr && (ptr->data < data)) {
@@ -99,7 +123,8 @@ int LinkedList_insert(LinkedList *LinkedList, T data) {
     if (prev != nullptr) {
         prev->next = new_Item;
         new_Item->prev = prev;
-    } else {
+    } 
+    else {
         LinkedList->head = new_Item;
     }
     if (ptr == nullptr) {
@@ -128,5 +153,5 @@ int LinkedList_remove(LinkedList *LinkedList, T data) {
     }
     delete ptr;
     return 0;
-}
+}*/
 };
