@@ -2,17 +2,16 @@
 #include <iostream>
 #include <cassert>
 #include <stdexcept>
-template <typename T> class Item {
+template <typename T> struct Item {
 public:
     T data;
-    class Item *next;
-    class Item *prev;
+    struct Item *next;
+    struct Item *prev;
 
 };
 
 template <typename T> class LinkedList {
 private:
-
     Item<T> *head;
     Item<T> *tail;
     int lenght;
@@ -132,7 +131,7 @@ public:
             itemBefore = itemBefore->next;
         }
         if (itemBefore == nullptr) {
-            Append(item);
+            this->Append(item);
         }
         else {
             Item<T>* ptr = new Item<T>;
@@ -153,7 +152,7 @@ public:
 
     LinkedList<T>* Concat(LinkedList<T>* list) {
         for (int i = 0; i < list->lenght; i++)
-            Append(list->Get(i));
+            Append(list->Get(i));  
         return this;
     }
 
@@ -161,11 +160,11 @@ public:
         if(startIndex < 0 || endIndex < 0 || startIndex >= lenght || endIndex >= lenght) {
             throw std::out_of_range("Out of range");
         }
-        LinkedList<T>* ptr = new LinkedList<T>();
+        LinkedList<T>* list = new LinkedList<T>();
         for (int i = startIndex; i <= endIndex; i++) {
-            ptr->Append(Get(i));
+            list->Append(Get(i));
         }
-        return ptr;
+        return list;
     }
 }; 
 

@@ -2,21 +2,11 @@
 #include <iostream>
 #include <cassert>
 #include <stdexcept>
-#include "DynamicArray.h"
-#include "LinkedList.h"
-template <typename T> class Item {
-public:
-    T data;
-    class Item *next;
-    class Item *prev;
-
-};
 template <class T> class Sequence {
 private:
     Item<T> *head;
     Item<T> *tail;
-    int lenght;
-
+    int lenght;    
 public:
     T GetFirst() {
         if (this->head == nullptr) {
@@ -132,42 +122,60 @@ public:
         return ptr;
     }
 };
-template <class T> class ArraySequence : Sequence<T> {
+
+/*template <class T> class ArraySequence : public Sequence<T> {
 private:
-    Item<T> *head;
-    Item<T> *tail;
-    int lenght;
-
+	T* data;
+	int lenght;
+	int capacity;
 public:
-    ArraySequence() {
-        head = nullptr;
-        tail = nullptr;
-        lenght = 0;
-    }
+// Конструкторы
+	ArraySequence() {
+		data = new T[1];
+		lenght = 0;
+		capacity = 0;
+	}
 
-    ArraySequence(T* items, int count) { //	Копировать элементы из переданного массива
-        head = nullptr;
-        tail = nullptr;
-        for (int i = 0; i < count; i++) {
-            Append(items[i]);
-        }
-    }
+	ArraySequence(T* items, int count) { //	Копировать элементы из переданного массива
+	
+		data = new T[count];
+		lenght = count;
+		capacity = count;
+		for (int i = 0; i < lenght ; i++) {
+			data[i] = items[i];
+		}
 
-    ArraySequence(LinkedList <T>& list) {  // Копирующий конструктор
-        head = nullptr;
-        tail = nullptr;
-        for (int i = 0; i < list.lenght; i++) {
-            Append(list.Get(i));
-        }
-    }
+	}
 
-    ~ArraySequence() {
-        delete head;
-        delete tail;
-    }
+	ArraySequence(int size) { //	Создать массив заданной длины
+	
+		data = new T[size];
+		lenght = size;
+		capacity = size;
+	}
+	T& operator[](const int index) {
+		return this->data[index];
+	}
+
+	ArraySequence(const ArraySequence<T>& ArraySequence) //	Копирующий конструктор
+	{
+		lenght = ArraySequence.lenght;
+		capacity = ArraySequence.capacity;
+		data = new T[capacity];
+		for (int i = 0; i < lenght; i++)
+		{
+			data[i] = ArraySequence.Get(i);
+		}
+	}
+	
+	//Деструктор
+	~ArraySequence() {
+		delete[] data;
+	}
+
 };
 
-template <class T> class LinkedListSequence : Sequence<T> {
+template <class T> class LinkedListSequence : public Sequence<T> {
 private:
     Item<T> *head;
     Item<T> *tail;
@@ -187,7 +195,7 @@ public:
         }
     }
 
-    LinkedListSequence(LinkedList <T>& list) {  // Копирующий конструктор
+    LinkedListSequence(LinkedListSequence <T>& list) {  // Копирующий конструктор
         head = nullptr;
         tail = nullptr;
         for (int i = 0; i < list.lenght; i++) {
@@ -199,4 +207,4 @@ public:
         delete head;
         delete tail;
     }
-};
+};*/
