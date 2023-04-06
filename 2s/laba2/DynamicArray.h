@@ -33,8 +33,7 @@ public:
 		lenght = size;
 		capacity = size;
 	}
-	T& operator[](const int index)
-	{
+	T& operator[](const int index) {
 		return this->data[index];
 	}
 

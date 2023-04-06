@@ -68,7 +68,7 @@ public:
             ptr = ptr->next;
         }
         return ptr->data;
-    }
+    } 
 
     int GetLenght() {
         return this->lenght;
@@ -83,7 +83,7 @@ public:
         ptr->next = nullptr;
         if (this->head == nullptr) {
             this->head = ptr;
-            this->head->prev = nullptr;
+            //this->head->prev = nullptr;
             this->tail = ptr;
         } 
         else {
@@ -91,7 +91,7 @@ public:
             this->tail->next = ptr;
             this->tail = ptr;
         }
-        lenght++;
+        this->lenght++;
     }
 
     void Prepend(T item) {
@@ -104,34 +104,51 @@ public:
         ptr->prev = nullptr;
         if (this->head == nullptr) {
             this->head = ptr;
-            this->head->prev = nullptr;
+            //this->head->prev = nullptr;
             this->tail = ptr;
         }
         else {
-            this-head->prev = ptr;
+            this->head->prev = ptr;
             this->head = ptr; 
         }
         (this->lenght)++;
     }
 
-    void InsertAt(T item, int index) { // Неправильно работает!!!
+    void InsertAt(T item, int index) { 
         if(index < 0 || index >= lenght) {
             throw std::out_of_range("Out of range");
         }
-        Item<T>* itemBefore = (*this)[index]; 
+        if(index == 0) {
+            this->Prepend(item);
+            return;
+        }
+        if (index == this->GetLenght()-1) {
+            this->Append(item);
+            return;
+        }
+        
+        Item<T>* itemBefore = this->head; 
+        for(int i = 0; i < index; i++) {
+            itemBefore = itemBefore->next;
+        }
         if (itemBefore == nullptr) {
             Append(item);
         }
         else {
-
             Item<T>* ptr = new Item<T>;
-            ptr->data = item;
+            /*ptr->data = item;
             ptr->prev = itemBefore;
             ptr->next = itemBefore->next;
             itemBefore->next->prev = ptr;
-            itemBefore->next = ptr;
-            (this->lenght)++;
+            itemBefore->next = ptr;*/
+            ptr->data = item;
+            ptr->next = itemBefore;
+            ptr->prev = itemBefore->prev;
+            itemBefore->prev->next = ptr;
+            itemBefore->prev = ptr;
+            
         }
+        (this->lenght)++;
     }
 
     LinkedList<T>* Concat(LinkedList<T>* list) {
