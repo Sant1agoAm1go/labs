@@ -5,15 +5,15 @@
 template <typename T> class DynamicArray {
 private:
 	T* data;
-	int lenght;
 	int capacity;
-
+	int lenght;
 public:
+	
 // Конструкторы
 	DynamicArray() {
 		data = new T[1];
 		lenght = 0;
-		capacity = 0;
+		capacity = 1;
 	}
 
 	DynamicArray(T* items, int count) { //	Копировать элементы из переданного массива
@@ -90,8 +90,12 @@ public:
 			newData[i] = data[i];
 		delete[] data;
 		this->data = newData;
-		this>lenght = newLenght;
+		this->lenght = newLenght;
 		this->capacity = newSize;
+	}
+
+	void SetLenght(int newLenght) {
+		this->lenght = newLenght;
 	}	
 };
 

@@ -2,124 +2,51 @@
 #include <iostream>
 #include <cassert>
 #include <stdexcept>
-template <class T> class Sequence {
-private:
+template <typename T> struct Item {
+public:
+    T data;
+    struct Item *next;
+    struct Item *prev;
+
+};
+template <typename T> class Sequence {
+/*private:
     Item<T> *head;
     Item<T> *tail;
-    int lenght;    
+    int lenght;*/    
 public:
-    T GetFirst() {
-        if (this->head == nullptr) {
-            throw std::invalid_argument("List is empty");
-        }
-        return this->head->data;
-    }
+    virtual T GetFirst() = 0; 
 
-    T GetLast() {
-        if (this->head == nullptr) {
-            throw std::invalid_argument("List is empty");
-        }
-        return this->tail->data;
-    } 
+    virtual T GetLast() = 0;
 
-    T Get(int index) {
-        if(index < 0 || index >= lenght ) {
-            throw std::out_of_range("Out of range");
-        }
-        Item<T>* ptr = this->head; 
-        for(int i = 0; i < index; i++) {
-            ptr = ptr->next;
-        }
-        return ptr->data;
-    } 
+    virtual T Get(int index) = 0;
 
-    int GetLenght() {
-        return this->lenght;
-    }
-    void Append(T item) {
-        Item<T> *ptr = new Item<T>;
-        if (ptr == nullptr) {
-            throw std::invalid_argument("Failed to allocate memory");
-        }
-        ptr->data = item;
-        ptr->next = nullptr;
-        if (this->head == nullptr) {
-            this->head = ptr;
-            //this->head->prev = nullptr;
-            this->tail = ptr;
-        } 
-        else {
-            ptr->prev = this->tail;
-            this->tail->next = ptr;
-            this->tail = ptr;
-        }
-        this->lenght++;
-    }
+    virtual int GetLength() = 0;
 
-    void Prepend(T item) {
-        Item<T> *ptr = new Item<T>;
-        if (ptr == nullptr) {
-            throw std::invalid_argument("Failed to allocate memory");
-        }
-        ptr->data = item;
-        ptr->next = this->head;
-        ptr->prev = nullptr;
-        if (this->head == nullptr) {
-            this->head = ptr;
-            this->tail = ptr;
-        }
-        else {
-            this->head->prev = ptr;
-            this->head = ptr; 
-        }
-        (this->lenght)++;
-    }
+    virtual void Append(T item) = 0;
 
-    void InsertAt(T item, int index) { 
-        if(index < 0 || index >= lenght) {
-            throw std::out_of_range("Out of range");
-        }
-        if(index == 0) {
-            this->Prepend(item);
-            return;
-        }
-        if (index == this->GetLenght()-1) {
-            this->Append(item);
-            return;
-        }
-        
-        Item<T>* itemBefore = this->head; 
-        for(int i = 0; i < index; i++) {
-            itemBefore = itemBefore->next;
-        }
-        if (itemBefore == nullptr) {
-            Append(item);
-        }
-        else {
-            Item<T>* ptr = new Item<T>;
-            ptr->data = item;
-            ptr->next = itemBefore;
-            ptr->prev = itemBefore->prev;
-            itemBefore->prev->next = ptr;
-            itemBefore->prev = ptr;
-        }
-        (this->lenght)++;
-    }
-    Sequence <T>* Concat(Sequence <T>* list) {
-        for (int i = 0; i < list->lenght; i++)
-            Append(list->Get(i));
-        return this;
+    virtual void Prepend(T item) = 0;
+
+    virtual void InsertAt(T item, int index) = 0;
+
+    Sequence <T>* Concat(Sequence <T>* other) {
+        Sequence <T>* result = new Sequence <T>*();
+        for (int i = 0; i < this->GetLenght(); i++)
+            result->Append(this->Get(i));
+        for (int i = 0; i < other->GetLenght(); i++)
+            result->Append(other->Get(i));
+        return result;
     }
 
     Sequence <T>* GetSubList(int startIndex, int endIndex) {
-        if(startIndex < 0 || endIndex < 0 || startIndex >= lenght || endIndex >= lenght) {
+        if(startIndex < 0 || endIndex < 0 || startIndex >= this->GetLength() || endIndex >= this->GetLength()) {
             throw std::out_of_range("Out of range");
         }
-        Sequence <T>* ptr = new Sequence <T>*();
+        Sequence <T>* result = new Sequence <T>*();
         for (int i = startIndex; i <= endIndex; i++) {
-            ptr->Append(Get(i));
+            result->Append(Get(i));
         }
-        return ptr;
+        return result;
     }
 };
 

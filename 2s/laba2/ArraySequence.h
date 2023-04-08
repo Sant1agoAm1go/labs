@@ -1,36 +1,50 @@
 #pragma once
 #include "Sequence.h"
 #include "DynamicArray.h"
-template <class T> class ArraySequence : public Sequence<T> {
+template <typename T> class ArraySequence : public Sequence<T> {
 private:
 	DynamicArray<T>* items;
 public:
 	ArraySequence() {
-		items = new DynamicArray<T>(0);
+		items = new DynamicArray<T>();
 	}
 
-	~ArraySequence() {
-		delete items;
+	T GetFirst() override {
+		return this->items->Get(0);
 	}
 
-	T GetFirst() {
-		return this->Get(0);
+	T GetLast () override {
+		return this->Get(items->GetLenght()-1);
 	}
 
-	T GetLast() {
-		return this->Get(items->GetSize()-1);
+	T Get(int index) override {
+		return this->items->Get(index);
 	}
 
-	T Get(int index) {
-		return items->Get(index);
-	}
-
-	int GetLength() {
-		return this->items->GetSize();
+	int GetLength() override {
+		return this->items->GetLenght();
 	}
 	
-	void Append(T item) {
+	void Append(T item) override{
 		this->items->Resize(this->items->GetSize()+1);
-		this->items->Set(this->items->GetSize()-1, item);
+		this->items->SetLenght(this->items->GetLenght()+1);
+		this->items->Set(this->items->GetLenght()-1, item);
+		
+	}
+
+	void Prepend(T item) override {
+		this->items->Resize(this->items->GetSize()+1);
+		this->items->Set(0, item);
+		this->items->SetLenght(this->items->GetLenght()+1);
+	}
+
+	void InsertAt(T item, int index) {
+		this->items->Resize(this->items->GetSize()+1);
+		this->items->Set(index, item);
+		this->items->SetLenght(this->items->GetLenght()+1);
+	}
+
+		~ArraySequence() {
+		delete[] items;
 	}
 };

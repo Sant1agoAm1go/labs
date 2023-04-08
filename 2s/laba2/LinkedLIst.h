@@ -40,8 +40,12 @@ public:
     }
 
     ~LinkedList() {
-        delete head;
-        delete tail;
+        Item *ptr = this->head, *prev;
+        while (ptr != nullptr && ptr != this->tail->next) {
+            prev = ptr;    
+            ptr = ptr->next;
+            delete prev;
+        }
     }
 
     T GetFirst() {
@@ -150,10 +154,19 @@ public:
         (this->lenght)++;
     }
 
-    LinkedList<T>* Concat(LinkedList<T>* list) {
+    /*LinkedList<T>* Concat(LinkedList<T>* list) {
         for (int i = 0; i < list->lenght; i++)
             Append(list->Get(i));  
         return this;
+    }*/
+
+    LinkedList <T>* Concat(LinkedList <T>* other) {
+        LinkedList <T>* result = new Sequence <T>*();
+        for (int i = 0; i < this->GetLenght(); i++)
+            result->Append(this->Get(i));
+        for (int i = 0; i < other->GetLenght(); i++)
+            result->Append(other->Get(i));
+        return result;
     }
 
     LinkedList<T>* GetSubList(int startIndex, int endIndex) {
