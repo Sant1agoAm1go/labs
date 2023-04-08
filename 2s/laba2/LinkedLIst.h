@@ -31,7 +31,7 @@ public:
         }
     }
 
-    LinkedList(LinkedList <T>& list) {  // Копирующий конструктор
+    LinkedList(const LinkedList <T>& list) {  // Копирующий конструктор
         head = nullptr;
         tail = nullptr;
         for (int i = 0; i < list.lenght; i++) {
@@ -40,7 +40,7 @@ public:
     }
 
     ~LinkedList() {
-        Item *ptr = this->head, *prev;
+        Item <T> *ptr = this->head, *prev;
         while (ptr != nullptr && ptr != this->tail->next) {
             prev = ptr;    
             ptr = ptr->next;
@@ -161,7 +161,7 @@ public:
     }*/
 
     LinkedList <T>* Concat(LinkedList <T>* other) {
-        LinkedList <T>* result = new Sequence <T>*();
+        LinkedList <T>* result = new LinkedList <T>*();
         for (int i = 0; i < this->GetLenght(); i++)
             result->Append(this->Get(i));
         for (int i = 0; i < other->GetLenght(); i++)

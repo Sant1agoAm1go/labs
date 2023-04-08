@@ -37,7 +37,7 @@ public:
 		return this->data[index];
 	}
 
-	DynamicArray(const DynamicArray<T>& dynamicArray) //	Копирующий конструктор
+	DynamicArray(const DynamicArray<T>& dynamicArray)  //	Копирующий конструктор
 	{
 		lenght = dynamicArray.lenght;
 		capacity = dynamicArray.capacity;
@@ -48,7 +48,6 @@ public:
 		}
 	}
 	
-	//Деструктор
 	~DynamicArray() {
 		delete[] data;
 	}
