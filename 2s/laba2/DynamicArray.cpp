@@ -8,7 +8,7 @@ int main() {
     DynamicArray<int>* data = new DynamicArray<int>(10);
     for(int i = 0; i < lenght; i++) {
         (*data).Set(i, rand () % 100);
-        std::cout << "data[" << i << "] = " << data->Get(i) << std::endl;
+        std::cout << "data[" << i << "] = " << data->Get(-1) << std::endl;
     }
     delete data;
     return 0;

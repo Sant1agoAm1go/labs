@@ -26,12 +26,14 @@ public:
     }
 
 	T GetFirst() override {
-		return this->list->Get(0);
+		//return this->list->Get(0);
+        return this->list->GetFirst();
 	}
 
 	T GetLast () override {
-		return this->Get(list->GetLenght()-1);
-	}
+		//return this->Get(list->GetLenght()-1);
+        return this->list->GetLast();
+	} 
 
 	T Get(int index) override {
 		return this->list->Get(index);
