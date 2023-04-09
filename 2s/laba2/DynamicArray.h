@@ -18,9 +18,9 @@ public:
 
 	DynamicArray(T* items, int count) { //	Копировать элементы из переданного массива
 	
-		data = new T[count];
+		data = new T[count + 1];
 		lenght = count;
-		capacity = count;
+		capacity = count + 1;
 		for (int i = 0; i < lenght ; i++) {
 			data[i] = items[i];
 		}
@@ -29,9 +29,9 @@ public:
 
 	DynamicArray(int size) { //	Создать массив заданной длины
 	
-		data = new T[size];
+		data = new T[size + 1];
 		lenght = size;
-		capacity = size;
+		capacity = size + 1;
 	}
 	T& operator[](const int index) {
 		return this->data[index];

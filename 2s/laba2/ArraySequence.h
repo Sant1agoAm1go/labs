@@ -6,7 +6,28 @@ private:
 	DynamicArray<T>* items;
 public:
 	ArraySequence() {
-		items = new DynamicArray<T>();
+		this->items = new DynamicArray<T>();
+	}
+
+	ArraySequence(T* other, int count) { //	Копировать элементы из переданного массива
+	
+		this->items = new T[count];
+		this->items->lenght = count;
+		this->items->capacity = count;
+		for (int i = 0; i < items->lenght ; i++) {
+			items[i] = other[i];
+		}
+
+	}
+
+	ArraySequence(const DynamicArray<T>& dynamicArray) {  //	Копирующий конструктор
+		this->items->lenght = dynamicArray.lenght;
+		this->items->capacity = dynamicArray.capacity;
+		this->items = new T[this->items->capacity];
+		for (int i = 0; i < this->items->lenght; i++)
+		{
+			items[i] = dynamicArray.Get(i);
+		}
 	}
 
 	T GetFirst() override {

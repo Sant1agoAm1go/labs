@@ -27,7 +27,7 @@ public:
         head = nullptr;
         tail = nullptr;
         for (int i = 0; i < count; i++) {
-            Append(items[i]);
+            this->Append(items[i]);
         }
     }
 
@@ -35,7 +35,7 @@ public:
         head = nullptr;
         tail = nullptr;
         for (int i = 0; i < list.lenght; i++) {
-            Append(list.Get(i));
+            this->Append(list.Get(i));
         }
     }
 
@@ -149,7 +149,6 @@ public:
             ptr->prev = itemBefore->prev;
             itemBefore->prev->next = ptr;
             itemBefore->prev = ptr;
-            
         }
         (this->lenght)++;
     }

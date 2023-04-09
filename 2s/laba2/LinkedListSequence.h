@@ -9,6 +9,22 @@ public:
 		list = new LinkedList<T>();
 	}
 
+	LinkedListSequence(T* items, int count) { //	Копировать элементы из переданного массива
+        this->list->head = nullptr;
+        this->list->tail = nullptr;
+        for (int i = 0; i < count; i++) {
+            this->list->Append(items[i]);
+        }
+    }
+
+    LinkedListSequence(const LinkedList <T>& other) {  // Копирующий конструктор
+        this->list->head = nullptr;
+        this->list->tail = nullptr;
+        for (int i = 0; i < other.lenght; i++) {
+            this->list->Append(other.Get(i));
+        }
+    }
+
 	T GetFirst() override {
 		return this->list->Get(0);
 	}
