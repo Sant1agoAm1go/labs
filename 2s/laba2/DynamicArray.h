@@ -28,6 +28,9 @@ public:
 	
 		data = new T[size];
 		lenght = size;
+		for(int i = 0; i < lenght; i++) {
+			data[i] = init;
+		}
 	}
 	T& operator[](const int index) {
 		return this->data[index];
