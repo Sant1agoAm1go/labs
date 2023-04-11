@@ -5,33 +5,32 @@
 template <typename T> class DynamicArray {
 private:
 	T* data;
-	int capacity;
 	int lenght;
 public:
 	
 // Конструкторы
 	DynamicArray() {
 		data = new T[1];
-		lenght = 0;
-		capacity = 1;
+		lenght = 1;
 	}
 
 	DynamicArray(T* items, int count) { //	Копировать элементы из переданного массива
 	
-		data = new T[count + 1];
+		data = new T[count];
 		lenght = count;
-		capacity = count + 1;
 		for (int i = 0; i < lenght ; i++) {
 			data[i] = items[i];
 		}
 
 	}
 
-	DynamicArray(int size) { //	Создать массив заданной длины
+	DynamicArray(int size, T init) { //	Создать массив заданной длины
 	
-		data = new T[size + 1];
+		data = new T[size];
 		lenght = size;
-		capacity = size + 1;
+		for(int i = 0; i < lenght; i++) {
+			data[i] = init;
+		}
 	}
 	T& operator[](const int index) {
 		return this->data[index];
@@ -40,8 +39,7 @@ public:
 	DynamicArray(const DynamicArray<T>& dynamicArray)  //	Копирующий конструктор
 	{
 		lenght = dynamicArray.lenght;
-		capacity = dynamicArray.capacity;
-		data = new T[capacity];
+		data = new T[lenght];
 		for (int i = 0; i < lenght; i++)
 		{
 			data[i] = dynamicArray.Get(i);
@@ -62,10 +60,6 @@ public:
 	
 	int GetSize() { //	Получить размер массива
 	
-		return this->capacity;
-	}
-
-	int GetLenght() { //	Получить длину массива
 		return this->lenght;
 	}
 	
@@ -79,23 +73,24 @@ public:
 		
 	}
 
-	void Resize(int newSize) {
+	void Resize(int newSize, T init) {
 		if(newSize < 0) {
 			throw std::invalid_argument("new size less than 0");
 		}
 		T* newData = new T[newSize];
-		int newLenght =(newSize > lenght) ? lenght : newSize;
-		for (int i = 0; i < newLenght; i++)
+		int tempLenght =(newSize > lenght) ? lenght : newSize;
+		for (int i = 0; i < tempLenght; i++) {
 			newData[i] = data[i];
+		}
 		delete[] data;
+		if(tempLenght < newSize) { 
+			for(int i = tempLenght; i < newSize; i++) {
+				newData[i] = init;
+			}
+		}
 		this->data = newData;
-		this->lenght = newLenght;
-		this->capacity = newSize;
+		this->lenght = newSize;
 	}
-
-	void SetLenght(int newLenght) {
-		this->lenght = newLenght;
-	}	
 };
 
 
