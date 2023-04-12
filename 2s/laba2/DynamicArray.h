@@ -11,7 +11,7 @@ public:
 // Конструкторы
 	DynamicArray() {
 		data = new T[1];
-		lenght = 1;
+		lenght = 0;
 	}
 
 	DynamicArray(T* items, int count) { //	Копировать элементы из переданного массива

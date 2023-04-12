@@ -2,18 +2,7 @@
 #include <iostream>
 #include <cassert>
 #include <stdexcept>
-/*template <typename T> struct Item {
-public:
-    T data;
-    struct Item *next;
-    struct Item *prev;
-
-};*/
 template <typename T> class Sequence {
-/*private:
-    Item<T> *head;
-    Item<T> *tail;
-    int lenght;*/    
 public:
     virtual T GetFirst() = 0; 
 
