@@ -27,7 +27,7 @@ public:
         return result;
     }
 
-    Sequence <T>* GetSubList(int startIndex, int endIndex) {
+    Sequence <T>* GetSubsequence(int startIndex, int endIndex) {
         if(startIndex < 0 || endIndex < 0 || startIndex >= this->GetLength() || endIndex >= this->GetLength()) {
             throw std::out_of_range("Out of range");
         }
