@@ -11,20 +11,10 @@ public:
 
 	ArraySequence(T* other, int count) { //	Копировать элементы из переданного массива
 		this->items = new DynamicArray<T>(other, count);
-		/*this->items->data = new T[count];
-		this->items->lenght = count;
-		for (int i = 0; i < items->lenght ; i++) {
-			items->data[i] = other[i];
-		}*/
 	}
 
 	ArraySequence(const DynamicArray<T>& other) {  //	Копирующий конструктор
 		this->items = new DynamicArray<T>(other);
-		/*this->items->data = new T[this->items->lenght];
-		this->items->lenght = dynamicArray.lenght;
-		for (int i = 0; i < this->items->lenght; i++) {
-			items->data[i] = dynamicArray.Get(i);
-		}*/
 	}
 
 	T GetFirst() override {
