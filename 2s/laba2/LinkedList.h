@@ -18,24 +18,24 @@ private:
 
 public:
     LinkedList() {
-        head = nullptr;
-        tail = nullptr;
-        lenght = 0;
+        this->head = nullptr;
+        this->tail = nullptr;
+        this->lenght = 0;
     }
 
     LinkedList(T* items, int count) { //	Копировать элементы из переданного массива
-        head = nullptr;
-        tail = nullptr;
+        this->head = nullptr;
+        this->tail = nullptr;
         for (int i = 0; i < count; i++) {
             this->Append(items[i]);
         }
     }
 
-    LinkedList(const LinkedList <T>& list) {  // Копирующий конструктор
-        head = nullptr;
-        tail = nullptr;
-        for (int i = 0; i < list.lenght; i++) {
-            this->Append(list.Get(i));
+    LinkedList(const LinkedList <T>& other) {  // Копирующий конструктор
+        this->head = nullptr;
+        this->tail = nullptr;
+        for (int i = 0; i < other.lenght; i++) {
+            this->Append(other.Get(i));
         }
     }
 

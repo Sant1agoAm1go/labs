@@ -36,13 +36,13 @@ public:
 		return this->data[index];
 	}
 
-	DynamicArray(const DynamicArray<T>& dynamicArray)  //	Копирующий конструктор
+	DynamicArray(const DynamicArray<T>& other)  //	Копирующий конструктор
 	{
-		lenght = dynamicArray.lenght;
+		lenght = other.lenght;
 		data = new T[lenght];
 		for (int i = 0; i < lenght; i++)
 		{
-			data[i] = dynamicArray.Get(i);
+			data[i] = other.Get(i);
 		}
 	}
 	
