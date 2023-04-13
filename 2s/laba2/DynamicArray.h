@@ -40,8 +40,7 @@ public:
 	{
 		lenght = other.lenght;
 		data = new T[lenght];
-		for (int i = 0; i < lenght; i++)
-		{
+		for (int i = 0; i < lenght; i++) {
 			data[i] = other.Get(i);
 		}
 	}
