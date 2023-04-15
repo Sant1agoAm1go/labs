@@ -71,6 +71,6 @@ public:
     }
 
 		~ArraySequence() {
-		delete[] items;
+		delete items;
 	}
 };
