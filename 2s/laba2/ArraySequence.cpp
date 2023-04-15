@@ -17,9 +17,15 @@ int main() {
         std::cout << "data2[" << i << "] = " << data2->Get(i) << std::endl;
     }
     std::cout <<"\n";
-    Sequence<int>* result = data->Concat(data2);
-    for(int i = 0; i < result->GetLength(); i++) {
-        std::cout << "result[" << i << "] = " << result->Get(i) << std::endl;
+    Sequence<int>* concat = data->Concat(data2);
+    for(int i = 0; i < concat->GetLength(); i++) {
+        std::cout << "concat[" << i << "] = " << concat->Get(i) << std::endl;
+    }
+
+    std::cout <<"\n";
+    Sequence<int>* subs = data->GetSubsequence(5,15,concat);
+    for(int i = 0; i < subs->GetLength(); i++) {
+        std::cout << "subs[" << i << "] = " << subs->Get(i) << std::endl;
     }
     delete data;
     return 0;

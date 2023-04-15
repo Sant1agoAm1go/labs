@@ -43,11 +43,11 @@ public:
         this->list->Prepend(item);
 	}
 
-	void InsertAt(T item, int index) {
+	void InsertAt(T item, int index) override {
         this->list->InsertAt(item, index);
 	}
 
-	Sequence <T>* Concat(Sequence <T>* other) {
+	Sequence <T>* Concat(Sequence <T>* other) override {
         Sequence <T>* result = new LinkedListSequence<T>();
         for (int i = 0; i < this->GetLength(); i++)
             result->Append(this->Get(i));
@@ -56,13 +56,13 @@ public:
         return result;
 	}
 
-	Sequence <T>* GetSubsequence(int startIndex, int endIndex) {
-        if(startIndex < 0 || endIndex < 0 || startIndex >= this->GetLength() || endIndex >= this->GetLength()) {
+	Sequence <T>* GetSubsequence(int startIndex, int endIndex, Sequence <T>* other) override {
+        if(startIndex < 0 || endIndex < 0 || startIndex >= other->GetLength() || endIndex >= other->GetLength()) {
             throw std::out_of_range("Out of range");
         }
         Sequence <T>* result = new LinkedListSequence<T>();
         for (int i = startIndex; i <= endIndex; i++) {
-            result->Append(Get(i));
+            result->Append(other->Get(i));
         }
         return result;
     }

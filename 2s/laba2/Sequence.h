@@ -20,7 +20,7 @@ public:
 
     virtual Sequence <T>* Concat(Sequence <T>* other) = 0;
 
-    virtual Sequence <T>* GetSubsequence(int startIndex, int endIndex) = 0;
+    virtual Sequence <T>* GetSubsequence(int startIndex, int endIndex, Sequence <T>* other) = 0;
 
 
     /*Sequence <T>* Concat(Sequence <T>* other) {
