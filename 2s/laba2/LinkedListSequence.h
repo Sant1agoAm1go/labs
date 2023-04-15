@@ -47,6 +47,26 @@ public:
         this->list->InsertAt(item, index);
 	}
 
+	Sequence <T>* Concat(Sequence <T>* other) {
+        Sequence <T>* result = new LinkedListSequence<T>();
+        for (int i = 0; i < this->GetLength(); i++)
+            result->Append(this->Get(i));
+        for (int i = 0; i < other->GetLength(); i++)
+            result->Append(other->Get(i));
+        return result;
+	}
+
+	Sequence <T>* GetSubsequence(int startIndex, int endIndex) {
+        if(startIndex < 0 || endIndex < 0 || startIndex >= this->GetLength() || endIndex >= this->GetLength()) {
+            throw std::out_of_range("Out of range");
+        }
+        Sequence <T>* result = new LinkedListSequence<T>();
+        for (int i = startIndex; i <= endIndex; i++) {
+            result->Append(Get(i));
+        }
+        return result;
+    }
+
 	~LinkedListSequence() {
         Item <T> *ptr = this->list->head, *prev;
         while (ptr != nullptr && ptr != this->list->tail->next) {

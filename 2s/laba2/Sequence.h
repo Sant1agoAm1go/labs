@@ -18,16 +18,21 @@ public:
 
     virtual void InsertAt(T item, int index) = 0;
 
-    Sequence <T>* Concat(Sequence <T>* other) {
-        Sequence <T>* result = new Sequence <T>*();
-        for (int i = 0; i < this->GetLenght(); i++)
+    virtual Sequence <T>* Concat(Sequence <T>* other) = 0;
+
+    virtual Sequence <T>* GetSubsequence(int startIndex, int endIndex) = 0;
+
+
+    /*Sequence <T>* Concat(Sequence <T>* other) {
+        Sequence <T>* result = new Sequence <T>;
+        for (int i = 0; i < this->GetLength(); i++)
             result->Append(this->Get(i));
-        for (int i = 0; i < other->GetLenght(); i++)
+        for (int i = 0; i < other->GetLength(); i++)
             result->Append(other->Get(i));
         return result;
-    }
+    }*/
 
-    Sequence <T>* GetSubsequence(int startIndex, int endIndex) {
+    /*Sequence <T>* GetSubsequence(int startIndex, int endIndex) {
         if(startIndex < 0 || endIndex < 0 || startIndex >= this->GetLength() || endIndex >= this->GetLength()) {
             throw std::out_of_range("Out of range");
         }
@@ -36,8 +41,34 @@ public:
             result->Append(Get(i));
         }
         return result;
-    }
+    }*/
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*template <class T> class ArraySequence : public Sequence<T> {
 private:
