@@ -70,7 +70,7 @@ public:
         return result;
     }
 
-		~ArraySequence() {
+	~ArraySequence() {
 		delete items;
 	}
 };
