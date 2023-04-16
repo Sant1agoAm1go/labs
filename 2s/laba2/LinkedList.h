@@ -125,15 +125,18 @@ public:
             this->Prepend(item);
             return;
         }
+
         if (index == this->GetLenght()-1) {
             this->Append(item);
             return;
         }
         
-        Item<T>* itemBefore = this->head; 
+        /*Item<T>* itemBefore = this->head; 
         for(int i = 0; i < index; i++) {
             itemBefore = itemBefore->next;
-        }
+        }*/
+
+        Item<T>* itemBefore = (*this)[index];
         if (itemBefore == nullptr) {
             this->Append(item);
         }
@@ -178,6 +181,14 @@ public:
         }
         return list;
     }
+
+    Item<T>* operator[](int index) {
+        Item<T>* ptr = this->head;
+        for (int i = 0; i < index; i++) {
+            ptr = ptr->next;
+        }
+        return ptr;
+	}
 }; 
 
 

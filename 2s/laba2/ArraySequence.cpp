@@ -23,7 +23,7 @@ int main() {
     }
 
     std::cout <<"\n";
-    Sequence<int>* subs = data->GetSubsequence(5,15,concat);
+    Sequence<int>* subs = concat->GetSubsequence(5,15);
     for(int i = 0; i < subs->GetLength(); i++) {
         std::cout << "subs[" << i << "] = " << subs->Get(i) << std::endl;
     }

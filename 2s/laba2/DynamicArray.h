@@ -32,9 +32,6 @@ public:
 			data[i] = init;
 		}
 	}
-	T& operator[](const int index) {
-		return this->data[index];
-	}
 
 	DynamicArray(const DynamicArray<T>& other)  //	Копирующий конструктор
 	{
@@ -89,6 +86,9 @@ public:
 		}
 		this->data = newData;
 		this->lenght = newSize;
+	}
+	T& operator[](int index) {
+		return this->data[index];
 	}
 };
 

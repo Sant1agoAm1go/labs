@@ -59,13 +59,13 @@ public:
         return result;
 	}
 
-	Sequence <T>* GetSubsequence(int startIndex, int endIndex, Sequence <T>* other) override {
-        if(startIndex < 0 || endIndex < 0 || startIndex >= other->GetLength() || endIndex >= other->GetLength()) {
+	Sequence <T>* GetSubsequence(int startIndex, int endIndex) override {
+        if(startIndex < 0 || endIndex < 0 || startIndex >= this->GetLength() || endIndex >= this->GetLength()) {
             throw std::out_of_range("Out of range");
         }
         Sequence <T>* result = new ArraySequence<T>();
         for (int i = startIndex; i <= endIndex; i++) {
-            result->Append(other->Get(i));
+            result->Append(this->Get(i));
         }
         return result;
     }
