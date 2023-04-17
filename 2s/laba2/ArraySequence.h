@@ -13,8 +13,20 @@ public:
 		this->items = new DynamicArray<T>(other, count);
 	}
 
-	ArraySequence(const DynamicArray<T>& other) {  //	Копирующий конструктор
-		this->items = new DynamicArray<T>(other);
+	ArraySequence(const DynamicArray<T>& other) {  // Копирующий конструктор
+    	this->items = new DynamicArray<T>(other);
+    }
+
+	ArraySequence(const ArraySequence<T>& other) {  //	Копирующий конструктор
+		//this->items = other.items;
+		this->items = new DynamicArray<T>(other.GetLength());
+		for(int i = 0; i < other.GetLength(); i++) {
+			this->items->Set(i, other.Get(i));
+		}
+	}
+
+	~ArraySequence() {
+		delete items;
 	}
 
 	T GetFirst() override {
@@ -69,8 +81,4 @@ public:
         }
         return result;
     }
-
-	~ArraySequence() {
-		delete items;
-	}
 };

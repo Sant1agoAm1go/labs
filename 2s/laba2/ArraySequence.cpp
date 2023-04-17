@@ -11,9 +11,8 @@ int main() {
         std::cout << "data[" << i << "] = " << data->Get(i) << std::endl;
     }
     std::cout <<"\n";
-    Sequence<int>* data2 = new ArraySequence<int>();
-    for(int i = 0; i < lenght; i++) {
-        data2->Append(rand () % 100);
+    Sequence<int>* data2 = new ArraySequence<int>(*(ArraySequence<int>*)data);
+    for(int i = 0; i < data->GetLength(); i++) {
         std::cout << "data2[" << i << "] = " << data2->Get(i) << std::endl;
     }
     std::cout <<"\n";

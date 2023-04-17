@@ -14,12 +14,12 @@ public:
 		lenght = 0;
 	}
 
-	DynamicArray(T* items, int count) { //	Копировать элементы из переданного массива
+	DynamicArray(T* other, int count) { //	Копировать элементы из переданного массива
 	
 		data = new T[count];
 		lenght = count;
 		for (int i = 0; i < lenght ; i++) {
-			data[i] = items[i];
+			data[i] = other[i];
 		}
 
 	}
@@ -33,12 +33,12 @@ public:
 		}
 	}
 
-	DynamicArray(const DynamicArray<T>& other)  //	Копирующий конструктор
-	{
+	DynamicArray(const DynamicArray<T>& other) {  //	Копирующий конструктор
 		lenght = other.lenght;
 		data = new T[lenght];
 		for (int i = 0; i < lenght; i++) {
-			data[i] = other.Get(i);
+			//this->data[i] = other.Get(i);
+			this->data[i] = other.data[i];
 		}
 	}
 	

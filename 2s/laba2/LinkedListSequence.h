@@ -17,6 +17,19 @@ public:
         list = new LinkedList<T>(other);
     }
 
+    LinkedListSequence(const LinkedListSequence <T>& other) {  // Копирующий конструктор
+        this->list = other.list;
+    }
+
+    ~LinkedListSequence() {
+        Item <T> *ptr = this->list->head, *prev;
+        while (ptr != nullptr && ptr != this->list->tail->next) {
+            prev = ptr;    
+            ptr = ptr->next;
+            delete prev;
+        }
+	}
+
 	T GetFirst() override {
 		//return this->list->Get(0);
         return this->list->GetFirst();
@@ -66,13 +79,4 @@ public:
         }
         return result;
     }
-
-	~LinkedListSequence() {
-        Item <T> *ptr = this->list->head, *prev;
-        while (ptr != nullptr && ptr != this->list->tail->next) {
-            prev = ptr;    
-            ptr = ptr->next;
-            delete prev;
-        }
-	}
 };
