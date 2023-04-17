@@ -10,10 +10,11 @@ int main() {
         (*data).Set(i, rand () % 100);
         std::cout << "data[" << i << "] = " << data->Get(i) << std::endl;
     }
+    std::cout <<"\n";
     data->Resize(20, -1);
     for(int i = 0; i < data->GetSize(); i++)
     std::cout << "data[" << i << "] = " << data->Get(i) << std::endl;
-
+    std::cout <<"\n";
     DynamicArray<int>* data2 = new DynamicArray<int>(*data);
     for(int i = 0; i < data2->GetSize(); i++)
     std::cout << "data2[" << i << "] = " << data2->Get(i) << std::endl;
