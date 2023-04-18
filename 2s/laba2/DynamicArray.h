@@ -99,6 +99,6 @@ Sequence<T>* Sequence<T>::Append(Args... args)
 ((this->Append(args)),...) ;
 
 return this;*/
-} 
+ 
 
 
