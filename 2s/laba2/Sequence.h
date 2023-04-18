@@ -4,13 +4,13 @@
 #include <stdexcept>
 template <typename T> class Sequence {
 public:
-    virtual T GetFirst() = 0; 
+    virtual T GetFirst() const = 0; 
 
-    virtual T GetLast() = 0;
+    virtual T GetLast() const = 0;
 
-    virtual T Get(int index) = 0;
+    virtual T Get(int index) const = 0;
 
-    virtual int GetLength() = 0;
+    virtual int GetLength() const = 0;
 
     virtual void Append(T item) = 0;
 

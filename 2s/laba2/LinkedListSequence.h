@@ -33,21 +33,21 @@ public:
         }
 	}
 
-	T GetFirst() override {
+	T GetFirst() const override {
 		//return this->list->Get(0);
         return this->list->GetFirst();
 	}
 
-	T GetLast () override {
+	T GetLast () const override {
 		//return this->Get(list->GetLenght()-1);
         return this->list->GetLast();
 	} 
 
-	T Get(int index) override {
+	T Get(int index) const override {
 		return this->list->Get(index);
 	}
 
-	int GetLength() override {
+	int GetLength() const override {
 		return this->list->GetLenght();
 	}
 	

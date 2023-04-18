@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 int main() {
-    srand(time(NULL));
+    srand(time(nullptr));
     LinkedList<int>* data = new LinkedList<int>();
     int lenght = 5;
     for (int i = 0; i < lenght; i++) {

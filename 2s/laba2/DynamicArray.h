@@ -54,7 +54,7 @@ public:
 		return this->data[index];
 	}
 	
-	int GetSize() { //	Получить размер массива
+	int GetSize() const { //	Получить размер массива
 	
 		return this->lenght;
 	}
