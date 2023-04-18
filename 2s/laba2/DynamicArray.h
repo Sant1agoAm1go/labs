@@ -37,8 +37,8 @@ public:
 		lenght = other.lenght;
 		data = new T[lenght];
 		for (int i = 0; i < lenght; i++) {
-			//this->data[i] = other.Get(i);
-			this->data[i] = other.data[i];
+			this->data[i] = other.Get(i);
+			//this->data[i] = other.data[i];
 		}
 	}
 	
@@ -47,7 +47,7 @@ public:
 	}
 
 // Декомпозиция
-	T Get(int index) {
+	T Get(int index) const {
 		if(index < 0 || index >= lenght ) {
 			throw std::out_of_range("Out of range");
 		}
