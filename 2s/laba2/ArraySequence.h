@@ -17,12 +17,13 @@ public:
     	this->items = new DynamicArray<T>(other);
     }
 
-	ArraySequence(ArraySequence<T>& other) {  //	Копирующий конструктор
-		//this->items = other.items;
-		this->items = new DynamicArray<T>(other.GetLength(), -1);
+	ArraySequence(ArraySequence<T>& other) { //Копирующий конструктор
+                this->items = new DynamicArray<T>(*other.items) ;
+                //this->items = other.items;
+		/*this->items = new DynamicArray<T>(other.GetLength(), -1);
 		for(int i = 0; i < other.GetLength(); i++) {
 			this->items->Set(i, other.Get(i));
-		}
+		}*/
 	}
 
 	~ArraySequence() {
