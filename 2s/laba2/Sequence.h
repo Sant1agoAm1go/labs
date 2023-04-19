@@ -22,6 +22,11 @@ public:
 
     virtual Sequence <T>* GetSubsequence(int startIndex, int endIndex) = 0;
 
+    virtual Sequence <T>* Map(T (*func)(T)) = 0;
+
+    virtual Sequence <T>* Where(bool (*func)(T)) = 0;
+
+    virtual T Reduce(T(*func)(T,T), T start) = 0;
 
     /*Sequence <T>* Concat(Sequence <T>* other) {
         Sequence <T>* result = new Sequence <T>;

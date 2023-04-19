@@ -2,6 +2,13 @@
 #include "ArraySequence.h"
 #include <stdlib.h>
 #include <time.h>
+bool func(int value) {
+    return value % 2 == 0;
+}
+
+int reducer(int a, int b) {
+    return 2*a + 3*b;
+}
 int main() {
     srand(time(nullptr));
     int lenght = 10;
@@ -12,7 +19,7 @@ int main() {
     }
     std::cout <<"\n";
     Sequence<int>* data2 = new ArraySequence<int>(*(ArraySequence<int>*)data);
-    for(int i = 0; i < data->GetLength(); i++) {
+    for(int i = 0; i < data2->GetLength(); i++) {
         std::cout << "data2[" << i << "] = " << data2->Get(i) << std::endl;
     }
     std::cout <<"\n";
@@ -26,6 +33,13 @@ int main() {
     for(int i = 0; i < subs->GetLength(); i++) {
         std::cout << "subs[" << i << "] = " << subs->Get(i) << std::endl;
     }
+    std::cout <<"\n";
+    Sequence<int>* wheres = subs->Where(func);
+    for(int i = 0; i < wheres->GetLength(); i++) {
+        std::cout << "wheres[" << i << "] = " << wheres->Get(i) << std::endl;
+    }
+    std::cout <<"\n";
+    std::cout << wheres->Reduce(reducer, 0) << std::endl;
     delete data;
     return 0;
 }

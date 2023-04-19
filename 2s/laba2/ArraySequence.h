@@ -82,4 +82,29 @@ public:
         }
         return result;
     }
+
+	Sequence <T>* Map(T (*func)(T)) {
+		Sequence <T>* result = new ArraySequence<T>(); 
+		for (int i = 0; i < this->GetLength(); i++) {
+            result->Append(func(this->Get(i)));
+        }
+		return result;
+	}
+
+	Sequence <T>* Where(bool (*func)(T)) {
+		Sequence <T>* result = new ArraySequence<T>();
+		for (int i = 0; i < this->GetLength(); i++) {
+			if(func(this->Get(i))) {
+            	result->Append(this->Get(i));
+			}
+        }
+		return result;
+	}
+
+	T Reduce(T (*func)(T,T), T start) {
+		for (int i = 0; i < this->GetLength(); i++) {
+			start = func(this->Get(i), start);
+		}
+		return start;
+	}
 };
