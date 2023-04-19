@@ -19,9 +19,10 @@ public:
 
     LinkedListSequence(LinkedListSequence <T>& other) {  // Копирующий конструктор
         //this->list = other.list;
-		for(int i = 0; i < other.GetLength(); i++) {
+		/*for(int i = 0; i < other.GetLength(); i++) {
 		this->Append(other.Get(i));
-		}
+		}*/
+        this->list = new LinkedList<T>(*other.list);
     }
 
     ~LinkedListSequence() {

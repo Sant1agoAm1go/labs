@@ -5,9 +5,9 @@
 int main() {
     srand(time(nullptr));
     int lenght = 10;
-    Sequence<int>* data = new LinkedListSequence<int>();
+    Sequence<char>* data = new LinkedListSequence<char>();
     for(int i = 0; i < lenght; i++) {
-        data->Append(rand () % 100);
+        data->Append('A');
         std::cout << "data[" << i << "] = " << data->Get(i) << std::endl;
     }
     
