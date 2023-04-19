@@ -84,7 +84,7 @@ public:
         return result;
     }
 
-    Sequence <T>* Map(T (*func)(T)) {
+    Sequence <T>* Map(T (*func)(T)) override {
 		Sequence <T>* result = new LinkedListSequence<T>(); 
 		for (int i = 0; i <= this->GetLength(); i++) {
             result->Append(func(this->Get(i)));
@@ -92,7 +92,7 @@ public:
 		return result;
 	}
 
-    Sequence <T>* Where(bool (*func)(T)) {
+    Sequence <T>* Where(bool (*func)(T)) override {
 		Sequence <T>* result = new LinkedListSequence<T>();
 		for (int i = 0; i < this->GetLength(); i++) {
 			if(func(this->Get(i))) {
@@ -102,7 +102,7 @@ public:
 		return result;
 	}
 
-    T Reduce(T (*func)(T,T), T start) {
+    T Reduce(T (*func)(T,T), T start) override {
 		for (int i = 0; i < this->GetLength(); i++) {
 			start = func(this->Get(i), start);
 		}
