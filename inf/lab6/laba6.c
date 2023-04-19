@@ -41,7 +41,7 @@ List *read_list() {
         	list_delete(list);
         	return NULL;
         }
-	}
+    }
 }
 
 /*void process(List *list) {
