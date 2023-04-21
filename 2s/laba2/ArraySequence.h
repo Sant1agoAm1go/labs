@@ -17,7 +17,7 @@ public:
     	this->items = new DynamicArray<T>(other);
     }
 
-	ArraySequence(ArraySequence<T>& other) { //Копирующий конструктор
+	ArraySequence(const ArraySequence<T>& other) { //Копирующий конструктор
                 this->items = new DynamicArray<T>(*other.items);
                 //this->items = other.items;
 		/*this->items = new DynamicArray<T>(other.GetLength(), -1);
