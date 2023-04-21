@@ -18,7 +18,7 @@ private:
 
 public:
     LinkedList() {
-        this->head = nullptr;
+        this->head = NULL;
         this->tail = nullptr;
         this->lenght = 0;
     }
