@@ -26,15 +26,20 @@ public:
     LinkedList(T* items, int count) { //	Копировать элементы из переданного массива
         this->head = nullptr;
         this->tail = nullptr;
+        this->lenght = 0;
         for (int i = 0; i < count; i++) {
             this->Append(items[i]);
         }
     }
 
     LinkedList(const LinkedList <T>& other) {  // Копирующий конструктор
-        for(int i = 0; i < other.lenght; i++) {
-            Append(other.Get(i));
+        this->head = nullptr;
+        this->tail = nullptr;
+        this->lenght = 0;
+        for(int i = 0; i < other.GetLenght(); i++) {
+            this->Append(other.Get(i));
         }
+        //this->lenght = other.lenght;
     }
 
     ~LinkedList() {
@@ -84,7 +89,6 @@ public:
         ptr->next = nullptr;
         if (this->head == nullptr) {
             this->head = ptr;
-            //this->head->prev = nullptr;
             this->tail = ptr;
         } 
         else {
@@ -92,7 +96,8 @@ public:
             this->tail->next = ptr;
             this->tail = ptr;
         }
-        (this->lenght)++;
+        //this->lenght = this->lenght + 1;
+        this->lenght++;
     }
 
     void Prepend(T item) {
@@ -112,7 +117,8 @@ public:
             this->head->prev = ptr;
             this->head = ptr; 
         }
-        this->lenght = this->lenght + 1;
+        //this->lenght = this->lenght + 1;
+        this->lenght++;
     }
 
     void InsertAt(T item, int index) { 
@@ -151,7 +157,8 @@ public:
             itemBefore->prev->next = ptr;
             itemBefore->prev = ptr;
         }
-        (this->lenght)++;
+        //this->lenght = this->lenght + 1;
+        this->lenght++;
     }
 
     /*LinkedList<T>* Concat(LinkedList<T>* list) {
