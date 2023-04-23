@@ -1,6 +1,6 @@
 #pragma once
 #include "Sequence.h"
-#include "DynamicArray.h"
+#include "Array.h"
 template <typename T> class ArraySequence : public Sequence<T> {
 private:
 	DynamicArray<T>* items;

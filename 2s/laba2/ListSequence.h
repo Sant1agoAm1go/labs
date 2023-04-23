@@ -1,6 +1,6 @@
 #pragma once
 #include "Sequence.h"
-#include "LinkedList.h"
+#include "List.h"
 template <typename T> class LinkedListSequence : public Sequence<T> { 
 private:
     LinkedList<T>* list;

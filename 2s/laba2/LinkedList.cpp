@@ -1,5 +1,5 @@
 #include <iostream>
-#include "LinkedList.h"
+#include "List.h"
 #include <stdlib.h>
 #include <time.h>
 int main() {
@@ -29,6 +29,7 @@ int main() {
     for (int i = 0; i < lenght; i++) {
         std::cout << "data[" << i << "] = " << data->Get(i) << std::endl;
     }
+    
     delete data;
     return 0;
 }
