@@ -1,6 +1,5 @@
 #include <iostream>
 #include "ListSequence.h"
-#include <stdlib.h>
 #include <time.h>
 bool func(int value) {
     return value % 2 == 0;
@@ -33,7 +32,7 @@ int main() {
     for(int i = 0; i < subs->GetLength(); i++) {
         std::cout << "subs[" << i << "] = " << subs->Get(i) << std::endl;
     }
-    
+
     std::cout <<"\n";
     Sequence<int>* wheres = subs->Where(func);
     for(int i = 0; i < wheres->GetLength(); i++) {

@@ -1,6 +1,5 @@
 #include <iostream>
 #include "ArraySequence.h"
-#include <stdlib.h>
 #include <time.h>
 bool func(int value) {
     return value % 2 == 0;
