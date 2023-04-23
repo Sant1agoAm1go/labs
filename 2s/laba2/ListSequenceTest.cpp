@@ -22,9 +22,8 @@ int main() {
     for(int i = 0; i < arr2->GetLength(); i++) {
         assert(arr2->Get(i) == arr->Get(i));
     }
-
     assert(arr2->GetLength() == 10);
-    //std::cout << "LOH" << std::endl;
+    
     Sequence<int>* concat = arr->Concat(arr2);
     for(int i = 0; i < arr->GetLength(); i++) {
         assert(concat->Get(i) == arr->Get(i));
