@@ -18,7 +18,7 @@ private:
 
 public:
     LinkedList() {
-        this->head = NULL;
+        this->head = nullptr;
         this->tail = nullptr;
         this->lenght = 0;
     }
@@ -32,10 +32,8 @@ public:
     }
 
     LinkedList(const LinkedList <T>& other) {  // Копирующий конструктор
-        this->head = nullptr;
-        this->tail = nullptr;
-        for (int i = 0; i < other.lenght; i++) {
-            this->Append(other.Get(i));
+        for(int i = 0; i < other.lenght; i++) {
+            Append(other.Get(i));
         }
     }
 
@@ -94,7 +92,7 @@ public:
             this->tail->next = ptr;
             this->tail = ptr;
         }
-        this->lenght++;
+        (this->lenght)++;
     }
 
     void Prepend(T item) {
@@ -114,7 +112,7 @@ public:
             this->head->prev = ptr;
             this->head = ptr; 
         }
-        (this->lenght)++;
+        this->lenght = this->lenght + 1;
     }
 
     void InsertAt(T item, int index) { 

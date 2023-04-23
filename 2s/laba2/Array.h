@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include <cassert>
 #include <stdexcept>
 template <typename T> class DynamicArray {
 private:
