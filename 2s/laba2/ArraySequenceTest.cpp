@@ -43,9 +43,15 @@ int main() {
     for(int i = 0; i < wheres->GetLength(); i++) {
         assert(func(wheres->Get(i)) == true);
     }
+    
+    int* data = new int[3];
+    data[0] = 1;
+    data[1] = 2;
+    data[2] = 3;
+    Sequence<int>* reduce_check = new ArraySequence<int>(data,3);
 
-    std::cout << wheres->Reduce(reducer, 0) << std::endl;
-
+    assert(reduce_check->Reduce(reducer, 4) == 144);
+    std::cout << reduce_check->Reduce(reducer, 4) << std::endl;
     delete arr;
     delete arr2; 
     delete concat;
