@@ -18,20 +18,11 @@ public:
     }
 
     LinkedListSequence(const LinkedListSequence <T>& other) {  // Копирующий конструктор
-        /*this->list->head = other.list->head;
-		for(int i = 0; i < other.GetLength(); i++) {
-		this->Append(other.Get(i));
-		}*/
         this->list = new LinkedList<T>(*other.list);
     }
 
     ~LinkedListSequence() {
-        Item <T> *ptr = this->list->head, *prev;
-        while (ptr != nullptr && ptr != this->list->tail->next) {
-            prev = ptr;    
-            ptr = ptr->next;
-            delete prev;
-        }
+        delete list;
 	}
 
 	T GetFirst() const override {

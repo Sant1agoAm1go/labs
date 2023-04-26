@@ -4,6 +4,8 @@
 #include <stdexcept>
 template <typename T> class Sequence {
 public:
+    virtual ~Sequence() {};
+
     virtual T GetFirst() const = 0; 
 
     virtual T GetLast() const = 0;

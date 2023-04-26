@@ -44,12 +44,8 @@ int main() {
         assert(func(wheres->Get(i)) == true);
     }
     
-    int* data = new int[3];
-    data[0] = 1;
-    data[1] = 2;
-    data[2] = 3;
+    int data[3] = {1,2,3};
     Sequence<int>* reduce_check = new ArraySequence<int>(data,3);
-
     assert(reduce_check->Reduce(reducer, 4) == 144);
     std::cout << reduce_check->Reduce(reducer, 4) << std::endl;
     delete arr;
@@ -57,5 +53,6 @@ int main() {
     delete concat;
     delete subs;
     delete wheres;
+    delete reduce_check;
     return 0;
 }
