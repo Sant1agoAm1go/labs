@@ -16,7 +16,7 @@ int main() {
     for(int i = 0; i < lenght; i++) {
         arr->Append(rand () % 100);
     }
-
+    
     Sequence<int>* arr2 = new ArraySequence<int>(*(ArraySequence<int>*)arr);
     for(int i = 0; i < arr2->GetLength(); i++) {
         assert(arr2->Get(i) == arr->Get(i));
@@ -49,11 +49,22 @@ int main() {
     int data3[2] = {9,10};
     Sequence<int>* reduce_check = new ArraySequence<int>(data,sizeof(data)/sizeof(int));
     assert(reduce_check->Reduce(reducer, 4) == 144);
+
+    Sequence<int>* seq = new ArraySequence<int>(data2,sizeof(data2)/sizeof(int));
+    Sequence<int>* add  = new ArraySequence<int>(data3,sizeof(data3)/sizeof(int));
+    Sequence<int>* slices = seq->Slice(3,2,add);
+    for(int i = 0; i < slices->GetLength(); i++) {
+        std::cout << "slices[" << i << "] = " << slices->Get(i) << std::endl;
+    }
+
     delete arr;
     delete arr2; 
     delete concat;
     delete subs;
     delete wheres;
     delete reduce_check;
+    delete seq;
+    delete add;
+    delete slices;
     return 0;
 }

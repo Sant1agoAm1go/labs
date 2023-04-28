@@ -55,11 +55,17 @@ public:
 
 	void Prepend(T item) override {
 		this->items->Resize(this->items->GetSize()+1, 0);
+		for(int i = this->items->GetSize() - 1; i > 0; i--) {
+			this->items->Set(i,this->items->Get(i-1));
+		}
 		this->items->Set(0, item);
 	}
 
 	void InsertAt(T item, int index) override {
 		this->items->Resize(this->items->GetSize()+1, 0);
+		for(int i = this->items->GetSize() - 1; i > index; i--) {
+			this->items->Set(i,this->items->Get(i-1));
+		}
 		this->items->Set(index, item);
 	}
 
@@ -108,8 +114,8 @@ public:
 		return start;
 	}
 
-	/*Sequence <T>* Slice(int index, int number, Sequence<T>* seq) {
-		if(index > this->GetLength()) {
+	Sequence <T>* Slice(int index, int number, Sequence<T>* seq) {
+		if(index > this->GetLength() || index+number > this->GetLength()) {
 			throw std::out_of_range("Out of range");
 		}
 		Sequence <T>* result = new ArraySequence<T>();
@@ -123,10 +129,12 @@ public:
 				resInd++;
 		}
 		if(seq->GetLength() != 0) {
-			for(int i = index; i <= std::min(number, seq->GetLength()); i++) {
-				result->InsertAt(this->Get(i), i);
+			int seqInd = 0;
+			for(int i = index; i <= index+seq->GetLength()-1; i++) {
+				result->InsertAt(seq->Get(seqInd), i);
+				seqInd++;
 			}
 		}
 		return result;
-	}*/
+	}
 };

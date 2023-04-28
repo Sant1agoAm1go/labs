@@ -85,7 +85,7 @@ public:
 		this->data = newData;
 		this->lenght = newSize;
 	}
-	T& operator[](int index) {
+	T operator[](int index) {
 		return this->data[index];
 	}
 }; 

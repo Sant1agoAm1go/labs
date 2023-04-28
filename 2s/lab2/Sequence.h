@@ -24,6 +24,8 @@ public:
 
     virtual Sequence <T>* GetSubsequence(int startIndex, int endIndex) = 0;
 
+    virtual Sequence <T>* Slice(int index, int number, Sequence<T>* seq) = 0;
+
     virtual Sequence <T>* Map(T (*func)(T)) = 0;
 
     virtual Sequence <T>* Where(bool (*func)(T)) = 0;
@@ -36,7 +38,6 @@ public:
 	return this;
 	}*/
 
-    //virtual Sequence <T>* Slice(int index, int number, Sequence<T>* seq) = 0;
 
 };
 
