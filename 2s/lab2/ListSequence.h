@@ -100,7 +100,9 @@ public:
 		return start;
 	}
 
-	Sequence <T>* Slice(int index, int number, Sequence<T>* seq) {}
+	Sequence <T>* Slice(int index, int number, Sequence<T>* seq) {
+		return nullptr;
+	}
 		/*if(abs(index) > this->GetLength()) {
 			throw std::out_of_range("Out of range");
 		}

@@ -25,8 +25,13 @@ int main() {
     for (int i = 0; i < list2->GetLenght(); i++) {
         assert(list2->Get(i) == list->Get(i));
     }
-    
+    int data[3] = {1,2,3}; 
+    LinkedList<int>* list3 = new LinkedList<int>(data,sizeof(data)/sizeof(int));
+    for (int i = 0; i < list3->GetLenght(); i++) {
+        assert(list3->Get(i) == data[i]);
+    }
     delete list;
     delete list2;
+    delete list3;
     return 0;
 }
