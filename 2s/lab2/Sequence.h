@@ -29,6 +29,15 @@ public:
     virtual Sequence <T>* Where(bool (*func)(T)) = 0;
 
     virtual T Reduce(T(*func)(T,T), T start) = 0;
+    
+    /*template < typename... Args> 
+	Sequence<T>* Append(Args... args) {
+	((this->Append(args)),...) ;
+	return this;
+	}*/
+
+    //virtual Sequence <T>* Slice(int index, int number, Sequence<T>* seq) = 0;
+
 };
 
 

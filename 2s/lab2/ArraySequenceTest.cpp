@@ -45,9 +45,10 @@ int main() {
     }
     
     int data[3] = {1,2,3};
-    Sequence<int>* reduce_check = new ArraySequence<int>(data,3);
+    int data2[5] = {1,2,3,4,5};
+    int data3[2] = {9,10};
+    Sequence<int>* reduce_check = new ArraySequence<int>(data,sizeof(data)/sizeof(int));
     assert(reduce_check->Reduce(reducer, 4) == 144);
-    std::cout << reduce_check->Reduce(reducer, 4) << std::endl;
     delete arr;
     delete arr2; 
     delete concat;

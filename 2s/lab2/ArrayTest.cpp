@@ -11,7 +11,7 @@ int main() {
     }
 
     arr->Resize(20, -1);
-    assert(arr->GetSize() == 21); 
+    assert(arr->GetSize() == 20); 
 
     DynamicArray<int>* arr2 = new DynamicArray<int>(*arr);
     for(int i = 0; i < arr->GetSize(); i++) {

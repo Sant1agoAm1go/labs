@@ -125,6 +125,7 @@ public:
         if(index < 0 || index >= lenght) {
             throw std::out_of_range("Out of range");
         }
+        
         if(index == 0) {
             this->Prepend(item);
             return;

@@ -99,4 +99,11 @@ public:
 		}
 		return start;
 	}
+
+	/*Sequence <T>* Slice(int index, int number, Sequence<T>* seq) {
+		if(abs(index) > this->GetLength()) {
+			throw std::out_of_range("Out of range");
+		}
+		Sequence<int> * seq = new ArraySequence(new [] {1,2,3,4,5});
+	}*/ 
 };
