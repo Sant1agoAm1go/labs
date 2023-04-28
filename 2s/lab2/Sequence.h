@@ -37,8 +37,6 @@ public:
 	((this->Append(args)),...) ;
 	return this;
 	}*/
-
-
 };
 
 
