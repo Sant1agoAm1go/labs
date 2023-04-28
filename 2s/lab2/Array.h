@@ -12,7 +12,7 @@ public:
 		lenght = 0;
 	}
 
-	DynamicArray(T* other, int count) { //	Копировать элементы из переданного массива
+	DynamicArray(T* other, int count) { // Копировать элементы из переданного массива
 	
 		data = new T[count];
 		lenght = count;
@@ -31,7 +31,7 @@ public:
 		}
 	}
 
-	DynamicArray(const DynamicArray<T>& other) {  //	Копирующий конструктор
+	DynamicArray(const DynamicArray<T>& other) {  // Копирующий конструктор
 		lenght = other.lenght;
 		data = new T[lenght];
 		for (int i = 0; i < lenght; i++) {
@@ -96,7 +96,7 @@ Sequence<T>* Sequence<T>::Append(Args... args)
 {
 ((this->Append(args)),...) ;
 
-return this;*/
- 
+return this;
+}*/
 
 
