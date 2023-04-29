@@ -87,11 +87,10 @@ public:
         }
         ptr->data = item;
         ptr->next = nullptr;
+        ptr->prev = nullptr;
         if (this->head == nullptr) {
             this->head = ptr;
             this->tail = ptr;
-            ptr->prev = nullptr;
-            ptr->next = nullptr;
         } 
         else {
             ptr->prev = this->tail;
@@ -119,7 +118,6 @@ public:
         else {
             this->head->prev = ptr;
             this->head = ptr; 
-            ptr->prev = nullptr;
         }
         //this->lenght = this->lenght + 1;
         this->lenght++;
