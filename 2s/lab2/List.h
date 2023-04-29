@@ -90,11 +90,14 @@ public:
         if (this->head == nullptr) {
             this->head = ptr;
             this->tail = ptr;
+            ptr->prev = nullptr;
+            ptr->next = nullptr;
         } 
         else {
             ptr->prev = this->tail;
             this->tail->next = ptr;
             this->tail = ptr;
+            ptr->next = nullptr;
         }
         //this->lenght = this->lenght + 1;
         this->lenght++;
@@ -116,6 +119,7 @@ public:
         else {
             this->head->prev = ptr;
             this->head = ptr; 
+            ptr->prev = nullptr;
         }
         //this->lenght = this->lenght + 1;
         this->lenght++;

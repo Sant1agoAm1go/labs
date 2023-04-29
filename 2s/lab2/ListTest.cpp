@@ -9,7 +9,9 @@ int main() {
         list->Append(rand() % 100);   
     }
     assert(list->GetLenght() == 5);
-
+      for(int i = 0; i < list->GetLenght(); i++) {
+        std::cout << "list[" << i << "] = " << list->Get(i) << std::endl;
+    }
     lenght = list->GetLenght();
     for (int i = 0; i < lenght; i++) {
         list->Prepend(rand() % 100);
