@@ -149,6 +149,9 @@ public:
         }
         else {
             Item<T>* ptr = new Item<T>;
+            if (ptr == nullptr) {
+                throw std::invalid_argument("Failed to allocate memory");
+            }
             /*ptr->data = item;
             ptr->prev = itemBefore;
             ptr->next = itemBefore->next;

@@ -115,26 +115,48 @@ public:
 	}
 
 	Sequence <T>* Slice(int index, int number, Sequence<T>* seq) {
-		if(index > this->GetLength() || index+number > this->GetLength()) {
+		if(std::abs(index) > this->GetLength() || index+number > this->GetLength()) {
 			throw std::out_of_range("Out of range");
 		}
 		Sequence <T>* result = new ArraySequence<T>();
 		int resInd = 0;
-		for(int i = 0; i < index; i++) {
-				result->InsertAt(this->Get(i), resInd);
-				resInd++;
-		}
-		for(int i = index+number; i < this->GetLength(); i++) {
-				result->InsertAt(this->Get(i), resInd);
-				resInd++;
-		}
-		if(seq->GetLength() != 0) {
-			int seqInd = 0;
-			for(int i = index; i <= index+seq->GetLength()-1; i++) {
-				result->InsertAt(seq->Get(seqInd), i);
-				seqInd++;
+		if(index >= 0) {
+			for(int i = 0; i < index; i++) {
+					result->InsertAt(this->Get(i), resInd);
+					resInd++;
 			}
+			for(int i = index+number; i < this->GetLength(); i++) {
+					result->InsertAt(this->Get(i), resInd);
+					resInd++;
+			}
+			if(seq->GetLength() != 0) {
+				int seqInd = 0;
+				for(int i = index; i <= index+seq->GetLength()-1; i++) {
+					result->InsertAt(seq->Get(seqInd), i);
+					seqInd++;
+				}
+			} 
 		}
+
+		/*else {
+			for(int i = this->GetLength()-1; i > this->GetLength() - index; i--) {
+				result->InsertAt(this->Get(i), resInd);
+				resInd++;
+			}
+			for(int i = index-number; i > 0 ; i++) {
+				result->InsertAt(this->Get(i), resInd);
+				resInd++;
+			}
+			if(seq->GetLength() != 0) {
+				int seqInd = 0;
+				for(int i = this->GetLength() - index; i >= this->GetLength()-seq->GetLength(); i--) {
+					result->InsertAt(seq->Get(seqInd), i);
+					seqInd++;
+				
+				}
+			}
+
+		}*/
 		return result;
 	}
 };
