@@ -155,7 +155,6 @@ public:
 				
 				}
 			}
-
 		}*/
 		return result;
 	}

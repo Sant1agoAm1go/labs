@@ -12,6 +12,7 @@ int reducer(int a, int b) {
 int main() {
     srand(time(nullptr));
     int lenght = 10;
+    //ArraySequence<int> val();
     Sequence<int>* arr = new ArraySequence<int>();
     for(int i = 0; i < lenght; i++) {
         arr->Append(rand () % 100);
