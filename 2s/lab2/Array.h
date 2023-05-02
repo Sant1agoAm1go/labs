@@ -9,6 +9,7 @@ public:
 // Конструкторы
 	DynamicArray() {
 		data = new T[1];
+		data[0] = T();
 		lenght = 0;
 	}
 
@@ -85,7 +86,11 @@ public:
 		this->data = newData;
 		this->lenght = newSize;
 	}
+
 	T operator[](int index) {
+		if(index < 0 || index >= lenght ) {
+			throw std::out_of_range("Out of range");
+		}
 		return this->data[index];
 	}
 }; 

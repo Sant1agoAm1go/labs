@@ -194,11 +194,24 @@ public:
     }
 
     Item<T>* operator[](int index) {
+        if(index < 0 || index >= lenght ) {
+			throw std::out_of_range("Out of range");
+		}
         Item<T>* ptr = this->head;
         for (int i = 0; i < index; i++) {
             ptr = ptr->next;
         }
         return ptr;
+	}
+
+    LinkedList<T>& operator+(const LinkedList<T>& other) {
+		if(this->GetLenght() != other.GetLenght()) {
+			throw std::logic_error("Lenghts of vectors are not equal");
+		}
+		for(int i = 0; i < this->GetLenght(); i++) {
+			this->Set(i, this->Get(i) + other.Get(i));
+		}
+		return *this;
 	}
 }; 
 
