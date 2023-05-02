@@ -137,6 +137,13 @@ public:
 				}
 			} 
 		}
+		return result;
+	}
+};
+
+
+
+
 
 		/*else {
 			for(int i = this->GetLength()-1; i > this->GetLength() - index; i--) {
@@ -156,6 +163,4 @@ public:
 				}
 			}
 		}*/
-		return result;
-	}
-};
+
