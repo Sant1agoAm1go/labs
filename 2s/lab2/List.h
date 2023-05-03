@@ -204,12 +204,18 @@ public:
         return ptr;
 	}
 
+    LinkedList<T>* operator+(const LinkedList<T>* other) {
+        LinkedList <T>* result = new LinkedList<T>();
+        for (int i = 0; i < this->GetLenght(); i++)
+            result->Append(this->Get(i));
+        for (int i = 0; i < other->GetLenght(); i++)
+            result->Append(other->Get(i));
+        return result;
+	}
+
     LinkedList<T>& operator+(const LinkedList<T>& other) {
-		if(this->GetLenght() != other.GetLenght()) {
-			throw std::logic_error("Lenghts of vectors are not equal");
-		}
-		for(int i = 0; i < this->GetLenght(); i++) {
-			this->Set(i, this->Get(i) + other.Get(i));
+		for(int i = 0; i < other.GetLenght(); i++) {
+			this->Append(other.Get(i));
 		}
 		return *this;
 	}

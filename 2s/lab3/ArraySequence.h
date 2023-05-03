@@ -48,13 +48,13 @@ public:
 	
 	
 	void Append(T item) override {
-		this->items->Resize(this->items->GetSize()+1, 0);
+		this->items->Resize(this->items->GetSize()+1);
 		this->items->Set(this->items->GetSize()-1, item);
 		
 	}
 
 	void Prepend(T item) override {
-		this->items->Resize(this->items->GetSize()+1, 0);
+		this->items->Resize(this->items->GetSize()+1);
 		for(int i = this->items->GetSize() - 1; i > 0; i--) {
 			this->items->Set(i,this->items->Get(i-1));
 		}
@@ -62,7 +62,7 @@ public:
 	}
 
 	void InsertAt(T item, int index) override {
-		this->items->Resize(this->items->GetSize()+1, 0);
+		this->items->Resize(this->items->GetSize()+1);
 		for(int i = this->items->GetSize() - 1; i > index; i--) {
 			this->items->Set(i,this->items->Get(i-1));
 		}
@@ -139,6 +139,22 @@ public:
 		}
 		return result;
 	}
+
+	Sequence<T>* operator+(const ArraySequence<T>* other) {
+		Sequence <T>* result = new ArraySequence<T>();
+        for (int i = 0; i < this->GetLength(); i++)
+            result->Append(this->Get(i));
+        for (int i = 0; i < other->GetLength(); i++)
+            result->Append(other->Get(i));
+		return result;
+	}
+
+	Sequence<T>& operator+(const ArraySequence<T>& other) {
+		for (int i = 0; i < other.GetLength(); i++)
+			this->Append(other->Get(i));
+		return *((Sequence<T>*)this);
+	}
+
 };
 
 

@@ -4,13 +4,13 @@
 #include "Array.h"
 int main() {
     srand(time(nullptr));
-    DynamicArray<int>* arr = new DynamicArray<int>(10,-1);
+    DynamicArray<int>* arr = new DynamicArray<int>(10);
     for(int i = 0; i < arr->GetSize(); i++) {
         arr->Set(i, rand () % 100);
         assert((*arr)[i] == arr->Get(i));
     }
 
-    arr->Resize(20, -1);
+    arr->Resize(20);
     assert(arr->GetSize() == 20); 
 
     DynamicArray<int>* arr2 = new DynamicArray<int>(*arr);

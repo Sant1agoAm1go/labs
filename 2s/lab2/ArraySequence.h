@@ -139,6 +139,29 @@ public:
 		}
 		return result;
 	}
+
+	T operator[](int index) {
+		if(index < 0 || index >= this->GetLength()) {
+			throw std::out_of_range("Out of range");
+		}
+		return this->Get(index);
+	}
+
+	Sequence<T>* operator+(const ArraySequence<T>* other) {
+		Sequence <T>* result = new ArraySequence<T>();
+		for (int i = 0; i < this->GetLength(); i++)
+			result->Append(this->Get(i));
+		for (int i = 0; i < other->GetLength(); i++)
+			result->Append(other->Get(i));
+		return result;
+	}
+
+	Sequence<T>& operator+(const ArraySequence<T>& other) {
+		for (int i = 0; i < other.GetLength(); i++)
+			this->Append(other->Get(i));
+		return *((Sequence<T>*)this);
+	}
+
 };
 
 

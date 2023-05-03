@@ -4,37 +4,37 @@
 template <typename T> class Vector {
 private:
     T* data;
-    int lenght;
+    int length;
 public:
     Vector() {
         data = new T[1];
 		data[0] = T();
-        lenght = 0;
+        length = 0;
     }
 
-    Vector(T* other, int count) { // Копировать элементы из переданного массива
+    Vector(T* other, int count) { // Копировать координаты из переданного вектора
 	
 		data = new T[count];
-		lenght = count;
-		for (int i = 0; i < lenght ; i++) {
+		length = count;
+		for (int i = 0; i < length ; i++) {
 			data[i] = other[i];
 		}
 
 	}
 
-	Vector(int size, T init) { //	Создать вектор заданной длины
+	Vector(int size) { //	Создать вектор заданной длины
 	
 		data = new T[size];
-		lenght = size;
-		for(int i = 0; i < lenght; i++) {
-			data[i] = init;
+		length = size;
+		for(int i = 0; i < length; i++) {
+			data[i] = T();
 		}
 	}
 
 	Vector(const Vector<T>& other) {  // Копирующий конструктор
-		lenght = other.lenght;
-		data = new T[lenght];
-		for (int i = 0; i < lenght; i++) {
+		length = other.length;
+		data = new T[length];
+		for (int i = 0; i < length; i++) {
 			this->data[i] = other.Get(i);
 		}
 	}
@@ -44,7 +44,7 @@ public:
     }
 
     T Get(int index) const override {
-        if(index < 0 || index >= lenght ) {
+        if(index < 0 || index >= length ) {
             throw std::out_of_range("Out of range");
         }
         return this->data[index];
@@ -52,7 +52,7 @@ public:
 
     void Set(int index, T value) { 
 	
-		if(index < 0 || index >= lenght) {
+		if(index < 0 || index >= length) {
 			throw std::out_of_range("Out of range");
 		}
 		this->data[index] = value;
@@ -64,15 +64,15 @@ public:
     }
 
     T GetLast() const {
-        return this->Get(this->GetLenght()-1);
+        return this->Get(this->GetLength()-1);
     }
 
-    int GetLenght() const { 
-	    return this->lenght;
+    int GetLength() const { 
+	    return this->length;
 	}
 
     void Append(T item) {
-	    this->Set(this->GetLenght()-1, item);
+	    this->Set(this->GetLength()-1, item);
 		
 	}
 
@@ -85,8 +85,8 @@ public:
 	}
 
     Vector <T>* Concat(Vector <T>* other) {
-        Vector <T>* result = new Vector<T>(this->GetLenght()+other->GetLenght(), 0);
-        for (int i = 0; i < this->GetLenght(); i++)
+        Vector <T>* result = new Vector<T>(this->GetLength()+other->GetLength());
+        for (int i = 0; i < this->GetLength(); i++)
             result->Append(this->Get(i));
         for (int i = 0; i < other->GetLength(); i++)
             result->Append(other->Get(i));
@@ -97,7 +97,7 @@ public:
         if(startIndex < 0 || endIndex < 0 || startIndex >= this->GetLength() || endIndex >= this->GetLength()) {
             throw std::out_of_range("Out of range");
         }
-        Vector <T>* result = new Vector<T>(this->GetLenght(), 0);
+        Vector <T>* result = new Vector<T>(this->GetLength());
         for (int i = startIndex; i <= endIndex; i++) {
             result->Append(this->Get(i));
         }
@@ -105,7 +105,7 @@ public:
     }
 
 	Vector <T>* Map(T (*func)(T)) {
-		Vector <T>* result = new Vector<T>(this->GetLenght(), 0); 
+		Vector <T>* result = new Vector<T>(this->GetLength()); 
 		for (int i = 0; i < this->GetLength(); i++) {
             result->Append(func(this->Get(i)));
         }
@@ -113,7 +113,7 @@ public:
 	}
 
 	Vector <T>* Where(bool (*func)(T)) {
-		Vector <T>* result = new Vector<T>(this->GetLenght(), 0);
+		Vector <T>* result = new Vector<T>(this->GetLength());
 		for (int i = 0; i < this->; i++) {
 			if(func(this->Get(i))) {
             	result->Append(this->Get(i));
@@ -130,33 +130,33 @@ public:
 	}
 
 	Vector<T>* VectorAdd(const Vector<T>* other) {
-		if(this->GetLenght() != other->GetLenght()) {
-			throw std::logic_error("Lenghts of vectors are not equal");
+		if(this->GetLength() != other->GetLength()) {
+			throw std::logic_error("Lengths of vectors are not equal");
 		}
-		Vector<T>* result = new Vector<T>(this->GetLenght(), 0);
-		for(int i = 0; i < this->GetLenght(); i++) {
+		Vector<T>* result = new Vector<T>(this->GetLength());
+		for(int i = 0; i < this->GetLength(); i++) {
 			result->Set(i, this->Get(i) + other->Get(i));
 		}
 		return result;
 	}
 
 	void VectorScal(T scalar) {
-		for(int i = 0; i < this->GetLenght(); i++) {
+		for(int i = 0; i < this->GetLength(); i++) {
 			this->Set(i, this->Get(i)*scalar);
 		}
 	}
 
 	T VectorNorm() {
 		T result = T();
-		for(int i = 0; i < this->GetLenght(); i++) {
-			result+=std::pow(this->GetLenght(),2);
+		for(int i = 0; i < this->GetLength(); i++) {
+			result+=std::pow(this->GetLength(),2);
 		}
 		return std::sqrt(result);
 	}
 
 	T ScalarMult(const Vector<T>* other) {
 		T result = T();
-		for(int i = 0; i < this->GetLenght(); i++) {
+		for(int i = 0; i < this->GetLength(); i++) {
 			result+=this->Get(i) * other->Get(i);
 		}
 		return result;
@@ -166,7 +166,7 @@ public:
 		if(std::abs(index) > this->GetLength() || index+number > this->GetLength()) {
 			throw std::out_of_range("Out of range");
 		}
-		Sequence <T>* result = new Vector<T>();
+		Sequence <T>* result = new Vector<T>(this->GetLength());
 		int resInd = 0;
 		if(index >= 0) {
 			for(int i = 0; i < index; i++) {
@@ -188,11 +188,29 @@ public:
 		return result;
 	}
 
-	Vector<T>& operator+(const Vector<T>& other) {
-		if(this->GetLenght() != other.GetLenght()) {
-			throw std::logic_error("Lenghts of vectors are not equal");
+	T operator[](int index) {
+		if(index < 0 || index >= length ) {
+			throw std::out_of_range("Out of range");
 		}
-		for(int i = 0; i < this->GetLenght(); i++) {
+		return this->data[index];
+	}
+
+	Vector<T>* operator+(const Vector<T>* other) {
+		if(this->GetLength() != other->GetLength()) {
+			throw std::logic_error("Lengths of vectors are not equal");
+		}
+		Vector<T>* result = new Vector<T>(this->GetLength());
+		for(int i = 0; i < this->GetLength(); i++) {
+			this->Set(i, this->Get(i) + other->Get(i));
+		}
+		return result;
+	}
+
+	Vector<T>& operator+(const Vector<T>& other) {
+		if(this->GetLength() != other.GetLength()) {
+			throw std::logic_error("Lengths of vectors are not equal");
+		}
+		for(int i = 0; i < this->GetLength(); i++) {
 			this->Set(i, this->Get(i) + other.Get(i));
 		}
 		return *this;

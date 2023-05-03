@@ -108,4 +108,19 @@ public:
 		}
 		Sequence<int> * seq = new ArraySequence(new [] {1,2,3,4,5});
 	}*/ 
+
+	Sequence<T>* operator+(const LinkedListSequence<T>* other) {
+		Sequence <T>* result = new LinkedListSequence<T>();
+		for (int i = 0; i < this->GetLength(); i++)
+			result->Append(this->Get(i));
+		for (int i = 0; i < other->GetLength(); i++)
+			result->Append(other->Get(i));
+		return result;
+	}
+
+	Sequence<T>& operator+(const LinkedListSequence<T>& other) {
+		for (int i = 0; i < other.GetLength(); i++)
+			this->Append(other->Get(i));
+		return *((Sequence<T>*)this);
+	}
 };

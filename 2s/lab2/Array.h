@@ -3,39 +3,39 @@
 template <typename T> class DynamicArray {
 private:
 	T* data;
-	int lenght;
+	int length;
 public:
 	
 // Конструкторы
 	DynamicArray() {
 		data = new T[1];
 		data[0] = T();
-		lenght = 0;
+		length = 0;
 	}
 
 	DynamicArray(T* other, int count) { // Копировать элементы из переданного массива
 	
 		data = new T[count];
-		lenght = count;
-		for (int i = 0; i < lenght ; i++) {
+		length = count;
+		for (int i = 0; i < length ; i++) {
 			data[i] = other[i];
 		}
 
 	}
 
-	DynamicArray(int size, T init) { //	Создать массив заданной длины
+	DynamicArray(int size) { //	Создать массив заданной длины
 	
 		data = new T[size];
-		lenght = size;
-		for(int i = 0; i < lenght; i++) {
-			data[i] = init;
+		length = size;
+		for(int i = 0; i < length; i++) {
+			data[i] = T();
 		}
 	}
 
 	DynamicArray(const DynamicArray<T>& other) {  // Копирующий конструктор
-		lenght = other.lenght;
-		data = new T[lenght];
-		for (int i = 0; i < lenght; i++) {
+		length = other.length;
+		data = new T[length];
+		for (int i = 0; i < length; i++) {
 			this->data[i] = other.Get(i);
 			//this->data[i] = other.data[i];
 		}
@@ -47,7 +47,7 @@ public:
 
 // Декомпозиция
 	T Get(int index) const {
-		if(index < 0 || index >= lenght ) {
+		if(index < 0 || index >= length ) {
 			throw std::out_of_range("Out of range");
 		}
 		return this->data[index];
@@ -55,43 +55,63 @@ public:
 	
 	int GetSize() const { //	Получить размер массива
 	
-		return this->lenght;
+		return this->length;
 	}
 	
 // Операции
 	void Set(int index, T value) { 
 	
-		if(index < 0 || index >= lenght) {
+		if(index < 0 || index >= length) {
 			throw std::out_of_range("Out of range");
 		}
 		this->data[index] = value;
 		
 	}
 
-	void Resize(int newSize, T init) {
+	void Resize(int newSize) {
 		if(newSize < 0) {
 			throw std::invalid_argument("new size less than 0");
 		}
 		T* newData = new T[newSize];
-		int tempLenght =(newSize > lenght) ? lenght : newSize;
-		for (int i = 0; i < tempLenght; i++) {
+		int tempLength =(newSize > length) ? length : newSize;
+		for (int i = 0; i < tempLength; i++) {
 			newData[i] = data[i];
 		}
 		delete[] data;
-		if(tempLenght < newSize) { 
-			for(int i = tempLenght; i < newSize; i++) {
-				newData[i] = init;
+		if(tempLength < newSize) { 
+			for(int i = tempLength; i < newSize; i++) {
+				newData[i] = T();
 			}
 		}
 		this->data = newData;
-		this->lenght = newSize;
+		this->length = newSize;
 	}
 
 	T operator[](int index) {
-		if(index < 0 || index >= lenght ) {
+		if(index < 0 || index >= length ) {
 			throw std::out_of_range("Out of range");
 		}
 		return this->data[index];
+	}
+
+	DynamicArray<T>* operator+(const DynamicArray<T>* other) {
+		DynamicArray<T>* result = new DynamicArray<T>(this->GetSize()+other.GetSize());
+		for(int i = 0 ; i < this->GetSize(); i++) {
+			this->Set(i, this->Get(i));
+		}
+		for(int i = this->GetSize() ; i < result->GetSize() ; i++) {
+			this->Set(i, this->Get(i));
+		}
+		return result;
+	}
+
+	DynamicArray<T>& operator+(const DynamicArray<T>& other) {
+		int oldSize = this->GetSize();
+		this->Resize(oldSize+other.GetSize());
+		for(int i = oldSize ; i < this->GetSize(); i++) {
+			this->Set(i, other.Get(i));
+		}
+		return *this;
 	}
 }; 
 
