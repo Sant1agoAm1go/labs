@@ -7,3 +7,8 @@ snake.exe
 .vscode/launch.json
 .vscode/settings.json
 *.zip
+2s/lab2/build/CMakeCache.txt
+2s/lab2/build/CMakeFiles/cmake.check_cache
+2s/lab2/build/CMakeFiles/CMakeConfigureLog.yaml
+2s/lab2/build/CMakeFiles/3.26.3/CMakeSystem.cmake
+2s/lab2/CMakeLists.txt
