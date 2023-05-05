@@ -16,9 +16,12 @@ public:
     // auto& Get(int index) {
     //     return tuple.Get(index);
     // }
-    template<typename T0>
-    auto& Get(int index) {
-        return std::get<T0)>(tuple[index])
+
+
+    
+    template<int T0>
+    auto Get() {
+        return std::get<T0>(tuple[T0]);
     }
 
 };

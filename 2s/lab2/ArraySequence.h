@@ -48,13 +48,13 @@ public:
 	
 	
 	void Append(T item) override {
-		this->items->Resize(this->items->GetSize()+1, 0);
+		this->items->Resize(this->items->GetSize()+1);
 		this->items->Set(this->items->GetSize()-1, item);
 		
 	}
 
 	void Prepend(T item) override {
-		this->items->Resize(this->items->GetSize()+1, 0);
+		this->items->Resize(this->items->GetSize()+1);
 		for(int i = this->items->GetSize() - 1; i > 0; i--) {
 			this->items->Set(i,this->items->Get(i-1));
 		}
@@ -62,7 +62,7 @@ public:
 	}
 
 	void InsertAt(T item, int index) override {
-		this->items->Resize(this->items->GetSize()+1, 0);
+		this->items->Resize(this->items->GetSize()+1);
 		for(int i = this->items->GetSize() - 1; i > index; i--) {
 			this->items->Set(i,this->items->Get(i-1));
 		}

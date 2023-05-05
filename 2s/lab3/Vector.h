@@ -100,7 +100,7 @@ public:
 		return start;
 	}
 
-	Vector<T>* VectorAdd(const Vector<T>* other) {
+	Vector<T>* Sum(const Vector<T>* other) {
 		if(this->GetLength() != other->GetLength()) {
 			throw std::logic_error("Lengths of vectors are not equal");
 		}
@@ -117,7 +117,7 @@ public:
 		}
 	}
 
-	T VectorNorm() {
+	T Norm() {
 		T result = T();
 		for(int i = 0; i < this->GetLength(); i++) {
 			result+=std::pow(this->Get(i),2);
