@@ -1,62 +1,32 @@
 #pragma once
-#include <ArraySequence.h>
+#include "Array.h"
 #include <math.h>
 template <typename T> class Vector {
 private:
-    T* data;
-    int length;
+    DynamicArray<T>* vector;
 public:
     Vector() {
-        data = new T[1];
-		data[0] = T();
-        length = 0;
+		this->vector = new DynamicArray<T>();
     }
 
     Vector(T* other, int count) { // Копировать координаты из переданного вектора
-	
-		data = new T[count];
-		length = count;
-		for (int i = 0; i < length ; i++) {
-			data[i] = other[i];
-		}
-
+		this->vector = new DynamicArray<T>(other, count);
 	}
 
 	Vector(int size) { //	Создать вектор заданной длины
-	
-		data = new T[size];
-		length = size;
-		for(int i = 0; i < length; i++) {
-			data[i] = T();
-		}
+		this->vector = new DynamicArray<T>(size);
 	}
 
 	Vector(const Vector<T>& other) {  // Копирующий конструктор
-		length = other.length;
-		data = new T[length];
-		for (int i = 0; i < length; i++) {
-			this->data[i] = other.Get(i);
-		}
+		this->vector = new DynamicArray<T>(*other.vector);
 	}
 
     ~Vector() {
-        delete[] data;
+        delete vector;
     }
 
-    T Get(int index) const override {
-        if(index < 0 || index >= length ) {
-            throw std::out_of_range("Out of range");
-        }
-        return this->data[index];
-	}
-
-    void Set(int index, T value) { 
-	
-		if(index < 0 || index >= length) {
-			throw std::out_of_range("Out of range");
-		}
-		this->data[index] = value;
-		
+    T Get(int index) const {
+        return this->vector->Get(index);
 	}
 
     T GetFirst() const {
@@ -68,21 +38,22 @@ public:
     }
 
     int GetLength() const { 
-	    return this->length;
+	    return this->vector->GetSize();
 	}
 
     void Append(T item) {
-	    this->Set(this->GetLength()-1, item);
+	    this->vector->Set(this->GetLength()-1, item);
 		
 	}
 
 	void Prepend(T item) {
-		this->Set(0, item);
+		this->vector->Set(0, item);
 	}
 
-	void InsertAt(T item, int index) {
-		this->Set(index, item);
+	void InsertAt(int index, T item) {
+		this->vector->Set(index, item);
 	}
+
 
     Vector <T>* Concat(Vector <T>* other) {
         Vector <T>* result = new Vector<T>(this->GetLength()+other->GetLength());
@@ -114,7 +85,7 @@ public:
 
 	Vector <T>* Where(bool (*func)(T)) {
 		Vector <T>* result = new Vector<T>(this->GetLength());
-		for (int i = 0; i < this->; i++) {
+		for (int i = 0; i < this->GetLength(); i++) {
 			if(func(this->Get(i))) {
             	result->Append(this->Get(i));
 			}
@@ -135,21 +106,21 @@ public:
 		}
 		Vector<T>* result = new Vector<T>(this->GetLength());
 		for(int i = 0; i < this->GetLength(); i++) {
-			result->Set(i, this->Get(i) + other->Get(i));
+			result->vector->Set(i, this->Get(i) + other->Get(i));
 		}
 		return result;
 	}
 
 	void VectorScal(T scalar) {
 		for(int i = 0; i < this->GetLength(); i++) {
-			this->Set(i, this->Get(i)*scalar);
+			this->vector->Set(i, this->Get(i)*scalar);
 		}
 	}
 
 	T VectorNorm() {
 		T result = T();
 		for(int i = 0; i < this->GetLength(); i++) {
-			result+=std::pow(this->GetLength(),2);
+			result+=std::pow(this->Get(i),2);
 		}
 		return std::sqrt(result);
 	}
@@ -162,11 +133,11 @@ public:
 		return result;
 	}
 
-	Sequence <T>* Slice(int index, int number, Sequence<T>* seq) {
+	Vector<T>* Slice(int index, int number, Vector<T>* seq) {
 		if(std::abs(index) > this->GetLength() || index+number > this->GetLength()) {
 			throw std::out_of_range("Out of range");
 		}
-		Sequence <T>* result = new Vector<T>(this->GetLength());
+		Vector<T>* result = new Vector<T>(this->GetLength());
 		int resInd = 0;
 		if(index >= 0) {
 			for(int i = 0; i < index; i++) {
@@ -189,10 +160,10 @@ public:
 	}
 
 	T operator[](int index) {
-		if(index < 0 || index >= length ) {
+		if(index < 0 || index >= this->GetLength() ) {
 			throw std::out_of_range("Out of range");
 		}
-		return this->data[index];
+		return this->Get(index);
 	}
 
 	Vector<T>* operator+(const Vector<T>* other) {
@@ -201,7 +172,7 @@ public:
 		}
 		Vector<T>* result = new Vector<T>(this->GetLength());
 		for(int i = 0; i < this->GetLength(); i++) {
-			this->Set(i, this->Get(i) + other->Get(i));
+			this->vector->Set(i, this->Get(i) + other->Get(i));
 		}
 		return result;
 	}
@@ -211,7 +182,7 @@ public:
 			throw std::logic_error("Lengths of vectors are not equal");
 		}
 		for(int i = 0; i < this->GetLength(); i++) {
-			this->Set(i, this->Get(i) + other.Get(i));
+			this->vector->Set(i, this->Get(i) + other.Get(i));
 		}
 		return *this;
 	}

@@ -140,7 +140,7 @@ public:
 		return result;
 	}
 
-	T operator[](int index) {
+	T& operator[](int index) {
 		if(index < 0 || index >= this->GetLength()) {
 			throw std::out_of_range("Out of range");
 		}
