@@ -109,7 +109,7 @@ public:
 		Sequence<int> * seq = new ArraySequence(new [] {1,2,3,4,5});
 	}*/ 
 
-	Item<T>* operator[](int index) {
+	/*Item<T>* operator[](int index) {
         if(index < 0 || index >= this->GetLength()) {
 			throw std::out_of_range("Out of range");
 		}
@@ -118,7 +118,7 @@ public:
             ptr = ptr->next;
         }
         return ptr;
-	}
+	}*/
 
 	Sequence<T>* operator+(const LinkedListSequence<T>* other) {
 		Sequence <T>* result = new LinkedListSequence<T>();

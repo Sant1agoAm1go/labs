@@ -8,7 +8,7 @@ int main() {
     vec.InsertAt(0, 2);
     vec.InsertAt(1, 3);
     vec.InsertAt(2, 6);
-    assert(vec.VectorNorm() == 7);
+    assert(vec.Norm() == 7);
     assert(vec[0] == 2);
     assert(vec[1] == 3);
     assert(vec[2] == 6);

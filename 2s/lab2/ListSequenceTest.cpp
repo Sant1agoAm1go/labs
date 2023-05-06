@@ -52,7 +52,7 @@ int main() {
 
     Sequence<int>* seq = new LinkedListSequence<int>(data2,sizeof(data2)/sizeof(int));
     Sequence<int>* add  = new LinkedListSequence<int>(data3,sizeof(data3)/sizeof(int));
-    Sequence<int>* slices = seq->Slice(3,2,add);
+    Sequence<int>* slices = seq->Slice(1,2,add);
     for(int i = 0; i < slices->GetLength(); i++) {
         std::cout << "slices[" << i << "] = " << slices->Get(i) << std::endl;
     }
