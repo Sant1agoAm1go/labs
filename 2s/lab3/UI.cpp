@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Vector.h"
 #include <complex.h>
+#include "Complex.h"
 #include <time.h>
 
 template <typename T>
@@ -18,7 +19,7 @@ int main_t() {
         std::cout << "vec["<< i << "] = " << vec.Get(i) << std::endl;
     }
 
-    std::cout << "VectorNorm = " << vec.Norm() << std::endl;
+    std::cout << "Norm = " << vec.Norm() << std::endl;
     vec.VectorScal(2);
     for(int i = 0; i < vec.GetLength(); i++) {
         std::cout << "vec["<< i << "] = " << vec.Get(i) << std::endl;
