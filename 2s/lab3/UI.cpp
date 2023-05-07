@@ -7,7 +7,7 @@
 template <typename T>
 int main_t() {
     int length;
-    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð´Ð»Ð¸Ð½Ñƒ Ð²ÐµÐºÑ‚Ð¾Ñ€Ð°: ";
+    std::cout << "Ââåäèòå ðàçìåðíîñòü âåêòîðà: ";
     std::cin >> length;
     auto vec = Vector<T>(length);
     std::cout << "\n";
@@ -33,10 +33,9 @@ int main_t() {
     }
     return 0;
 }
-
 int main() {
     srand(time(nullptr));
-    std::cout << "Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ñ…Ñ€Ð°Ð½Ð¸Ð¼Ñ‹Ð¹ Ñ‚Ð¸Ð¿:" << std::endl;
+    std::cout << "Âûáåðèòå õðàíèìûé òèï:" << std::endl;
     std::cout << "0 - integer, 1 - real" << std::endl;
     int type;
     std::cin >> type;
