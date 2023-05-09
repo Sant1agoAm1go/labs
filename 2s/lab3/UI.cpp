@@ -24,7 +24,7 @@ int main_t() {
     for(int i = 0; i < vec.GetLength(); i++) {
         std::cout << "vec["<< i << "] = " << vec.Get(i) << std::endl;
     }
-    auto vec2 = Vector<T>(vec);
+    auto vec2 = vec;
     std::cout << "Scalar product of vec and equal vector:" << std::endl; 
     std::cout << "ScalarMult = " << vec.ScalarMult(&vec2) << std::endl;
 
