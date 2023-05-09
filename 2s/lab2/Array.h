@@ -92,7 +92,7 @@ public:
 	}
 
 	DynamicArray<T>* operator+(const DynamicArray<T>* other) {
-		DynamicArray<T>* result = new DynamicArray<T>(this->GetSize()+other.GetSize());
+		DynamicArray<T>* result = new DynamicArray<T>(this->GetSize()+other->GetSize());
 		for(int i = 0 ; i < this->GetSize(); i++) {
 			this->Set(i, this->Get(i));
 		}

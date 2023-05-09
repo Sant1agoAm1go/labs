@@ -9,15 +9,15 @@ public:
 		this->items = new DynamicArray<T>();
 	}
 
-	ArraySequence(T* other, int count) { //	Копировать элементы из переданного массива
+	ArraySequence(T* other, int count) { 
 		this->items = new DynamicArray<T>(other, count);
 	}
 
-	ArraySequence(const DynamicArray<T>& other) {  // Копирующий конструктор
+	ArraySequence(const DynamicArray<T>& other) {  
     	this->items = new DynamicArray<T>(other);
     }
 
-	ArraySequence(const ArraySequence<T>& other) { //Копирующий конструктор
+	ArraySequence(const ArraySequence<T>& other) { 
                 this->items = new DynamicArray<T>(*other.items);
                 //this->items = other.items;
 		/*this->items = new DynamicArray<T>(other.GetLength(), -1);

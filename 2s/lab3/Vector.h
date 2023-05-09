@@ -9,15 +9,15 @@ public:
 		this->vector = new DynamicArray<T>();
     }
 
-    Vector(T* other, int count) { // Копировать координаты из переданного вектора
+    Vector(T* other, int count) { 
 		this->vector = new DynamicArray<T>(other, count);
 	}
 
-	Vector(int size) { //	Создать вектор заданной длины
+	Vector(int size) { 
 		this->vector = new DynamicArray<T>(size);
 	}
 
-	Vector(const Vector<T>& other) {  // Копирующий конструктор
+	Vector(const Vector<T>& other) {  
 		this->vector = new DynamicArray<T>(*other.vector);
 	}
 
