@@ -30,15 +30,15 @@ public:
 		delete items;
 	}
 
-	T GetFirst() const override {
+	T& GetFirst() const override {
 		return this->items->Get(0);
 	}
 
-	T GetLast () const override{
+	T& GetLast () const override{
 		return this->Get(items->GetSize()-1);
 	}
 
-	T Get(int index) const override {
+	T& Get(int index) const override {
 		return this->items->Get(index);
 	}
 

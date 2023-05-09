@@ -46,7 +46,7 @@ public:
 	}
 
 // Декомпозиция
-	T Get(int index) const {
+	T& Get(int index) const {
 		if(index < 0 || index >= length ) {
 			throw std::out_of_range("Out of range");
 		}
@@ -87,7 +87,7 @@ public:
 		this->length = newSize;
 	}
 
-	T operator[](int index) {
+	T& operator[](int index) {
 		if(index < 0 || index >= length ) {
 			throw std::out_of_range("Out of range");
 		}

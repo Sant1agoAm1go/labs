@@ -10,7 +10,6 @@ int main_t() {
     std::cout << "Enter dimension of vector: ";
     std::cin >> length;
     auto vec = Vector<T>(length);
-    std::cout << "\n";
     for(int i = 0; i < vec.GetLength(); i++) {
         vec.InsertAt(i, rand() % 10);
     }
@@ -29,10 +28,10 @@ int main_t() {
     std::cout << "Scalar product of vec and equal vector:" << std::endl; 
     std::cout << "ScalarMult = " << vec.ScalarMult(&vec2) << std::endl;
 
-    auto* add = vec.Sum(&vec2);
+    auto add = vec + vec2;
     std::cout << "Vector sum of vec and equal vector:" << std::endl;
-    for(int i = 0; i < add->GetLength(); i++) {
-        std::cout << "sum["<< i << "] = " << add->Get(i) << std::endl;
+    for(int i = 0; i < add.GetLength(); i++) {
+        std::cout << "sum["<< i << "] = " << add.Get(i) << std::endl;
     }
     return 0;
 }

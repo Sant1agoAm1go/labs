@@ -25,15 +25,15 @@ public:
         delete vector;
     }
 
-    T Get(int index) const {
+    T& Get(int index) const {
         return this->vector->Get(index);
 	}
 
-    T GetFirst() const {
+    T& GetFirst() const {
         return this->Get(0);
     }
 
-    T GetLast() const {
+    T& GetLast() const {
         return this->Get(this->GetLength()-1);
     }
 
@@ -159,7 +159,7 @@ public:
 		return result;
 	}
 
-	T operator[](int index) {
+	T& operator[](int index) const {
 		if(index < 0 || index >= this->GetLength() ) {
 			throw std::out_of_range("Out of range");
 		}
@@ -183,6 +183,46 @@ public:
 		}
 		for(int i = 0; i < this->GetLength(); i++) {
 			this->vector->Set(i, this->Get(i) + other.Get(i));
+		}
+		return *this;
+	}
+
+	Vector<T>& operator+(Vector<T>&& other) {
+		if(this->GetLength() != other.GetLength()) {
+			throw std::logic_error("Lengths of vectors are not equal");
+		}
+		for(int i = 0; i < this->GetLength(); i++) {
+			this->vector->Set(i, this->Get(i) + std::move(other.Get(i)));
+		}
+		return *this;
+	}
+			
+	Vector<T>* operator=(Vector<T>* other) {
+		if(this->GetLength() != other->GetLength()) {
+			throw std::logic_error("Lengths of vectors are not equal");
+		}
+		for(int i = 0; i < this->GetLength(); i++) {
+			this->vector->Set(i, other->Get(i));
+		}
+		return *this;
+	}
+
+	Vector<T>& operator=(Vector<T>& other) {
+		if(this->GetLength() != other.GetLength()) {
+			throw std::logic_error("Lengths of vectors are not equal");
+		}
+		for(int i = 0; i < this->GetLength(); i++) {
+			this->vector->Set(i, other.Get(i));
+		}
+		return *this;
+	}
+
+	Vector<T>& operator=(Vector<T>&& other) {
+		if(this->GetLength() != other.GetLength()) {
+			throw std::logic_error("Lengths of vectors are not equal");
+		}
+		for(int i = 0; i < this->GetLength(); i++) {
+			this->vector->Set(i, std::move(other.Get(i)));
 		}
 		return *this;
 	}

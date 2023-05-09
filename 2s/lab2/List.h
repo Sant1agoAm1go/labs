@@ -51,21 +51,21 @@ public:
         }
     }
 
-    T GetFirst() const {
+    T& GetFirst() const {
         if (this->head == nullptr) {
             throw std::invalid_argument("List is empty");
         }
         return this->head->data;
     }
 
-    T GetLast() const {
+    T& GetLast() const {
         if (this->head == nullptr) {
             throw std::invalid_argument("List is empty");
         }
         return this->tail->data;
     } 
 
-    T Get(int index) const {
+    T& Get(int index) const {
         if(index < 0 || index >= lenght ) {
             throw std::out_of_range("Out of range");
         }
