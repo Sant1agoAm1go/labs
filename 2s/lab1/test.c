@@ -4,11 +4,14 @@
 #include "test.h"
 #include "dynar.h" 
 #include "functions.h"
+#include <string.h>
 void testing() {
     srand(time(NULL));
+	void* start = NULL;
 	void* comparator = NULL;
 	void* function = NULL;
 	void* condition_function = NULL;
+	void* reducer = NULL;
 	DynamicArray *dynArr1 = NULL;
 	DynamicArray *dynArr2 = NULL;
 	int lenght1 = 0, lenght2 = 0, n = 0;
@@ -29,6 +32,10 @@ void testing() {
 			comparator = &cmp_int;
 			function = &function_int;
 			condition_function = &condition_function_int;
+			reducer = &reducer_int;
+			int value_int = 4;
+			start = malloc(sizeof(int));
+			memcpy(start, &value_int, sizeof(int));
 			dynArr1 = create_DynamicArray(sizeof(int),lenght1);
 			dynArr2 = create_DynamicArray(sizeof(int),lenght2);
 			break;
@@ -36,6 +43,10 @@ void testing() {
 			comparator = &cmp_double;
 			function = &function_double;
 			condition_function = &condition_function_double;
+			reducer = &reducer_double;
+			double value_double = 4.0;
+			start = malloc(sizeof(double));
+			memcpy(start, &value_double, sizeof(double));
 			dynArr1 = create_DynamicArray(sizeof(double),lenght1);
 			dynArr2 = create_DynamicArray(sizeof(double),lenght2);
 			break;
@@ -74,6 +85,14 @@ void testing() {
 	some_printf(dynArr1);
 	//DynamicArray *where_arr = some_where_hard(dynArr1, condition_function);
 	//some_printf(where_arr);
+	printf("\n");
+
+	printf("Enter numbers for reduce_arr:\n");
+	DynamicArray* reduce_arr = create_definite_DynamicArray(sizeof(int), 3);
+	printf("\n");
+	printf("reduce function:\n");
+	int* result = reduce((void* (*)(void*,void*, void*))reducer, start, reduce_arr);
+	printf("%d", *result);
 	printf("\n");
 
 	delete_DynamicArray(dynArr1);

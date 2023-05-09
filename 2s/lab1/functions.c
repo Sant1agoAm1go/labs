@@ -74,6 +74,19 @@ void function_double(const void *a) {
     *(double*)a *= 2;
 }
 
+void* reducer_int(int* a, int* b, void* result) {
+    int func = 2*(*a)+3*(*b);
+    memcpy(result, &func, sizeof(int));
+    return result;
+    //return &func;
+}
+
+void* reducer_double(double* a, double* b, void* result) {
+    double func = 2*(*a)+3*(*b);
+    memcpy(result, &func, sizeof(int));
+    return result;
+}
+
 void some_map(DynamicArray* dynArr, void (*function)(const void*)) {
     for (size_t i = 0; i < dynArr->lenght; i++) {
         function(dynArr->data[i]);
@@ -129,6 +142,16 @@ DynamicArray* some_where_hard(DynamicArray* dynArr, int (*condition_function)(co
     result->lenght = result_lenght;
     result->data = (void **) realloc(result->data, result->lenght * sizeof(void *));
     return result;
+}
+
+void* reduce(void* (*func)(void*,void*, void*), void* start, DynamicArray* dynArr) {
+        void* result = malloc(dynArr->size_of_type);
+		for (int i = 0; i < dynArr->lenght; i++) {
+            memcpy(start, func(dynArr->data[i], start, result), dynArr->size_of_type);
+			//start = func(dynArr->data[i], start, result);
+		}
+        free(result);
+		return start;
 }
 
 void some_concat(DynamicArray** dynArr1, DynamicArray* dynArr2) {
