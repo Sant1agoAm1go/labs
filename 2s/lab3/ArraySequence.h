@@ -114,7 +114,7 @@ public:
 		return start;
 	}
 
-	Sequence <T>* Slice(int index, int number, Sequence<T>* seq) {
+	Sequence <T>* Slice(int index, int number, Sequence<T>* seq) override {
 		if(std::abs(index) > this->GetLength() || index+number > this->GetLength()) {
 			throw std::out_of_range("Out of range");
 		}

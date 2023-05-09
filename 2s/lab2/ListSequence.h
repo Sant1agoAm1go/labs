@@ -100,7 +100,7 @@ public:
 		return start;
 	}
 
-	Sequence <T>* Slice(int index, int number, Sequence<T>* seq) {
+	Sequence <T>* Slice(int index, int number, Sequence<T>* seq) override {
 		return nullptr;
 	}
 		/*if(abs(index) > this->GetLength()) {

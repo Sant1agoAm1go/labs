@@ -6,7 +6,6 @@ private:
 	int length;
 public:
 	
-// Конструкторы
 	DynamicArray() {
 		data = new T[1];
 		data[0] = T();
@@ -45,7 +44,6 @@ public:
 		delete[] data;
 	}
 
-// Декомпозиция
 	T Get(int index) const {
 		if(index < 0 || index >= length ) {
 			throw std::out_of_range("Out of range");
@@ -53,12 +51,11 @@ public:
 		return this->data[index];
 	}
 	
-	int GetSize() const { //	Получить размер массива
+	int GetSize() const { 
 	
 		return this->length;
 	}
 	
-// Операции
 	void Set(int index, T value) { 
 	
 		if(index < 0 || index >= length) {
