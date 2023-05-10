@@ -54,41 +54,10 @@ public:
 		this->vector->Set(index, item);
 	}
 
-
-    Vector <T>* Concat(Vector <T>* other) {
-        Vector <T>* result = new Vector<T>(this->GetLength()+other->GetLength());
-        for (int i = 0; i < this->GetLength(); i++)
-            result->Append(this->Get(i));
-        for (int i = 0; i < other->GetLength(); i++)
-            result->Append(other->Get(i));
-        return result;
-	}
-
-	Vector <T>* GetSubsequence(int startIndex, int endIndex) {
-        if(startIndex < 0 || endIndex < 0 || startIndex >= this->GetLength() || endIndex >= this->GetLength()) {
-            throw std::out_of_range("Out of range");
-        }
-        Vector <T>* result = new Vector<T>(this->GetLength());
-        for (int i = startIndex; i <= endIndex; i++) {
-            result->Append(this->Get(i));
-        }
-        return result;
-    }
-
 	Vector <T>* Map(T (*func)(T)) {
 		Vector <T>* result = new Vector<T>(this->GetLength()); 
 		for (int i = 0; i < this->GetLength(); i++) {
-            result->Append(func(this->Get(i)));
-        }
-		return result;
-	}
-
-	Vector <T>* Where(bool (*func)(T)) {
-		Vector <T>* result = new Vector<T>(this->GetLength());
-		for (int i = 0; i < this->GetLength(); i++) {
-			if(func(this->Get(i))) {
-            	result->Append(this->Get(i));
-			}
+            result->InsertAt(func(this->Get(i)));
         }
 		return result;
 	}
@@ -166,48 +135,39 @@ public:
 		return this->Get(index);
 	}
 
-	Vector<T>* operator+(const Vector<T>* other) {
-		if(this->GetLength() != other->GetLength()) {
-			throw std::logic_error("Lengths of vectors are not equal");
-		}
-		Vector<T>* result = new Vector<T>(this->GetLength());
-		for(int i = 0; i < this->GetLength(); i++) {
-			this->vector->Set(i, this->Get(i) + other->Get(i));
+	friend Vector<T> operator*(const T& scalar, const Vector<T>& vec) {
+		Vector<T> result = vec;
+		for(int i = 0; i < result.GetLength(); i++) {
+			result.vector->Set(i, vec.Get(i)*scalar);
 		}
 		return result;
 	}
 
-	Vector<T>& operator+(const Vector<T>& other) {
-		if(this->GetLength() != other.GetLength()) {
-			throw std::logic_error("Lengths of vectors are not equal");
+	friend Vector<T> operator*(const Vector<T>& vec, const T& scalar){
+		Vector<T> result = vec;
+		for(int i = 0; i < result.GetLength(); i++) {
+			result.vector->Set(i, vec.Get(i)*scalar);
 		}
-		for(int i = 0; i < this->GetLength(); i++) {
-			this->vector->Set(i, this->Get(i) + other.Get(i));
-		}
-		return *this;
+		return result;
 	}
 
-	Vector<T>& operator+(Vector<T>&& other) {
-		if(this->GetLength() != other.GetLength()) {
-			throw std::logic_error("Lengths of vectors are not equal");
+	friend Vector<T> operator+(const Vector<T>& vec, const Vector<T>& vec2) {
+		Vector<T> result = vec;
+		for(int i = 0; i < result.GetLength(); i++) {
+			result.vector->Set(i, vec.Get(i)+vec2.Get(i));
 		}
-		for(int i = 0; i < this->GetLength(); i++) {
-			this->vector->Set(i, this->Get(i) + std::move(other.Get(i)));
-		}
-		return *this;
-	}
-			
-	Vector<T>* operator=(Vector<T>* other) {
-		if(this->GetLength() != other->GetLength()) {
-			throw std::logic_error("Lengths of vectors are not equal");
-		}
-		for(int i = 0; i < this->GetLength(); i++) {
-			this->vector->Set(i, other->Get(i));
-		}
-		return *this;
+		return result;
 	}
 
-	Vector<T>& operator=(Vector<T>& other) {
+	friend Vector<T> operator+(const Vector<T>& vec, const T& scalar) {
+		Vector<T> result = vec;
+		for(int i = 0; i < result.GetLength(); i++) {
+			result.vector->Set(i, vec.Get(i)+scalar);
+		}
+		return result;
+	}
+
+	Vector<T>& operator=(const Vector<T>& other) {
 		if(this->GetLength() != other.GetLength()) {
 			throw std::logic_error("Lengths of vectors are not equal");
 		}
@@ -226,4 +186,95 @@ public:
 		}
 		return *this;
 	}
+
+
+
+
+
+
+/*Vector <T>* Concat(Vector <T>* other) {
+        Vector <T>* result = new Vector<T>(this->GetLength()+other->GetLength());
+        for (int i = 0; i < this->GetLength(); i++)
+            result->Append(this->Get(i));
+        for (int i = 0; i < other->GetLength(); i++)
+            result->Append(other->Get(i));
+        return result;
+	}
+
+	Vector <T>* GetSubsequence(int startIndex, int endIndex) {
+        if(startIndex < 0 || endIndex < 0 || startIndex >= this->GetLength() || endIndex >= this->GetLength()) {
+            throw std::out_of_range("Out of range");
+        }
+        Vector <T>* result = new Vector<T>(this->GetLength());
+        for (int i = startIndex; i <= endIndex; i++) {
+            result->Append(this->Get(i));
+        }
+        return result;
+
+
+			Vector <T>* Where(bool (*func)(T)) {
+		Vector <T>* result = new Vector<T>(this->GetLength());
+		for (int i = 0; i < this->GetLength(); i++) {
+			if(func(this->Get(i))) {
+            	result->Append(this->Get(i));
+			}
+        }
+		return result;
+	}
+    }*/
+
+
+
+
+	/*Vector<T>* operator+(const Vector<T>* other) {
+		if(this->GetLength() != other->GetLength()) {
+			throw std::logic_error("Lengths of vectors are not equal");
+		}
+		Vector<T>* result = new Vector<T>(this->GetLength());
+		for(int i = 0; i < this->GetLength(); i++) {
+			this->vector->Set(i, this->Get(i) + other->Get(i));
+		}
+		return result;
+	}*/
+
+	/*Vector<T>& operator+(const Vector<T>& other) {
+		if(this->GetLength() != other.GetLength()) {
+			throw std::logic_error("Lengths of vectors are not equal");
+		}
+		for(int i = 0; i < this->GetLength(); i++) {
+			this->vector->Set(i, this->Get(i) + other.Get(i));
+		}
+		return *this;
+	}*/
+
+	/*Vector<T>& operator+(Vector<T>&& other) {
+		if(this->GetLength() != other.GetLength()) {
+			throw std::logic_error("Lengths of vectors are not equal");
+		}
+		for(int i = 0; i < this->GetLength(); i++) {
+			this->vector->Set(i, this->Get(i) + std::move(other.Get(i)));
+		}
+		return *this;
+	}
+			
+	Vector<T>* operator=(Vector<T>* other) {
+		if(this->GetLength() != other->GetLength()) {
+			throw std::logic_error("Lengths of vectors are not equal");
+		}
+		for(int i = 0; i < this->GetLength(); i++) {
+			this->vector->Set(i, other->Get(i));
+		}
+		return *this;
+	}*/
+
+
+
+	/*Vector<T>& operator*(const T& scalar) {
+		for(int i = 0; i < this->GetLength(); i++) {
+			this->vector->Set(i, this->Get(i)*scalar);
+		}
+		return *this;
+	}*/
+
+    
 };
