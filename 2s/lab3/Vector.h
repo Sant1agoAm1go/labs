@@ -86,6 +86,14 @@ public:
 		}
 	}
 
+	/*Vector<T>* VectorScal(T scalar) {
+		Vector<T>* result = new Vector<T>(this->GetLenght());
+		for(int i = 0; i < result->GetLength(); i++) {
+			result->vector->Set(i, this->Get(i)*scalar);
+		}
+		return result;
+	}*/
+
 	T Norm() {
 		T result = T();
 		for(int i = 0; i < this->GetLength(); i++) {
