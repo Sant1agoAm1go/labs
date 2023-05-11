@@ -94,12 +94,12 @@ public:
 		return result;
 	}*/
 
-	T Norm() {
+	double Norm() {
 		T result = T();
 		for(int i = 0; i < this->GetLength(); i++) {
 			result+=std::pow(this->Get(i),2);
 		}
-		return std::sqrt(result);
+		return std::sqrt((double) result);
 	}
 
 	T ScalarMult(const Vector<T>* other) {
