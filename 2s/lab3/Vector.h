@@ -195,6 +195,15 @@ public:
 		return *this;
 	}
 
+	friend std::ostream& operator << (std::ostream& stream, const Vector<T>& vec) {
+		stream << "{";
+		for(int i = 0; i < vec.GetLength() - 1; i++) {
+        stream << vec.Get(i) << ", ";
+    	}
+		stream << vec.GetLast() << "}" << std::endl;
+		return stream;
+	}
+
 
 
 
