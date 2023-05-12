@@ -25,7 +25,7 @@ public:
         delete vector;
     }
 
-	const T& Get(int index) const {
+	const T& Get(const int index) const {
         return this->vector->Get(index);
 	}
 
@@ -94,12 +94,12 @@ public:
 		return result;
 	}*/
 
-	double Norm() {
+	T Norm() {
 		T result = T();
 		for(int i = 0; i < this->GetLength(); i++) {
 			result+=std::pow(this->Get(i),2);
 		}
-		return std::sqrt((double) result);
+		return std::sqrt(result);
 	}
 
 	T ScalarMult(const Vector<T>* other) {
