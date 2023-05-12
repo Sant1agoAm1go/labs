@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <cmath>
+#include <math.h>
 
 class complex {
 private:
@@ -62,16 +62,7 @@ public:
         imaginary -= other.imaginary;
         return *this;
     }
-    friend std::ostream& operator << (std::ostream& stream, const complex& other) {
-        if (other.imaginary == 0)
-            stream << other.real;
-        else if (other.imaginary >= 0)
-            stream << other.real << " + " << other.imaginary << 'i';
-        else
-            stream << other.real << " - " << -other.imaginary << 'i';
-        return stream; 
-    }
-
+   
     bool operator == (complex& other) {
         if (this->real == other.real && this->imaginary == other.imaginary)
             return 1;
@@ -117,5 +108,15 @@ public:
         else {
             return 0;
         }
+    }
+
+    friend std::ostream& operator << (std::ostream& stream, const complex& other) {
+        if (other.imaginary == 0)
+            stream << other.real;
+        else if (other.imaginary >= 0)
+            stream << other.real << " + " << other.imaginary << 'i';
+        else
+            stream << other.real << " - " << -other.imaginary << 'i';
+        return stream; 
     }
 };

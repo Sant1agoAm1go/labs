@@ -28,7 +28,6 @@ int main() {
     }
     
     Vector<int> add = vec + vec2;
-    std::cout << "add = " << add << std::endl;
     assert(add[0] == 4);
     assert(add[1] == 6);
     assert(add[2] == 12);
@@ -45,6 +44,7 @@ int main() {
     int items[] = {2,3,6};
     Vector<int> norm = Vector<int>(items, 3);
     assert(norm.Norm() == 7);
-
+    assert(add.ScalarMult(&vec) == 648);
+    std::cout << "Тесты пройдены успешно :)" << std::endl;
     return 0;
 }
