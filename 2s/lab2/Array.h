@@ -113,7 +113,7 @@ public:
 
 	friend std::ostream& operator << (std::ostream& stream, const DynamicArray<T>& arr) {
 		for(int i = 0; i < arr->GetSize(); i++) {
-        os << arr.Get(i) << std::endl;
+    		stream << arr.Get(i) << std::endl;
     }
 		return stream;
 	}

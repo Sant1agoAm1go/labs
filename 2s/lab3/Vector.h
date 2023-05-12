@@ -25,19 +25,19 @@ public:
         delete vector;
     }
 
-    T& Get(int index) const {
+	const T& Get(int index) const {
         return this->vector->Get(index);
 	}
 
-    T& GetFirst() const {
+    const T& GetFirst() const {
         return this->Get(0);
     }
 
-    T& GetLast() const {
+    const T& GetLast() const {
         return this->Get(this->GetLength()-1);
     }
 
-    int GetLength() const { 
+    const int GetLength() const { 
 	    return this->vector->GetSize();
 	}
 
