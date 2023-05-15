@@ -29,7 +29,7 @@ void fill_random_DynamicArray(DynamicArray* dynArr) { //Заполнение с�
     }
 }
 
-DynamicArray* create_random_DynamicArray(size_t size_of_type, size_t lenght) {
+DynamicArray* create_random_DynamicArray(size_t size_of_type, size_t lenght) { //создание с случайными числами
     DynamicArray* result = create_DynamicArray(size_of_type, lenght);
     switch(result->size_of_type) {
         case sizeof(int):
