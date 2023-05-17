@@ -134,4 +134,13 @@ public:
 			this->Append(other->Get(i));
 		return *((Sequence<T>*)this);
 	}
+
+	friend std::ostream& operator << (std::ostream& stream, const LinkedListSequence<T>* list) {
+		stream << "{";
+		for(int i = 0; i < list->GetLength() - 1; i++) {
+        stream << list->Get(i) << ", ";
+    	}
+		stream << list->GetLast() << "}" << std::endl;
+		return stream;
+	}
 };

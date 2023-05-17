@@ -1,10 +1,65 @@
 #include <iostream>
 #include "Tree.h"
+#include "ListSequence.h"
+
 int main() {
     int data1[] = {1,2,3,4,5};
     int data2[] = {6,7,8,9,0};
     int data3[] = {2,4,6,8,0};
-    Node<int>* root = new Node<int>;
+
+    Tree<int>* tree = new Tree<int>;
+    tree->root = new Node<int>;
+    tree->root->data = (Sequence<int>*) new LinkedListSequence<int>(data1,5);
+    tree->root->key = 2;
+
+    Node<int>* test1 = new Node<int>;
+    test1->data = (Sequence<int>*) new LinkedListSequence<int>(data2,5);
+    test1->key = 1;
+    test1->left = nullptr;
+    test1->right = nullptr;
+
+    Node<int>* test2 = new Node<int>;
+    test2->data = (Sequence<int>*) new LinkedListSequence<int>(data3,5);
+    test2->key = 3;
+    test2->left = nullptr;
+    test2->right = nullptr;
+
+    if(test1->key < tree->root->key) {
+        tree->root->left = test1;
+    }
+    else if(test1->key > tree->root->key) {
+        tree->root->right = test1;
+    }
+    if(test2->key < tree->root->key) {
+       tree->root->left= test2;
+    }
+    else if(test2->key > tree->root->key) {
+        tree->root->right = test2;
+    }
+    std::cout << "{";
+    for(int i = 0; i < tree->root->left->data->GetLength()-1; i++) {
+    std::cout << tree->root->left->data->Get(i) << ", "; 
+    }
+    std::cout << tree->root->left->data->GetLast() << "} "; 
+
+    std::cout << "{";
+    for(int i = 0; i < tree->root->data->GetLength()-1; i++) {
+    std::cout << tree->root->data->Get(i) << ", "; 
+    }
+    std::cout << tree->root->data->GetLast() << "} "; 
+
+    std::cout << "{";
+    for(int i = 0; i < tree->root->right->data->GetLength()-1; i++) {
+    std::cout << tree->root->right->data->Get(i) << ", "; 
+    }
+    std::cout << tree->root->right->data->GetLast() << "} "; 
+
+    return 0;
+}
+
+
+
+/*Node<int>* root = new Node<int>;
     Node<int>* left_tree = new Node<int>;
     left_tree->left = nullptr;
     left_tree->right = nullptr;
@@ -33,7 +88,4 @@ int main() {
     for(int i = 0; i < 4; i++) {
         std::cout << right_tree->data[i] << ", ";
     }
-    std::cout << right_tree->data[4] << "} ";
-
-    return 0;
-}
+    std::cout << right_tree->data[4] << "} ";*/

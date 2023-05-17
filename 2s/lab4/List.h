@@ -219,6 +219,13 @@ public:
 		}
 		return *this;
 	}
+
+    friend std::ostream& operator << (std::ostream& stream, const LinkedList<T>& list) {
+		for(int i = 0; i < list->GetLenght(); i++) {
+    		stream << list.Get(i) << std::endl;
+        }
+		return stream;
+	}
 }; 
 
 
