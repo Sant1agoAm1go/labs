@@ -3,23 +3,48 @@
 #include "ListSequence.h"
 
 int main() {
-    int data1[] = {1,2,3,4,5};
+    Tree<int>* tree = new Tree<int>(); 
+    Node<int>* root = tree->GetRoot();
+    root = tree->AddNode(root, 15, 150); 
+    root = tree->AddNode(root, 10, 100); 
+    root = tree->AddNode(root, 20, 200); 
+    tree->RootLeftRight(root);
+    delete tree;
+    std::cout << " \n" << "Test completed successfully" << std::endl;
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*int data1[] = {1,2,3,4,5};
     int data2[] = {6,7,8,9,0};
     int data3[] = {2,4,6,8,0};
 
     Tree<int>* tree = new Tree<int>;
     tree->root = new Node<int>;
-    tree->root->data = (Sequence<int>*) new LinkedListSequence<int>(data1,5);
+    tree->root->data = 100;
     tree->root->key = 2;
 
     Node<int>* test1 = new Node<int>;
-    test1->data = (Sequence<int>*) new LinkedListSequence<int>(data2,5);
+    test1->data = 10;
     test1->key = 1;
     test1->left = nullptr;
     test1->right = nullptr;
 
     Node<int>* test2 = new Node<int>;
-    test2->data = (Sequence<int>*) new LinkedListSequence<int>(data3,5);
+    test2->data = 50;
     test2->key = 3;
     test2->left = nullptr;
     test2->right = nullptr;
@@ -52,11 +77,13 @@ int main() {
     for(int i = 0; i < tree->root->right->data->GetLength()-1; i++) {
     std::cout << tree->root->right->data->Get(i) << ", "; 
     }
-    std::cout << tree->root->right->data->GetLast() << "} "; 
-
-    return 0;
-}
-
+    std::cout << tree->root->right->data->GetLast() << "} ";
+    std::cout << "{" << tree->root->left->data << "}";
+    std::cout << "{" << tree->root->data << "}";
+    std::cout << "{" << tree->root->right->data << "}";
+    delete tree;
+    delete test1;
+    delete test2;*/
 
 
 /*Node<int>* root = new Node<int>;
