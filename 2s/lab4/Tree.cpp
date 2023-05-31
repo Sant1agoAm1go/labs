@@ -1,16 +1,24 @@
 #include <iostream>
 #include "Tree.h"
 #include "ListSequence.h"
-
+#include "time.h"
+int func(int a) {
+    return a*2;
+}
 int main() {
+    srand(time(nullptr));
     Tree<int>* tree = new Tree<int>(); 
     Node<int>* root = tree->GetRoot();
+    root = tree->AddNode(root, 3, 30);
+    root = tree->AddNode(root, 5, 50);
     root = tree->AddNode(root, 15, 150); 
     root = tree->AddNode(root, 10, 100); 
     root = tree->AddNode(root, 20, 200); 
-    tree->RootLeftRight(root);
+    root = tree->AddNode(root, 20, 250); 
+    tree->LeftRootRight(root);
     delete tree;
     std::cout << " \n" << "Test completed successfully" << std::endl;
+    std::cout << root->data << std::endl;
     return 0;
 }
 
