@@ -63,6 +63,7 @@ public:
         else if(key > node->key) {
             return SearchElement(node->right, key);
         }
+        return nullptr;
     }
 
     void RootLeftRight(Node<T>* node) {
