@@ -117,7 +117,9 @@ public:
             LeftRootRight(node->right);
             LeftRootRight(node->left);
         }
-    }
+    } 
+    
+    Tree<T>* Map() 
 };
 
 
