@@ -63,6 +63,7 @@ public:
         else if(key > node->key) {
             return SearchElement(node->right, key);
         }
+        return nullptr;
     }
 
     void RootLeftRight(Node<T>* node) {
@@ -84,7 +85,8 @@ public:
     void LeftRootRight(Node<T>* node) {
         if(node != nullptr) {
             LeftRootRight(node->left);
-            std::cout << "{" << node->data << "}";
+            std::cout << " left<--{" << node->data << "}-->right ";
+
             LeftRootRight(node->right);
             
         }

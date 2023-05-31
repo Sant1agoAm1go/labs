@@ -5,12 +5,17 @@
 int main() {
     Tree<int>* tree = new Tree<int>(); 
     Node<int>* root = tree->GetRoot();
+    root = tree->AddNode(root, 3, 30);
+    root = tree->AddNode(root, 5, 50); 
     root = tree->AddNode(root, 15, 150); 
     root = tree->AddNode(root, 10, 100); 
     root = tree->AddNode(root, 20, 200); 
-    tree->RootLeftRight(root);
+    root = tree->AddNode(root, 23, 230);
+    root = tree->AddNode(root, 25, 250); 
+    tree->LeftRootRight(root); 
+    std::cout << "\n" << "{" << tree->SearchElement(root,5)->data << "}" << std::endl;
     delete tree;
-    std::cout << " \n" << "Test completed successfully" << std::endl;
+    std::cout << "Test completed successfully" << std::endl;
     return 0;
 }
 
