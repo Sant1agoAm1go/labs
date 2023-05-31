@@ -83,10 +83,11 @@ public:
         }
     }
 
-    void LeftRootRight(Node<T>* node) {
+    Node<T>* LeftRootRight(Node<T>* node) {
         if(node != nullptr) {
             LeftRootRight(node->left);
-            std::cout << "{" << node->data << "}";
+            //std::cout << "{" << node->data << "}";
+            return node->data;
             LeftRootRight(node->right);
             
         }
@@ -119,7 +120,15 @@ public:
         }
     } 
     
-    Tree<T>* Map() 
+    Tree<T>* Map(T (*func)(T)) {
+        Tree<T>* result = new Tree<T>();
+        Node<T>* root = result->GetRoot(); 
+        root = result->AddNode(root, func(this->GetRoot()->key) , this->GetRoot());
+        Node<T>* node = root;
+        while(node!=nullptr) {
+            node = LeftRightRoot(this
+            
+    } 
 };
 
 
