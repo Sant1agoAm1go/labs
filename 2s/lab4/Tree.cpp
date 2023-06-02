@@ -20,16 +20,17 @@ int main() {
     Tree<int>* map_tree = tree->Map(func);
     map_tree->LeftRootRight(map_tree->GetRoot());
     std::cout <<"\nleft sub_tree: ";
-    std::cout <<"\nleft sub_tree: ";
-    Tree<int>* sub_tree1 = tree->GetSubTree(tree->GetRoot()->left);
+    Tree<int>* sub_tree1 = map_tree->GetSubTree(map_tree->GetRoot()->left);
     sub_tree1->LeftRootRight(sub_tree1->GetRoot());
-    std::cout <<"\nroot: " << "{" << tree->GetRoot()->data << "}";
+    std::cout <<"\nroot: " << "{" << map_tree->GetRoot()->data << "}";
     std::cout <<"\nright sub_tree: ";
-    Tree<int>* sub_tree2 = tree->GetSubTree(tree->GetRoot()->right);
+    Tree<int>* sub_tree2 = map_tree->GetSubTree(map_tree->GetRoot()->right);
     sub_tree2->LeftRootRight(sub_tree2->GetRoot());
-
     std::cout << " \n" << "Test completed successfully" << std::endl;
     delete tree;
+    delete map_tree;
+    delete sub_tree1;
+    delete sub_tree2;
     return 0;
 }
 

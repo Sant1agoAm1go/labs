@@ -178,6 +178,23 @@ public:
         return result;
     }
 
+    Tree<T>* Concater(Node<T>* node1, Node<T>* node2, Node<T>* res_node, Tree<T>* result) {
+        if(node1 != nullptr)
+            res_node = result->AddNode(res_node, node1->key, node1->data);
+        if(node2 != nullptr) 
+            res_node = result->AddNode(res_node, node2->key, node2->data);
+        result = Mergerer(node1->left, node2->left, res_node, result);
+        result = Mergerer(node1->right, node2->right, res_node, result);
+        return result;
+    } 
+
+    Tree<T>* Concat(Tree<T>* tree1, Tree<T>* tree2) {
+        Tree<T>* result = new Tree<T>();
+        Node<T>* res_root = result->GetRoot();
+        result = Mergerer(tree1->GetRoot(), tree2->GetRoot(), res_root, result);
+        return result;
+    }
+
     Tree<T>* SubTree(Node<T>* node, Node<T>* res_node, Tree<T>* result) {
         if(node != nullptr) {
             res_node = result->AddNode(res_node, node->key, node->data);
