@@ -9,12 +9,27 @@ int main() {
     srand(time(nullptr));
     Tree<int>* tree = new Tree<int>(); 
     Node<int>* root = tree->GetRoot();
-    root = tree->AddNode(root, 15, 150); 
     root = tree->AddNode(root, 10, 100); 
+    root = tree->AddNode(root, 5, 50);
+    root = tree->AddNode(root, 3, 30);
     root = tree->AddNode(root, 20, 200); 
-    tree->RootLeftRight(root);
-    delete tree;
+    root = tree->AddNode(root, 30, 300); 
+    tree->LeftRootRight(root);
+
+    std::cout << "\ndouble map_tree: ";
+    Tree<int>* map_tree = tree->Map(func);
+    map_tree->LeftRootRight(map_tree->GetRoot());
+    std::cout <<"\nleft sub_tree: ";
+    std::cout <<"\nleft sub_tree: ";
+    Tree<int>* sub_tree1 = tree->GetSubTree(tree->GetRoot()->left);
+    sub_tree1->LeftRootRight(sub_tree1->GetRoot());
+    std::cout <<"\nroot: " << "{" << tree->GetRoot()->data << "}";
+    std::cout <<"\nright sub_tree: ";
+    Tree<int>* sub_tree2 = tree->GetSubTree(tree->GetRoot()->right);
+    sub_tree2->LeftRootRight(sub_tree2->GetRoot());
+
     std::cout << " \n" << "Test completed successfully" << std::endl;
+    delete tree;
     return 0;
 }
 
