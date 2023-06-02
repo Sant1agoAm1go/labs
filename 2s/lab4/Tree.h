@@ -128,7 +128,7 @@ public:
         result = Mapper(node->right, res_node, func, result);
         }
         return result;
-    } 
+    }
 
     Tree<T>* Map(T (*func)(T)) {
         Tree<T>* result = new Tree<T>();
