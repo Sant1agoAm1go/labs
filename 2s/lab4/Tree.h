@@ -123,19 +123,17 @@ public:
         }
     }
 
-    friend Tree<T>* Mapper(Node<T>* node, Node<T>* res_node, T (*func)(T), Tree<T>* result) {
+    friend void Mapper(Node<T>* node, T (*func)(T), Tree<T>* result) {
         if(node != nullptr) {
-        res_node = result->AddNode(res_node, node->key, func(node->data));
-        result = Mapper(node->left, res_node, func, result);
-        result = Mapper(node->right, res_node, func, result);
+            result->AddNode(result->GetRoot(), node->key, func(node->data));
+            Mapper(node->left, func, result);
+            Mapper(node->right, func, result);
         }
-        return result;
     }
 
     Tree<T>* Map(T (*func)(T)) {
         Tree<T>* result = new Tree<T>();
-        Node<T>* res_root = result->GetRoot();
-        result = Mapper(this->root, res_root, func, result);
+        Mapper(this->root, func, result);
         return result;
     }
 

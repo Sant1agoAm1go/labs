@@ -28,18 +28,24 @@ int main() {
     std::cout << "\ndouble map_tree: ";
     Tree<int>* map_tree = tree->Map(mapper);
     map_tree->LeftRootRight(map_tree->GetRoot());
+
     std::cout <<"\nleft sub_tree: ";
     Tree<int>* sub_tree1 = map_tree->GetSubTree(map_tree->GetRoot()->left);
     sub_tree1->LeftRootRight(sub_tree1->GetRoot());
+
     std::cout <<"\nroot: " << "{" << map_tree->GetRoot()->data << "}";
+
     std::cout <<"\nright sub_tree: ";
     Tree<int>* sub_tree2 = map_tree->GetSubTree(map_tree->GetRoot()->right);
     sub_tree2->LeftRootRight(sub_tree2->GetRoot());
+
     std::cout <<"\nwhere_tree: ";
     Tree<int>* where_tree = tree->Where(wherer);
     where_tree->LeftRootRight(where_tree->GetRoot());
+
     int start = 0;
     std::cout << "\nreduce sum: " << tree->Reduce(tree->GetRoot(), reducer, start);
+
     std::cout << "\nconcatenation of start and map trees: ";
     Tree<int>* test = new Tree<int>();
     test->AddNode(test->GetRoot(), 4, 4); 
@@ -49,12 +55,14 @@ int main() {
     test->AddNode(test->GetRoot(), 9, 9); 
     Tree<int>* concat_tree = tree->Concat(test);
     concat_tree->LeftRootRight(concat_tree->GetRoot());
+
     std::cout << " \n" << "Test completed successfully" << std::endl;
     delete tree;
     delete map_tree;
     delete sub_tree1;
     delete sub_tree2;
     delete where_tree;
+    delete concat_tree;
     return 0;
 }
 
