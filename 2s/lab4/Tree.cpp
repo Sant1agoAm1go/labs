@@ -62,6 +62,7 @@ int main() {
     delete sub_tree1;
     delete sub_tree2;
     delete where_tree;
+    delete test;
     delete concat_tree;
     return 0;
 }
