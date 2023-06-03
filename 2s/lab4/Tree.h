@@ -167,7 +167,6 @@ public:
                 result->AddNode(result->GetRoot(), node1->key, node1->data);
                 Mergerer(node1->left, node2->left, result);
                 Mergerer(node1->right, node2->right, result);
-                //result->AddNode(result->GetRoot(), node2->key, node2->data);
         }
         if(node2 != nullptr) {
             if(node1->data != node2->data) {
