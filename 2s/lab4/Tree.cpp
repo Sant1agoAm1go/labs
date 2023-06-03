@@ -2,22 +2,31 @@
 #include "Tree.h"
 #include "ListSequence.h"
 #include "time.h"
-int func(int a) {
+int mapper(int a) {
     return a*2;
 }
+int reducer(int a, int b) {
+    return a+b;
+}
+
+bool wherer(int a) {
+    return a % 2 != 0;
+}
+
 int main() {
     srand(time(nullptr));
     Tree<int>* tree = new Tree<int>(); 
     Node<int>* root = tree->GetRoot();
-    root = tree->AddNode(root, 10, 100); 
-    root = tree->AddNode(root, 5, 50);
-    root = tree->AddNode(root, 3, 30);
-    root = tree->AddNode(root, 20, 200); 
-    root = tree->AddNode(root, 30, 300); 
+    root = tree->AddNode(root, 10, 10); 
+    root = tree->AddNode(root, 5, 5);
+    root = tree->AddNode(root, 3, 3);
+    root = tree->AddNode(root, 20, 20); 
+    root = tree->AddNode(root, 30, 30); 
+    std::cout << "\nstart tree: ";
     tree->LeftRootRight(root);
 
     std::cout << "\ndouble map_tree: ";
-    Tree<int>* map_tree = tree->Map(func);
+    Tree<int>* map_tree = tree->Map(mapper);
     map_tree->LeftRootRight(map_tree->GetRoot());
     std::cout <<"\nleft sub_tree: ";
     Tree<int>* sub_tree1 = map_tree->GetSubTree(map_tree->GetRoot()->left);
@@ -26,11 +35,26 @@ int main() {
     std::cout <<"\nright sub_tree: ";
     Tree<int>* sub_tree2 = map_tree->GetSubTree(map_tree->GetRoot()->right);
     sub_tree2->LeftRootRight(sub_tree2->GetRoot());
+    std::cout <<"\nwhere_tree: ";
+    Tree<int>* where_tree = tree->Where(wherer);
+    where_tree->LeftRootRight(where_tree->GetRoot());
+    int start = 0;
+    std::cout << "\nreduce sum: " << tree->Reduce(tree->GetRoot(), reducer, start);
+    std::cout << "\nconcatenation of start and map trees: ";
+    Tree<int>* test = new Tree<int>();
+    test->AddNode(test->GetRoot(), 4, 4); 
+    test->AddNode(test->GetRoot(), 6, 6);
+    test->AddNode(test->GetRoot(), 7, 7);
+    test->AddNode(test->GetRoot(), 8, 8); 
+    test->AddNode(test->GetRoot(), 9, 9); 
+    Tree<int>* concat_tree = tree->Concat(test);
+    concat_tree->LeftRootRight(concat_tree->GetRoot());
     std::cout << " \n" << "Test completed successfully" << std::endl;
     delete tree;
     delete map_tree;
     delete sub_tree1;
     delete sub_tree2;
+    delete where_tree;
     return 0;
 }
 

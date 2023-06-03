@@ -10,11 +10,11 @@ public:
 
 template <typename T>
 void DeleteTree(Node<T>* node) {
-        if(node != nullptr) {
-            DeleteTree(node->left);
-            DeleteTree(node->right);
-            delete node;
-        }
+    if(node != nullptr) {
+        DeleteTree(node->left);
+        DeleteTree(node->right);
+        delete node;
+    }
 }
 
 template <typename T> class Tree {
@@ -47,14 +47,16 @@ public:
         } 
         else if(key < node->key) {
             node->left = AddNode(node->left, key, data);
-
         }
         else if(key > node->key) {
             node->right = AddNode(node->right, key, data);
         }
-        this->root = node;
+        if(root == nullptr) {
+            this->root = node;
+        }
         return node;
     } 
+
 
     Node<T>* SearchElement(Node<T>* node, T key) {
         if(node->key == key) {
@@ -71,7 +73,7 @@ public:
 
     void RootLeftRight(Node<T>* node) {
         if(node != nullptr) {
-            std::cout << "{" << node->data << "}";
+            std::cout << "{" << node->key << ": " << node->data << "}";
             RootLeftRight(node->left);
             RootLeftRight(node->right);
         }
@@ -81,14 +83,14 @@ public:
         if(node != nullptr) {
             RightLeftRoot(node->right);
             RightLeftRoot(node->left);
-            std::cout << "{" << node->data << "}";
+            std::cout << "{" << node->key << ": " << node->data << "}";
         }
     }
 
     void LeftRootRight(Node<T>* node) {
         if(node != nullptr) {
             LeftRootRight(node->left);
-            std::cout << "{" << node->data << "}";
+            std::cout << "{" << node->key << ": " << node->data << "}";
             LeftRootRight(node->right);
             
         }
@@ -97,7 +99,7 @@ public:
     void RightRootLeft(Node<T>* node) {
         if(node != nullptr) {
             RightRootLeft(node->right);
-            std::cout << "{" << node->data << "}";
+            std::cout << "{" << node->key << ": " << node->data << "}";
             RightRootLeft(node->left);
             
         }
@@ -107,7 +109,7 @@ public:
         if(node != nullptr ) {
             LeftRightRoot(node->left);
             LeftRightRoot(node->right);
-            std::cout << "{" << node->data << "}";
+            std::cout << "{" << node->key << ": " << node->data << "}";
             
             
         }
@@ -115,13 +117,13 @@ public:
 
     void RootRightLeft(Node<T>* node) {
         if(node != nullptr) {
-            std::cout << "{" << node->data << "}";
+            std::cout << "{" << node->key << ": " << node->data << "}";
             RootRightLeft(node->right);
             RootRightLeft(node->left);
         }
     }
 
-    Tree<T>* Mapper(Node<T>* node, Node<T>* res_node, T (*func)(T), Tree<T>* result) {
+    friend Tree<T>* Mapper(Node<T>* node, Node<T>* res_node, T (*func)(T), Tree<T>* result) {
         if(node != nullptr) {
         res_node = result->AddNode(res_node, node->key, func(node->data));
         result = Mapper(node->left, res_node, func, result);
@@ -137,65 +139,65 @@ public:
         return result;
     }
 
-    Tree<T>* Wherer(Node<T>* node, Node<T>* res_node, T (*func)(T), Tree<T>* result) {
-        if(node != nullptr && func(node->data)) {
-        res_node = result->AddNode(res_node, node->key, node->data);
-        result = Wherer(node->left, res_node, func, result);
-        result = Wherer(node->right, res_node, func, result);
+    friend void Wherer(Node<T>* node, bool (*func)(T), Tree<T>* result) {
+        if(node != nullptr) {
+            if(func(node->data)) {
+                result->AddNode(result->GetRoot(), node->key, node->data);
+            }
+            Wherer(node->left, func, result);
+            Wherer(node->right, func, result);
         }
-        return result;
     } 
 
     Tree<T>* Where(bool (*func)(T)) {
         Tree<T>* result = new Tree<T>();
-        Node<T>* res_root = result->GetRoot();
-        result = Wherer(this->root, res_root, func, result);
+        Wherer(this->root, func, result);
         return result;
     }
-    T Reduce(Node<T>* node, T (*func)(T,T), T start) {
+
+    T& Reduce(Node<T>* node, T (*func)(T,T), T& start) {
         if(node != nullptr ) {
             start = func(node->data, start);
-            Reduce(node->left->data, start);
-            Reduce(node->right->data, start);
+            Reduce(node->left, func, start);
+            Reduce(node->right, func, start);
         }
-		return start;
+        return start;
 	}
 
-    Tree<T>* Mergerer(Node<T>* node1, Node<T>* node2, Node<T>* res_node, Tree<T>* result) {
-        if(node1 != nullptr)
-            res_node = result->AddNode(res_node, node1->key, node1->data);
-        if(node2 != nullptr && node1->key != node2->key) 
-            res_node = result->AddNode(res_node, node2->key, node2->data);
-        result = Mergerer(node1->left, node2->left, res_node, result);
-        result = Mergerer(node1->right, node2->right, res_node, result);
-        return result;
+   friend void Mergerer(Node<T>* node1, Node<T>* node2, Tree<T>* result) {
+        if(node1 != nullptr && node2 != nullptr) {
+            if(node1->data != node2->data) {
+                result->AddNode(result->GetRoot(), node1->key, node1->data);
+                result->AddNode(result->GetRoot(), node2->key, node2->data);
+            }
+            Mergerer(node1->left, node2->left, result);
+            Mergerer(node1->right, node2->right, result);
+        }
     } 
 
-    Tree<T>* Merge(Tree<T>* tree1, Tree<T>* tree2) {
+    Tree<T>* Merge(Tree<T>* other) {
         Tree<T>* result = new Tree<T>();
-        Node<T>* res_root = result->GetRoot();
-        result = Mergerer(tree1->GetRoot(), tree2->GetRoot(), res_root, result);
+        Mergerer(this->GetRoot(), result);
+        Mergerer(other->GetRoot(), result);
         return result;
     }
 
-    Tree<T>* Concater(Node<T>* node1, Node<T>* node2, Node<T>* res_node, Tree<T>* result) {
-        if(node1 != nullptr)
-            res_node = result->AddNode(res_node, node1->key, node1->data);
-        if(node2 != nullptr) 
-            res_node = result->AddNode(res_node, node2->key, node2->data);
-        result = Mergerer(node1->left, node2->left, res_node, result);
-        result = Mergerer(node1->right, node2->right, res_node, result);
-        return result;
+    friend void Concater(Node<T>* node, Tree<T>* result) {
+        if(node != nullptr) {
+            result->AddNode(result->GetRoot(), node->key, node->data);
+            Concater(node->left, result);
+            Concater(node->right, result);
+        }
     } 
 
-    Tree<T>* Concat(Tree<T>* tree1, Tree<T>* tree2) {
+    Tree<T>* Concat(Tree<T>* other) {
         Tree<T>* result = new Tree<T>();
-        Node<T>* res_root = result->GetRoot();
-        result = Mergerer(tree1->GetRoot(), tree2->GetRoot(), res_root, result);
+        Concater(this->GetRoot(), result);
+        Concater(other->GetRoot(), result);
         return result;
     }
 
-    Tree<T>* SubTree(Node<T>* node, Node<T>* res_node, Tree<T>* result) {
+    friend Tree<T>* SubTree(Node<T>* node, Node<T>* res_node, Tree<T>* result) {
         if(node != nullptr) {
             res_node = result->AddNode(res_node, node->key, node->data);
             result = SubTree(node->left, res_node, result);
