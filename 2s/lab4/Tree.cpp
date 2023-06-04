@@ -15,8 +15,8 @@ bool wherer(int a) {
 
 int main() {
     srand(time(nullptr));
-    Tree<char, int>* tree = new Tree<char, int>(); 
-    Node<char, int>* root = tree->GetRoot();
+    Tree<int, int>* tree = new Tree<int, int>(); 
+    Node<int, int>* root = tree->GetRoot();
     root = tree->AddNode(root, 10, 10); 
     root = tree->AddNode(root, 5, 5);
     root = tree->AddNode(root, 3, 3);
@@ -26,29 +26,29 @@ int main() {
     tree->LeftRootRight(root);
 
     std::cout << "\ndouble map_tree: ";
-    Tree<char, int>* map_tree = tree->Map(mapper);
+    Tree<int, int>* map_tree = tree->Map(mapper);
     map_tree->LeftRootRight(map_tree->GetRoot());
 
     std::cout <<"\nleft sub_tree: ";
-    Tree<char, int>* sub_tree1 = map_tree->GetSubTree(map_tree->GetRoot()->left);
+    Tree<int, int>* sub_tree1 = map_tree->GetSubTree(map_tree->GetRoot()->left);
     sub_tree1->LeftRootRight(sub_tree1->GetRoot());
 
     std::cout << "\nroot: {" << map_tree->GetRoot()->key << ": " << map_tree->GetRoot()->data << "}";
     //std::cout <<"\nroot: " << "{" << map_tree->GetRoot()->data << "}";
 
     std::cout <<"\nright sub_tree: ";
-    Tree<char, int>* sub_tree2 = map_tree->GetSubTree(map_tree->GetRoot()->right);
+    Tree<int, int>* sub_tree2 = map_tree->GetSubTree(map_tree->GetRoot()->right);
     sub_tree2->LeftRootRight(sub_tree2->GetRoot());
 
     std::cout <<"\nwhere_tree: ";
-    Tree<char, int>* where_tree = tree->Where(wherer);
+    Tree<int, int>* where_tree = tree->Where(wherer);
     where_tree->LeftRootRight(where_tree->GetRoot());
 
     int start = 0;
     std::cout << "\nreduce sum of start tree: " << tree->Reduce(tree->GetRoot(), reducer, start);
 
     std::cout << "\ntest tree: ";
-    Tree<char, int>* test = new Tree<char, int>();
+    Tree<int, int>* test = new Tree<int, int>();
     test->AddNode(test->GetRoot(), 4, 4); 
     test->AddNode(test->GetRoot(), 6, 6);
     test->AddNode(test->GetRoot(), 7, 7);
@@ -57,7 +57,7 @@ int main() {
     test->LeftRootRight(test->GetRoot());
 
     std::cout << "\nconcatenation of start and test trees: ";
-    Tree<char, int>* concat_tree = tree->Concat(test);
+    Tree<int, int>* concat_tree = tree->Concat(test);
     concat_tree->LeftRootRight(concat_tree->GetRoot());
 
     std::cout << " \n" << "Test completed successfully" << std::endl;
@@ -75,7 +75,7 @@ int main() {
     int data2[] = {6,7,8,9,0};
     int data3[] = {2,4,6,8,0};
 
-    Tree<char, int>* tree = new Tree<int, int>;
+    Tree<int, int>* tree = new Tree<int, int>;
     tree->root = new Node<int, int>;
     tree->root->data = 100;
     tree->root->key = 2;
