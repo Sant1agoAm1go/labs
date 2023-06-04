@@ -13,7 +13,7 @@ bool wherer(int a) {
     return a % 2 != 0;
 }
 
-int main() {
+int main() { 
     srand(time(nullptr));
     Tree<int, int>* tree = new Tree<int, int>(); 
     Node<int, int>* root = tree->GetRoot();
