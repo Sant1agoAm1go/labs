@@ -33,7 +33,8 @@ int main() {
     Tree<int>* sub_tree1 = map_tree->GetSubTree(map_tree->GetRoot()->left);
     sub_tree1->LeftRootRight(sub_tree1->GetRoot());
 
-    std::cout <<"\nroot: " << "{" << map_tree->GetRoot()->data << "}";
+    std::cout << "\nroot: {" << map_tree->GetRoot()->key << ": " << map_tree->GetRoot()->data << "}";
+    //std::cout <<"\nroot: " << "{" << map_tree->GetRoot()->data << "}";
 
     std::cout <<"\nright sub_tree: ";
     Tree<int>* sub_tree2 = map_tree->GetSubTree(map_tree->GetRoot()->right);
@@ -44,15 +45,18 @@ int main() {
     where_tree->LeftRootRight(where_tree->GetRoot());
 
     int start = 0;
-    std::cout << "\nreduce sum: " << tree->Reduce(tree->GetRoot(), reducer, start);
+    std::cout << "\nreduce sum of start tree: " << tree->Reduce(tree->GetRoot(), reducer, start);
 
-    std::cout << "\nconcatenation of start and map trees: ";
+    std::cout << "\ntest tree: ";
     Tree<int>* test = new Tree<int>();
     test->AddNode(test->GetRoot(), 4, 4); 
     test->AddNode(test->GetRoot(), 6, 6);
     test->AddNode(test->GetRoot(), 7, 7);
     test->AddNode(test->GetRoot(), 8, 8); 
     test->AddNode(test->GetRoot(), 9, 9); 
+    test->LeftRootRight(test->GetRoot());
+
+    std::cout << "\nconcatenation of start and test trees: ";
     Tree<int>* concat_tree = tree->Concat(test);
     concat_tree->LeftRootRight(concat_tree->GetRoot());
 

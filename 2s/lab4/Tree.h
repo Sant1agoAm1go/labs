@@ -163,24 +163,19 @@ public:
 	}
 
    friend void Mergerer(Node<T>* node1, Node<T>* node2, Tree<T>* result) {
-        if(node1 != nullptr) {
-                result->AddNode(result->GetRoot(), node1->key, node1->data);
-                Mergerer(node1->left, node2->left, result);
-                Mergerer(node1->right, node2->right, result);
-        }
-        if(node2 != nullptr) {
+        if(node1 != nullptr && node2 != nullptr) {
+            result->AddNode(result->GetRoot(), node1->key, node1->data);
             if(node1->data != node2->data) {
                 result->AddNode(result->GetRoot(), node2->key, node2->data);
             }
-            Mergerer(node1->right, node2->right, result);
             Mergerer(node1->left, node2->left, result);
+            Mergerer(node1->right, node2->right, result);
         }
     } 
 
     Tree<T>* Merge(Tree<T>* other) {
         Tree<T>* result = new Tree<T>();
-        Mergerer(this->GetRoot(), result);
-        Mergerer(other->GetRoot(), result);
+        Mergerer(this->GetRoot(), other->GetRoot(), result);
         return result;
     }
 
@@ -199,20 +194,17 @@ public:
         return result;
     }
 
-    friend Tree<T>* SubTree(Node<T>* node, Node<T>* res_node, Tree<T>* result) {
+    friend void SubTree(Node<T>* node, Tree<T>* result) {
         if(node != nullptr) {
-            res_node = result->AddNode(res_node, node->key, node->data);
-            result = SubTree(node->left, res_node, result);
-            result = SubTree(node->right, res_node, result);
+            result->AddNode(result->GetRoot(), node->key, node->data);
+            SubTree(node->left, result);
+            SubTree(node->right, result);
         } 
-        return result;
-
     }
 
     Tree<T>* GetSubTree(Node<T>* node) {
         Tree<T>* result = new Tree<T>();
-        Node<T>* res_root = result->GetRoot();
-        result = SubTree(node, res_root, result);
+        SubTree(node, result);
         return result;
     }
 };
