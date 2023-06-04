@@ -22,7 +22,7 @@ int main() {
     root = tree->AddNode(root, 3, 3);
     root = tree->AddNode(root, 20, 20); 
     root = tree->AddNode(root, 30, 30); 
-    std::cout << "\nstart tree: ";
+    std::cout << "start tree: ";
     tree->LeftRootRight(root);
 
     std::cout << "\ndouble map_tree: ";
