@@ -22,14 +22,13 @@ template <typename Tkey, typename Tdata>
 int main_t() {
     srand(time(nullptr));
     Tree<Tkey, Tdata>* tree = new Tree<Tkey, Tdata>(); 
-    Node<Tkey, Tdata>* root = tree->GetRoot();
-    root = tree->AddNode(root, 10, 10); 
-    root = tree->AddNode(root, 5, 5);
-    root = tree->AddNode(root, 3, 3);
-    root = tree->AddNode(root, 20, 20); 
-    root = tree->AddNode(root, 30, 30); 
+    tree->AddNode(tree->GetRoot(), 10, 10); 
+    tree->AddNode(tree->GetRoot(), 5, 5);
+    tree->AddNode(tree->GetRoot(), 3, 3);
+    tree->AddNode(tree->GetRoot(), 20, 20); 
+    tree->AddNode(tree->GetRoot(), 30, 30); 
     std::cout << "start tree: ";
-    tree->LeftRootRight(root);
+    tree->LeftRootRight(tree->GetRoot());
 
     std::cout << "\ndouble map_tree: ";
     Tree<Tkey, Tdata>* map_tree = tree->Map(mapper);
@@ -77,10 +76,33 @@ int main_t() {
     return 0;
 }
 
+int main_complex() {
+    std::cout << "start tree: ";
+    Tree<complex, complex>* tree = new Tree<complex, complex>(); 
+    tree->AddNode(tree->GetRoot(), complex(10,0), complex(10,0)); 
+    tree->AddNode(tree->GetRoot(), complex(5,0), complex(5,0));
+    tree->AddNode(tree->GetRoot(), complex(3,0), complex(3,0));
+    tree->LeftRootRight(tree->GetRoot());
+
+    std::cout << "\ntest tree: ";
+    Tree<complex, complex>* test = new Tree<complex, complex>();
+    test->AddNode(test->GetRoot(), complex(4,0), complex(4,0));
+    test->AddNode(test->GetRoot(), complex(6,0), complex(6,0)); 
+    test->AddNode(test->GetRoot(), complex(7,0), complex(7,0));
+    test->LeftRootRight(test->GetRoot());
+    std::cout << "\nconcatenation of start and test trees: ";
+    Tree<complex, complex>* concat_tree = tree->Concat(test);
+    concat_tree->LeftRootRight(concat_tree->GetRoot());
+    delete tree;
+    delete test;
+    return 0;
+
+}
+
 int main() {
     srand(time(nullptr));
     std::cout << "Choose stored type for key and data:" << std::endl;
-    std::cout << "0 - integer, 1 - real" << std::endl;
+    std::cout << "0 - integer, 1 - real, 2 - complex" << std::endl;
     int type;
     std::cin >> type;
     switch (type) {
@@ -88,12 +110,9 @@ int main() {
         return main_t<int, int>();
     case 1:
         return main_t<double, double>();
+    case 2:
+        return main_complex();
     }
-    /*case 2:
-        return main_t<complex, complex>();
-    }*/
-
-
 }
 
 /*int main() { 
