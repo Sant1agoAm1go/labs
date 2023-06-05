@@ -16,51 +16,50 @@ bool wherer(int a) {
 int main() { 
     srand(time(nullptr));
     Tree<int, int>* tree = new Tree<int, int>(); 
-    Node<int, int>* root = tree->GetRoot();
-    root = tree->AddNode(root, 10, 10); 
-    root = tree->AddNode(root, 5, 5);
-    root = tree->AddNode(root, 3, 3);
-    root = tree->AddNode(root, 20, 20); 
-    root = tree->AddNode(root, 30, 30); 
-    std::cout << "start tree: ";
-    tree->LeftRootRight(root);
+    tree->AddNode(tree->GetRoot(), 10, 10); 
+    tree->AddNode(tree->GetRoot(), 5, 5);
+    tree->AddNode(tree->GetRoot(), 3, 3);
+    tree->AddNode(tree->GetRoot(), 20, 20); 
+    tree->AddNode(tree->GetRoot(), 30, 30); 
 
-    std::cout << "\ndouble map_tree: ";
+    assert(tree->GetRoot()->key == 10);
+    assert(tree->GetRoot()->left->key == 5);
+    assert(tree->GetRoot()->left->left->key == 3);
+    assert(tree->GetRoot()->right->key == 20);
+    assert(tree->GetRoot()->right->right->key == 30);
+
     Tree<int, int>* map_tree = tree->Map(mapper);
-    map_tree->LeftRootRight(map_tree->GetRoot());
+    assert(map_tree->GetRoot()->key == 20);
+    assert(map_tree->GetRoot()->left->key == 10);
+    assert(map_tree->GetRoot()->left->left->key == 6);
+    assert(map_tree->GetRoot()->right->key == 40);
+    assert(map_tree->GetRoot()->right->right->key == 60);
 
-    std::cout <<"\nleft sub_tree: ";
     Tree<int, int>* sub_tree1 = map_tree->GetSubTree(map_tree->GetRoot()->left);
-    sub_tree1->LeftRootRight(sub_tree1->GetRoot());
+    assert(sub_tree1->GetRoot()->key == 10);
+    assert(sub_tree1->GetRoot()->left->key == 6);
 
-    std::cout << "\nroot: {" << map_tree->GetRoot()->key << ": " << map_tree->GetRoot()->data << "}";
-    //std::cout <<"\nroot: " << "{" << map_tree->GetRoot()->data << "}";
-
-    std::cout <<"\nright sub_tree: ";
     Tree<int, int>* sub_tree2 = map_tree->GetSubTree(map_tree->GetRoot()->right);
-    sub_tree2->LeftRootRight(sub_tree2->GetRoot());
+    assert(sub_tree2->GetRoot()->key == 40);
+    assert(sub_tree2->GetRoot()->right->key == 60);
 
-    std::cout <<"\nwhere_tree: ";
     Tree<int, int>* where_tree = tree->Where(wherer);
-    where_tree->LeftRootRight(where_tree->GetRoot());
+    assert(where_tree->GetRoot()->key == 5);
+    assert(where_tree->GetRoot()->left->key == 3);
 
     int start = 0;
-    std::cout << "\nreduce sum of start tree: " << tree->Reduce(tree->GetRoot(), reducer, start);
+    assert(tree->Reduce(tree->GetRoot(), reducer, start) == 68);
 
-    std::cout << "\ntest tree: ";
     Tree<int, int>* test = new Tree<int, int>();
     test->AddNode(test->GetRoot(), 4, 4); 
     test->AddNode(test->GetRoot(), 6, 6);
     test->AddNode(test->GetRoot(), 7, 7);
     test->AddNode(test->GetRoot(), 8, 8); 
     test->AddNode(test->GetRoot(), 9, 9); 
-    test->LeftRootRight(test->GetRoot());
 
-    std::cout << "\nconcatenation of start and test trees: ";
     Tree<int, int>* concat_tree = tree->Concat(test);
-    concat_tree->LeftRootRight(concat_tree->GetRoot());
 
-    std::cout << " \n" << "Test completed successfully" << std::endl;
+    std::cout << "Test completed successfully" << std::endl;
     delete tree;
     delete map_tree;
     delete sub_tree1;

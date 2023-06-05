@@ -125,23 +125,23 @@ public:
         }
     }
 
-    friend void Mapper(Node<Tkey, Tdata>* node, Tdata (*func)(Tdata), Tree<Tkey, Tdata>* result) {
+    friend void Mapper(Node<Tkey, Tdata>* node, Tkey (*func)(Tkey), Tree<Tkey, Tdata>* result) {
         if(node != nullptr) {
-            result->AddNode(result->GetRoot(), node->key, func(node->data));
+            result->AddNode(result->GetRoot(), func(node->key), node->data);
             Mapper(node->left, func, result);
             Mapper(node->right, func, result);
         }
     }
 
-    Tree<Tkey, Tdata>* Map(Tdata (*func)(Tdata)) {
+    Tree<Tkey, Tdata>* Map(Tkey (*func)(Tkey)) {
         Tree<Tkey, Tdata>* result = new Tree<Tkey, Tdata>();
         Mapper(this->root, func, result);
         return result;
     }
 
-    friend void Wherer(Node<Tkey, Tdata>* node, bool (*func)(Tdata), Tree<Tkey, Tdata>* result) {
+    friend void Wherer(Node<Tkey, Tdata>* node, bool (*func)(Tkey), Tree<Tkey, Tdata>* result) {
         if(node != nullptr) {
-            if(func(node->data)) {
+            if(func(node->key)) {
                 result->AddNode(result->GetRoot(), node->key, node->data);
             }
             Wherer(node->left, func, result);
@@ -149,13 +149,13 @@ public:
         }
     } 
 
-    Tree<Tkey,Tdata>* Where(bool (*func)(Tdata)) {
+    Tree<Tkey,Tdata>* Where(bool (*func)(Tkey)) {
         Tree<Tkey, Tdata>* result = new Tree<Tkey, Tdata>();
         Wherer(this->root, func, result);
         return result;
     }
 
-    Tdata& Reduce(Node<Tkey, Tdata>* node, Tdata (*func)(Tdata, Tdata), Tdata& start) {
+    Tkey& Reduce(Node<Tkey, Tdata>* node, Tkey (*func)(Tkey, Tdata), Tkey& start) {
         if(node != nullptr ) {
             start = func(node->data, start);
             Reduce(node->left, func, start);

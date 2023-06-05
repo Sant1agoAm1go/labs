@@ -3,18 +3,18 @@
 #include "ListSequence.h"
 #include "Complex.h"
 #include "time.h"
-template <typename Tdata>
-Tdata mapper(Tdata a) {
+template <typename Tkey>
+Tkey mapper(Tkey a) {
     return a*2;
 }
 
-template <typename Tdata>
-Tdata reducer(Tdata a, Tdata b) {
+template <typename Tkey>
+Tkey reducer(Tkey a, Tkey b) {
     return a+b;
 }
 
-template <typename Tdata>
-bool wherer(Tdata a) {
+template <typename Tkey>
+bool wherer(Tkey a) {
     return a > 10;
 }
 
@@ -55,11 +55,11 @@ int main_t() {
     Tree<Tkey, Tdata>* sub_tree2 = map_tree->GetSubTree(map_tree->GetRoot()->right);
     sub_tree2->LeftRootRight(sub_tree2->GetRoot());
 
-    std::cout <<"\nwhere_tree: ";
+    std::cout <<"\nwhere_tree key > 10: ";
     Tree<Tkey, Tdata>* where_tree = map_tree->Where(wherer);
     where_tree->LeftRootRight(where_tree->GetRoot());
 
-    Tdata start = Tdata();
+    Tkey start = Tkey();
     std::cout << "\nreduce sum of start tree: " << tree->Reduce(tree->GetRoot(), reducer, start);
 
     std::cout << "\ntest tree: ";
@@ -109,7 +109,7 @@ int main_complex() {
     Tree<complex, complex>* sub_tree2 = map_tree->GetSubTree(map_tree->GetRoot()->right);
     sub_tree2->LeftRootRight(sub_tree2->GetRoot());
 
-    std::cout <<"\nwhere_tree: ";
+    std::cout <<"\nwhere_tree key > 10: ";
     Tree<complex, complex>* where_tree = map_tree->Where(wherer);
     where_tree->LeftRootRight(where_tree->GetRoot());
 
