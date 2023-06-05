@@ -18,6 +18,16 @@ bool wherer(Tdata a) {
     return a > 10;
 }
 
+complex mapper(complex a) {
+    return a * complex(2,0);
+}
+
+bool wherer(complex a) {
+    return a > complex(10,0);
+}
+
+
+
 template <typename Tkey, typename Tdata>
 int main_t() {
     srand(time(nullptr));
@@ -46,7 +56,7 @@ int main_t() {
     sub_tree2->LeftRootRight(sub_tree2->GetRoot());
 
     std::cout <<"\nwhere_tree: ";
-    Tree<Tkey, Tdata>* where_tree = tree->Where(wherer);
+    Tree<Tkey, Tdata>* where_tree = map_tree->Where(wherer);
     where_tree->LeftRootRight(where_tree->GetRoot());
 
     Tdata start = Tdata();
@@ -79,10 +89,32 @@ int main_t() {
 int main_complex() {
     std::cout << "start tree: ";
     Tree<complex, complex>* tree = new Tree<complex, complex>(); 
-    tree->AddNode(tree->GetRoot(), complex(10,0), complex(10,0)); 
     tree->AddNode(tree->GetRoot(), complex(5,0), complex(5,0));
+    tree->AddNode(tree->GetRoot(), complex(10,0), complex(10,0)); 
     tree->AddNode(tree->GetRoot(), complex(3,0), complex(3,0));
     tree->LeftRootRight(tree->GetRoot());
+
+    std::cout << "\ndouble map_tree: ";
+    Tree<complex, complex>* map_tree = tree->Map(mapper);
+    map_tree->LeftRootRight(map_tree->GetRoot());
+
+    std::cout <<"\nleft sub_tree: ";
+    Tree<complex, complex>* sub_tree1 = map_tree->GetSubTree(map_tree->GetRoot()->left);
+    sub_tree1->LeftRootRight(sub_tree1->GetRoot());
+
+    std::cout << "\nroot: {" << map_tree->GetRoot()->key << ": " << map_tree->GetRoot()->data << "}";
+    //std::cout <<"\nroot: " << "{" << map_tree->GetRoot()->data << "}";
+
+    std::cout <<"\nright sub_tree: ";
+    Tree<complex, complex>* sub_tree2 = map_tree->GetSubTree(map_tree->GetRoot()->right);
+    sub_tree2->LeftRootRight(sub_tree2->GetRoot());
+
+    std::cout <<"\nwhere_tree: ";
+    Tree<complex, complex>* where_tree = map_tree->Where(wherer);
+    where_tree->LeftRootRight(where_tree->GetRoot());
+
+    complex start = complex();
+    std::cout << "\nreduce sum of start tree: " << tree->Reduce(tree->GetRoot(), reducer, start);
 
     std::cout << "\ntest tree: ";
     Tree<complex, complex>* test = new Tree<complex, complex>();
@@ -90,9 +122,11 @@ int main_complex() {
     test->AddNode(test->GetRoot(), complex(6,0), complex(6,0)); 
     test->AddNode(test->GetRoot(), complex(7,0), complex(7,0));
     test->LeftRootRight(test->GetRoot());
+
     std::cout << "\nconcatenation of start and test trees: ";
     Tree<complex, complex>* concat_tree = tree->Concat(test);
     concat_tree->LeftRootRight(concat_tree->GetRoot());
+
     delete tree;
     delete test;
     return 0;
@@ -114,6 +148,15 @@ int main() {
         return main_complex();
     }
 }
+
+
+
+
+
+
+
+
+
 
 /*int main() { 
     srand(time(nullptr));
