@@ -58,6 +58,16 @@ int main() {
     test->AddNode(test->GetRoot(), 9, 9); 
 
     Tree<int, int>* concat_tree = tree->Concat(test);
+    assert(concat_tree->GetRoot()->key == 10);
+    assert(concat_tree->GetRoot()->left->key == 5);
+    assert(concat_tree->GetRoot()->left->left->key == 3);
+    assert(concat_tree->GetRoot()->left->left->right->key == 4);
+    assert(concat_tree->GetRoot()->left->right->key == 6);
+    assert(concat_tree->GetRoot()->left->right->right->key == 7);
+    assert(concat_tree->GetRoot()->left->right->right->right->key == 8);
+    assert(concat_tree->GetRoot()->left->right->right->right->right->key == 9);
+    assert(concat_tree->GetRoot()->right->key == 20);
+    assert(concat_tree->GetRoot()->right->right->key == 30);
 
     std::cout << "Test completed successfully" << std::endl;
     delete tree;
