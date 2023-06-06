@@ -68,6 +68,9 @@ int main() {
     assert(concat_tree->GetRoot()->left->right->right->right->right->key == 9);
     assert(concat_tree->GetRoot()->right->key == 20);
     assert(concat_tree->GetRoot()->right->right->key == 30);
+    assert(concat_tree->SearchMin(concat_tree->GetRoot())->key == 3);
+    assert(concat_tree->SearchMax(concat_tree->GetRoot())->key == 30);
+    assert(concat_tree->SearchElement(concat_tree->GetRoot(), 7)->data == 7);
 
     std::cout << "Test completed successfully" << std::endl;
     delete tree;

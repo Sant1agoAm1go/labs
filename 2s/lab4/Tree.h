@@ -26,6 +26,13 @@ public:
         this->root = nullptr;
     }
 
+    Tree(Tkey key, Tdata data) {
+        this->root->key = key;
+        this->root->data = data;
+        this->root->left = nullptr;
+        this->root->right = nullptr;
+    }
+
     ~Tree() {
         DeleteTree(this->root);
     }
@@ -71,6 +78,20 @@ public:
             }
         }
         return nullptr;
+    }
+
+    Node<Tkey, Tdata>* SearchMin(Node<Tkey, Tdata>* node) {
+        if(node->left == nullptr) {
+            return node;
+        }
+        return SearchMin(node->left);
+    }
+
+    Node<Tkey, Tdata>* SearchMax(Node<Tkey, Tdata>* node) {
+        if(node->right == nullptr) {
+            return node;
+        }
+        return SearchMax(node->right);
     }
 
     void RootLeftRight(Node<Tkey, Tdata>* node) {
