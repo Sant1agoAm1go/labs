@@ -19,6 +19,7 @@ int main() {
     for(int i = 0; i < arr->GetSize(); i++) {
         assert(arr2->Get(i) == arr->Get(i)); 
     }
+    std::cout << (*arr) << std::endl;
     
     delete arr;
     delete arr2;
