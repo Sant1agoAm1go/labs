@@ -22,6 +22,8 @@ public:
         real = other.real; 
         imaginary = other.imaginary; 
     }
+    
+    ~complex() {};
 
     complex& operator = (const complex& other) {
         this->real = other.real;

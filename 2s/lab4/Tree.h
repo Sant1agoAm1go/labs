@@ -5,12 +5,13 @@
 template< class Tkey>
 concept SameHelper = std::same_as<Tkey, int> || std::same_as<Tkey, double> || std::same_as<Tkey, float> ||  std::same_as<Tkey, complex>;
  
-template <SameHelper Tkey, typename Tdata> struct Node {
-public:
-    Tkey key;
-    Tdata data;
-    struct Node *left;
-    struct Node *right;
+template <SameHelper Tkey, typename Tdata> 
+struct Node {
+    public:
+        Tkey key;
+        Tdata data;
+        struct Node *left;
+        struct Node *right;
 };
 
 template <typename Tkey, typename Tdata>

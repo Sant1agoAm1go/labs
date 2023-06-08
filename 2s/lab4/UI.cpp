@@ -128,7 +128,12 @@ int main_complex() {
     concat_tree->LeftRootRight(concat_tree->GetRoot());
 
     delete tree;
+    delete map_tree;
+    delete sub_tree1;
+    delete sub_tree2;
+    delete where_tree;
     delete test;
+    delete concat_tree;
     return 0;
 
 }
