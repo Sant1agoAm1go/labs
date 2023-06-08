@@ -1,6 +1,7 @@
 #pragma once
 #include "Sequence.h"
-template <typename Tkey, typename Tdata> struct Node {
+template <typename Tkey, typename Tdata> 
+struct Node {
 public:
     Tkey key;
     Tdata data;
@@ -17,7 +18,8 @@ void DeleteTree(Node<Tkey, Tdata>* node) {
     }
 }
 
-template <typename Tkey, typename Tdata> class Tree {
+template <typename Tkey, typename Tdata> 
+class Tree {
 private:
     Node<Tkey, Tdata> *root;
 
