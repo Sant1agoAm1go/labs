@@ -7,11 +7,11 @@ concept SameHelper = std::same_as<Tkey, int> || std::same_as<Tkey, double> || st
  
 template <SameHelper Tkey, typename Tdata> 
 struct Node {
-    public:
-        Tkey key;
-        Tdata data;
-        struct Node *left;
-        struct Node *right;
+public:
+    Tkey key;
+    Tdata data;
+    struct Node *left;
+    struct Node *right;
 };
 
 template <typename Tkey, typename Tdata>
@@ -23,7 +23,8 @@ void DeleteTree(Node<Tkey, Tdata>* node) {
     }
 }
 
-template <typename Tkey, typename Tdata> class Tree {
+template <typename Tkey, typename Tdata> 
+class Tree {
 private:
     Node<Tkey, Tdata> *root;
 
