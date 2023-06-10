@@ -14,7 +14,7 @@ public:
     struct Node *right;
 };
 
-template <typename Tkey, typename Tdata>
+template <SameHelper Tkey, typename Tdata>
 void DeleteTree(Node<Tkey, Tdata>* node) {
     if(node != nullptr) {
         DeleteTree(node->left);
@@ -23,7 +23,7 @@ void DeleteTree(Node<Tkey, Tdata>* node) {
     }
 }
 
-template <typename Tkey, typename Tdata> 
+template <SameHelper Tkey, typename Tdata> 
 class Tree {
 private:
     Node<Tkey, Tdata> *root;
