@@ -20,7 +20,11 @@ int main() {
     assert(list->GetLenght() == 10);
    
     list->InsertAt(10,7);
+    list->InsertAt(1,0);
+    list->InsertAt(2,list->GetLenght()-1);
     assert(list->Get(7) == 10);
+    assert(list->Get(0) == 1);
+    assert(list->Get(list->GetLenght()-1) == 2);
 
     LinkedList<int>* list2 = new LinkedList<int>(*list);
     assert(list2->GetLenght() == 11);
