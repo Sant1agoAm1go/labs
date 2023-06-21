@@ -77,7 +77,7 @@ public:
 
     Sequence <T>* Map(T (*func)(T)) override {
 		Sequence <T>* result = new LinkedListSequence<T>(); 
-		for (int i = 0; i <= this->GetLength(); i++) {
+		for (int i = 0; i < this->GetLength(); i++) {
             result->Append(func(this->Get(i)));
         }
 		return result;

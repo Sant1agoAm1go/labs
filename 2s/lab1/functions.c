@@ -83,7 +83,7 @@ void* reducer_int(int* a, int* b, void* result) {
 
 void* reducer_double(double* a, double* b, void* result) {
     double func = 2*(*a)+3*(*b);
-    memcpy(result, &func, sizeof(int));
+    memcpy(result, &func, sizeof(double));
     return result;
 }
 
