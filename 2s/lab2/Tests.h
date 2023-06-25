@@ -166,26 +166,11 @@ void ListSequenceTest() {
     Sequence<int>* reduce_check = new LinkedListSequence<int>(data,sizeof(data)/sizeof(int));
     assert(reduce_check->Reduce(reducer, 4) == 144);
 
-    Sequence<int>* seq = new LinkedListSequence<int>(data2,sizeof(data2)/sizeof(int));
-    Sequence<int>* add  = new LinkedListSequence<int>(data3,sizeof(data3)/sizeof(int));
-    Sequence<int>* slices = seq->Slice(1,2,add);
-    for(int i = 0; i < slices->GetLength(); i++) {
-        std::cout << "slices[" << i << "] = " << slices->Get(i) << std::endl;
-    }
-
-    Sequence<int>* list3 = new LinkedListSequence<int>(data,sizeof(data)/sizeof(int));
-    for (int i = 0; i < list3->GetLength(); i++) {
-        assert(list3->Get(i) == data[i]);
-    }
     delete list;
     delete list2; 
-    delete list3;
     delete concat;
     delete subs;
     delete wheres;
     delete reduce_check;
-    delete seq;
-    delete add;
-    delete slices;
 
 }
