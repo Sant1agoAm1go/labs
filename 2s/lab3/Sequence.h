@@ -31,6 +31,15 @@ public:
     virtual Sequence <T>* Where(bool (*func)(T)) = 0;
 
     virtual T Reduce(T(*func)(T,T), T start) = 0;
+
+    friend std::ostream& operator << (std::ostream& stream, const Sequence<T>* seq) {
+    	stream << "{";
+    	for(int i = 0; i < seq->GetLength() - 1; i++) {
+        stream << seq->Get(i) << ", ";
+    	}
+		  stream << seq->GetLast() << "}" << std::endl;
+		  return stream;
+	}
     
     /*template < typename... Args> 
 	Sequence<T>* Append(Args... args) {
