@@ -5,5 +5,6 @@ int main() {
     ListTest();
     ArraySequenceTest();
     ListSequenceTest();
+    std::cout << "Все тесты выполнены успешно :)";
     return 0;
 }

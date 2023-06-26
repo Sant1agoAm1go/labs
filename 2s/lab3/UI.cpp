@@ -18,8 +18,8 @@ int main_t() {
 
     std::cout << "Norm of vector vec = " << vec.Norm() << std::endl;
 
-    vec.VectorScal(2);
-    std::cout << "Multiply vec on 2:" << std::endl;
+    vec.VectorScal(3.14);
+    std::cout << "Multiply vec on value:" << std::endl;
     std::cout << "vec = " << vec << std::endl;
 
     auto vec2 = vec;

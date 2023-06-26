@@ -39,9 +39,6 @@ void ListTest() {
         list->Append(rand() % 100);   
     }
     assert(list->GetLenght() == 5);
-      for(int i = 0; i < list->GetLenght(); i++) {
-        std::cout << "list[" << i << "] = " << list->Get(i) << std::endl;
-    }
     lenght = list->GetLenght();
     for (int i = 0; i < lenght; i++) {
         list->Prepend(rand() % 100);
@@ -50,10 +47,11 @@ void ListTest() {
     assert(list->GetLenght() == 10);
    
     list->InsertAt(10,7);
-    assert(list->Get(7) == 10);
+    list->InsertAt(1,0);
+    assert(list->Get(8) == 10);
 
     LinkedList<int>* list2 = new LinkedList<int>(*list);
-    assert(list2->GetLenght() == 11);
+    assert(list2->GetLenght() == 12);
     for (int i = 0; i < list2->GetLenght(); i++) {
         assert(list2->Get(i) == list->Get(i));
     }
@@ -111,9 +109,6 @@ void ArraySequenceTest() {
     Sequence<int>* seq = new ArraySequence<int>(data2,sizeof(data2)/sizeof(int));
     Sequence<int>* add  = new ArraySequence<int>(data3,sizeof(data3)/sizeof(int));
     Sequence<int>* slices = seq->Slice(1,2,add);
-    for(int i = 0; i < slices->GetLength(); i++) {
-        std::cout << "slices[" << i << "] = " << slices->Get(i) << std::endl;
-    }
 
     delete arr;
     delete arr2; 
