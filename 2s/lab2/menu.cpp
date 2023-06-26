@@ -17,7 +17,7 @@ T mapper(T a) {
 
 template <typename T> 
 bool wherer(T a) {
-  return a > 3;
+  return a < 3;
 }
 
 template <typename T> 
