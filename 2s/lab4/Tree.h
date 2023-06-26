@@ -192,7 +192,7 @@ public:
         return start;
 	}
 
-   friend void Mergerer(Node<Tkey, Tdata>* node1, Node<Tkey, Tdata>* node2, Tree<Tkey, Tdata>* result) {
+   /*friend void Mergerer(Node<Tkey, Tdata>* node1, Node<Tkey, Tdata>* node2, Tree<Tkey, Tdata>* result) {
         if(node1 != nullptr && node2 != nullptr) {
             result->AddNode(result->GetRoot(), node1->key, node1->data);
             if(node1->data != node2->data) {
@@ -201,11 +201,23 @@ public:
             Mergerer(node1->left, node2->left, result);
             Mergerer(node1->right, node2->right, result);
         }
+    }*/ 
+
+    
+    friend void Mergerer(Node<Tkey, Tdata>* node, Tree<Tkey, Tdata>* result) {
+        if(node != nullptr) {
+            result->AddNode(result->GetRoot(), node->key, node->data);
+            Concater(node->left, result);
+            Concater(node->right, result);
+        }
+
     } 
 
     Tree<Tkey, Tdata>* Merge(Tree<Tkey, Tdata>* other) {
         Tree<Tkey, Tdata>* result = new Tree<Tkey, Tdata>();
-        Mergerer(this->GetRoot(), other->GetRoot(), result);
+        Mergerer(this->GetRoot(), result);
+        Mergerer(other->GetRoot(), result);
+        delete other;
         return result;
     }
 
