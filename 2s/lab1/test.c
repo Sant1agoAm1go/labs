@@ -14,6 +14,8 @@ void testing() {
 	void* reducer = NULL;
 	DynamicArray *dynArr1 = NULL;
 	DynamicArray *dynArr2 = NULL;
+	int value_int = 4;
+	double value_double = 4.0;
 	int lenght1 = 0, lenght2 = 0, n = 0;
 	printf("Enter the type of elements: 1 - integer, 2 - real\n");
     check_int(&n);
@@ -29,22 +31,20 @@ void testing() {
 	//scanf("%d", &lenght2);
 	switch(n) {
 		case 1: 
-			comparator = &cmp_int;
-			function = &function_int;
-			condition_function = &condition_function_int;
-			reducer = &reducer_int;
-			int value_int = 4;
+			comparator = (void*) &cmp_int;
+			function = (void*) &function_int;
+			condition_function = (void*) &condition_function_int;
+			reducer = (void*) &reducer_int;
 			start = malloc(sizeof(int));
 			memcpy(start, &value_int, sizeof(int));
 			dynArr1 = create_DynamicArray(sizeof(int),lenght1);
 			dynArr2 = create_DynamicArray(sizeof(int),lenght2);
 			break;
 		case 2: 
-			comparator = &cmp_double;
-			function = &function_double;
-			condition_function = &condition_function_double;
-			reducer = &reducer_double;
-			double value_double = 4.0;
+			comparator = (void*) &cmp_double;
+			function = (void*) &function_double;
+			condition_function = (void*) &condition_function_double;
+			reducer = (void*) &reducer_double;
 			start = malloc(sizeof(double));
 			memcpy(start, &value_double, sizeof(double));
 			dynArr1 = create_DynamicArray(sizeof(double),lenght1);
@@ -59,7 +59,7 @@ void testing() {
 	printf("\n");
 
 	//insertion_sort(dynArr1, comparator);
-	bubble_sort(dynArr1, comparator);
+	bubble_sort(dynArr1, (int (*)(const void *, const void *)) comparator);
 	printf("first array sorted:\n");
 	some_printf(dynArr1);
 	printf("\n");
@@ -76,12 +76,12 @@ void testing() {
 	printf("\n");
 
 	printf("map function:\n");
-	some_map(dynArr1, function);
+	some_map(dynArr1, (void (*)(const void*)) function);
 	some_printf(dynArr1);
 	printf("\n");
 
 	printf("where function:\n");
-	some_where(&dynArr1, condition_function);
+	some_where(&dynArr1, (int (*)(const void*)) condition_function);
 	some_printf(dynArr1);
 	//DynamicArray *where_arr = some_where_hard(dynArr1, condition_function);
 	//some_printf(where_arr);
@@ -91,7 +91,7 @@ void testing() {
 	DynamicArray* reduce_arr = create_definite_DynamicArray(sizeof(int), 3);
 	printf("\n");
 	printf("reduce function:\n");
-	int* result = reduce((void* (*)(void*,void*, void*))reducer, start, reduce_arr);
+	int* result = (int*) reduce((void* (*)(void*,void*, void*))reducer, start, reduce_arr);
 	printf("%d", *result);
 	printf("\n");
 

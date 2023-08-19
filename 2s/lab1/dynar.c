@@ -3,10 +3,10 @@
 #include <string.h>
 #include "dynar.h"
 DynamicArray* create_DynamicArray(size_t size_of_type, size_t lenght) {
-    DynamicArray* result = malloc(sizeof(DynamicArray)); //Выделение памяти под структуру.
+    DynamicArray* result = (DynamicArray*) malloc(sizeof(DynamicArray)); //Выделение памяти под структуру.
     result->size_of_type = size_of_type;
     result->lenght = lenght;
-    result->data = malloc(sizeof(void *) * lenght); // Выделение памяти под массив указателей (контейнер указателей)
+    result->data = (void**) malloc(sizeof(void *) * lenght); // Выделение памяти под массив указателей (контейнер указателей)
     //Создание пустого динамического массива.
     for (size_t i = 0; i < lenght; i++) {
         result->data[i] = malloc(result->size_of_type); //Выделение памяти под отдельный элемент.
