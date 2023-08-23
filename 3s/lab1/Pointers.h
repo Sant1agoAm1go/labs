@@ -235,7 +235,5 @@ class WeakPtr {
         WeakPtr<T>& operator=(const WeakPtr<T>& other) {
             this->ptr = other.ptr;
             return *this;
-        }
-
-        
+        }    
 };
