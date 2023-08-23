@@ -188,7 +188,7 @@ class ShrdPtr {
 
 };
 
-template <typename T> 
+/*template <typename T> 
 class WeakPtr {
     private:
         ShrdPtr<T>& ptr;
@@ -198,9 +198,9 @@ class WeakPtr {
 
         ~WeakPtr() {};
 
-};
+};*/
 
-/*template <typename T> 
+template <typename T> 
 class WeakPtr {
     private:
         T* ptr;
@@ -237,32 +237,5 @@ class WeakPtr {
             return *this;
         }
 
-        ShrdPtr<T>& operator=(const ShrdPtr<T>& other) {
-        if(counter) {
-            (*counter)--;
-            if(*counter <= 0) {
-                std::cout << "Deleting shared pointer..." << std::endl;
-                delete ptr; 
-            }
-        }
-        this->ptr = other.ptr;
-        this->counter = other.counter;
-        (*this->counter)++;
-        return *this;
-    }
-
-    ShrdPtr<T>& operator=(T* other) {
-        if(counter) {
-            (*counter)--;
-            if(*counter <= 0) {
-                std::cout << "Deleting shared pointer..." << std::endl;
-                delete ptr; 
-                delete counter
-            }
-        }
-        this->ptr = other;
-        this->counter = new int(1);
-        return *this;
-    }
-
-};*/
+        
+};
