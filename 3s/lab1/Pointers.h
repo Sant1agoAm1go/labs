@@ -95,14 +95,6 @@ class ShrdPtr {
     }
 
     ShrdPtr(T* other) {
-        if(counter) {
-            (*counter)--;
-            if(*counter <= 0) {
-                std::cout << "Deleting shared pointer..." << std::endl;
-                delete ptr; 
-                delete counter;
-            }
-        }
         this->ptr = other;
         this->counter = new int(1);
     }
@@ -111,8 +103,8 @@ class ShrdPtr {
         if(counter) {
             (*counter)--;
             if(*counter <= 0) {
-                std::cout << "Deleting shared pointer..." << std::endl;
-                delete ptr; 
+                //std::cout << "Deleting shared pointer..." << std::endl;
+                delete[] ptr; 
                 delete counter;
             }
         }

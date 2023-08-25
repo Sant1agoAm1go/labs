@@ -1,9 +1,11 @@
 #include <iostream> 
+#include <stdio.h>
 #include "Pointers.h"
 #include "Sequence.h"
 #include "ArraySequence.h"
 #include "Array.h"
 #include <time.h>
+#include <chrono>
 void swap(int* data, int i, int j) {
 	int temp = data[i];
 	data[i] = data[j];
@@ -22,7 +24,7 @@ int cmp_int(const void *p1, const void *p2) {
 	return *value1 - *value2;  	
 }
 
-void bubble_sort(int *base, int len, int(*compar)(const void *, const void *)) {
+void bubble_sort_raw(int *base, int len, int(*compar)(const void *, const void *)) {
     for(size_t i = 0; i<len; i++) {
         for(size_t j = 0; j < len-i-1; j++) {
             if(compar(&base[j], &base[j+1]) > 0) {
@@ -42,18 +44,110 @@ void bubble_sort_smart(ShrdPtr<int> base, int len, int(*compar)(const void *, co
     }
 }
 
+void insertion_sort_raw(int* base, int len, int(*compar)(const void *, const void *)) {
+	for (size_t i = 1; i < len; i++) {
+		size_t j = i;
+		while (j > 0 && compar(&base[j], &base[j-1]) < 0) {
+			swap(base, j, j-1);
+			j--;
+		}
+	}
+}
+
+void insertion_sort_smart(ShrdPtr<int> base, int len, int(*compar)(const void *, const void *)) {
+	for (size_t i = 1; i < len; i++) {
+		size_t j = i;
+		while (j > 0 && compar(&base[j], &base[j-1]) < 0) {
+			swap(base, j, j-1);
+			j--;
+		}
+	}
+}
+
+void heapify(int* arr, int n, int i)
+{
+    int largest = i;   
+    int l = 2*i + 1; // левый = 2*i + 1
+    int r = 2*i + 2; // правый = 2*i + 2
+
+    if (l < n && arr[l] > arr[largest])
+        largest = l;
+    if (r < n && arr[r] > arr[largest])
+        largest = r;
+
+    if (largest != i) {
+        swap(arr, i, largest);
+        heapify(arr, n, largest);
+    }
+}
+
+
+void heap_sort_raw(int* arr, int n) {
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+    for (int i=n-1; i>=0; i--) {
+        swap(arr, 0, i);
+        heapify(arr, i, 0);
+    }
+}
+
+void heapify_smart(ShrdPtr<int> arr, int n, int i)
+{
+    int largest = i;   
+    int l = 2*i + 1; 
+    int r = 2*i + 2; 
+
+    if (l < n && arr[l] > arr[largest])
+        largest = l;
+    if (r < n && arr[r] > arr[largest])
+        largest = r;
+
+    if (largest != i) {
+        swap(arr, i, largest);
+        heapify_smart(arr, n, largest);
+    }
+}
+
+
+void heap_sort_smart(ShrdPtr<int> arr, int n) {
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify_smart(arr, n, i);
+    for (int i=n-1; i>=0; i--) {
+        swap(arr, 0, i);
+        heapify_smart(arr, i, 0);
+    }
+}
+
 int main() {
     srand(time(nullptr));
     int len = 1000000;
-    int* data = new int[len];
-    
-    for(int i = 0; i < len; i++) {
-        data[i] = rand() % 100;
+    int count = 200;
+    double avg_raw = 0;
+    double avg_smart = 0;
+    for(int i = 0; i < count; i++) {
+        int* data = new int[len];
+        for(int i = 0; i < len; i++) {
+            data[i] = rand() % 100;
+        }
+        int* data2 = new int[len];
+        ShrdPtr<int> ptr(data2);
+        for(int i = 0; i < len; i++) {
+            ptr[i] = data[i];
+        }
+
+        clock_t raw_start = clock();
+        heap_sort_raw(data, len);
+        double raw_res = (double) (clock() - raw_start) / CLOCKS_PER_SEC; 
+        avg_raw += raw_res;
+        
+        clock_t smart_start = clock();
+        heap_sort_smart(ptr, len);
+        double smart_res = (double) (clock() - smart_start) / CLOCKS_PER_SEC; 
+        avg_smart += smart_res;
+        delete data;
     }
-    clock_t start = 0;
-    ShrdPtr<int> ptr2(data);
-    bubble_sort_smart(ptr2, len, cmp_int);
-    double res = (double) (clock() - start) / CLOCKS_PER_SEC;
-    std::cout << res << std::endl;
+    avg_raw/=count;
+    avg_smart/=count;
+    printf("raw ptr: %.8lf\nsmart ptr: %.8lf\n", avg_raw, avg_smart);
     return 0;
 }
