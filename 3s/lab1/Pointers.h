@@ -21,7 +21,7 @@ class UnqPtr {
         }
 
         ~UnqPtr() {
-            std::cout << "Deleting unique pointer..." << std::endl;
+            //std::cout << "Deleting unique pointer..." << std::endl;
             delete ptr; 
         }
 
@@ -93,6 +93,19 @@ class ShrdPtr {
         (*this->counter)++;
     }
 
+    ShrdPtr(T* other) {
+        if(counter) {
+            (*counter)--;
+            if(*counter <= 0) {
+                std::cout << "Deleting shared pointer..." << std::endl;
+                delete ptr; 
+                delete counter;
+            }
+        }
+        this->ptr = other;
+        this->counter = new int(1);
+    }
+
     ~ShrdPtr() {
         if(counter) {
             (*counter)--;
@@ -144,7 +157,7 @@ class ShrdPtr {
             if(*counter <= 0) {
                 std::cout << "Deleting shared pointer..." << std::endl;
                 delete ptr; 
-                delete counter
+                delete counter;
             }
         }
         this->ptr = other.ptr;
@@ -159,7 +172,7 @@ class ShrdPtr {
             if(*counter <= 0) {
                 std::cout << "Deleting shared pointer..." << std::endl;
                 delete ptr; 
-                delete counter
+                delete counter;
             }
         }
         this->ptr = other;
@@ -228,7 +241,7 @@ class WeakPtr {
             other.ptr = tmp;
         }
 
-        void expired() {
+        void Expired() {
             return this->ptr == nullptr;
         }
 
