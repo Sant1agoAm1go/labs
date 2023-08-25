@@ -18,11 +18,12 @@ class UnqPtr {
 
         UnqPtr(T* other) {
             this->ptr = other;
+
         }
 
         ~UnqPtr() {
-            //std::cout << "Deleting unique pointer..." << std::endl;
-            delete ptr; 
+            std::cout << "Deleting unique pointer..." << std::endl;
+            delete[] ptr; 
         }
 
         T* Release() {
