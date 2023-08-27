@@ -33,7 +33,7 @@ class UnqPtr {
         }
 
         void Reset() {
-            delete ptr;
+            delete[] ptr;
         }
 
         void Swap(UnqPtr<T>& other) {
@@ -123,7 +123,7 @@ class ShrdPtr {
             (*counter)--;
             if(*counter <= 0) {
                 std::cout << "Deleting shared pointer..." << std::endl;
-                delete ptr; 
+                delete[] ptr; 
                 delete counter;
             }
         }
@@ -149,7 +149,7 @@ class ShrdPtr {
             (*counter)--;
             if(*counter <= 0) {
                 std::cout << "Deleting shared pointer..." << std::endl;
-                delete ptr; 
+                delete[] ptr; 
                 delete counter;
             }
         }
@@ -164,7 +164,7 @@ class ShrdPtr {
             (*counter)--;
             if(*counter <= 0) {
                 std::cout << "Deleting shared pointer..." << std::endl;
-                delete ptr; 
+                delete[] ptr; 
                 delete counter;
             }
         }
@@ -194,35 +194,25 @@ class ShrdPtr {
 
 };
 
-/*template <typename T> 
-class WeakPtr {
-    private:
-        ShrdPtr<T>& ptr;
-    public:
-
-        WeakPtr() {};
-
-        ~WeakPtr() {};
-
-};*/
-
 template <typename T> 
 class WeakPtr {
     private:
         T* ptr;
+        int* counter;
     public: 
         WeakPtr() {
             ptr = nullptr;
+            counter = nullptr;
         }
 
-        WeakPtr(const WeakPtr<T>& other) {
+        WeakPtr(const ShrdPtr<T>& other) {
             this->ptr = other.ptr;
+            counter = other.counter;
+            (*counter)++;        
+
         }
 
-        ~WeakPtr() {
-            std::cout << "Deleting weak pointer..." << std::endl;
-            delete ptr;
-        }
+        ~WeakPtr() = default;
 
         void Reset() {
             delete ptr;
@@ -234,12 +224,36 @@ class WeakPtr {
             other.ptr = tmp;
         }
 
-        void Expired() {
-            return this->ptr == nullptr;
+        int UseCount() {
+            return *counter;
         }
+
+        bool Expired() {
+            return UseCount() == 0;
+        }
+
+        ShrdPtr<T> Lock() {
+            if(Expired()) {
+                return ShrdPtr<T>();
+            }
+            ShrdPtr<T> ptr = nullptr;
+            ptr.ptr = this->ptr;
+            ptr.counter = this->counter;
+            (*counter)++; 
+            return ptr;
+
+        }
+
+        WeakPtr<T>& operator=(const ShrdPtr<T>& other) {
+            this->ptr = other.ptr;
+            this->counter = other.counter;
+            return *this;
+        }    
 
         WeakPtr<T>& operator=(const WeakPtr<T>& other) {
             this->ptr = other.ptr;
+            this->counter = other.counter;
             return *this;
-        }    
+        }   
+         
 };

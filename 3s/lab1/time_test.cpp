@@ -64,11 +64,11 @@ void insertion_sort_smart(ShrdPtr<int> base, int len, int(*compar)(const void *,
 	}
 }
 
-void heapify(int* arr, int n, int i)
+void heapify_raw(int* arr, int n, int i)
 {
     int largest = i;   
-    int l = 2*i + 1; // левый = 2*i + 1
-    int r = 2*i + 2; // правый = 2*i + 2
+    int l = 2*i + 1; 
+    int r = 2*i + 2; 
 
     if (l < n && arr[l] > arr[largest])
         largest = l;
@@ -77,17 +77,17 @@ void heapify(int* arr, int n, int i)
 
     if (largest != i) {
         swap(arr, i, largest);
-        heapify(arr, n, largest);
+        heapify_raw(arr, n, largest);
     }
 }
 
 
 void heap_sort_raw(int* arr, int n) {
     for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(arr, n, i);
+        heapify_raw(arr, n, i);
     for (int i=n-1; i>=0; i--) {
         swap(arr, 0, i);
-        heapify(arr, i, 0);
+        heapify_raw(arr, i, 0);
     }
 }
 
@@ -146,8 +146,8 @@ int main() {
         avg_smart += smart_res;
         delete data;
     }
-    avg_raw/=count;
-    avg_smart/=count;
+    //avg_raw/=count;
+    //avg_smart/=count;
     printf("raw ptr: %.8lf\nsmart ptr: %.8lf\n", avg_raw, avg_smart);
     return 0;
 }
