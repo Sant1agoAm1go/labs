@@ -88,7 +88,7 @@ class ShrdPtr {
         this->counter = new int(0);
     }
 
-    ShrdPtr(nullptr) {
+    ShrdPtr(std::nullptr_t) {
         this->ptr = nullptr;
         this->counter = new int(0);
     }
