@@ -260,5 +260,4 @@ class WeakPtr {
             this->counter = other.counter;
             return *this;
         }   
-         
 };
