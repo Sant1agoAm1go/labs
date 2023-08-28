@@ -4,8 +4,12 @@
 #include "ArraySequence.h"
 #include "Array.h"
 int main() {
-    int data[] = {1,2,3,4,5};
-    Sequence<int>* seq = new ArraySequence<int>(data, sizeof(data)/sizeof(int));
+    srand(time(nullptr));
+    int* data = new int[5];
+    for(int i = 0; i < 5; i++) {
+        data[i] = rand() % 100;
+    }
+    Sequence<int>* seq = new ArraySequence<int>(data, 5);
     UnqPtr<int> ptr = nullptr;
     std::cout << ptr << std::endl;
     UnqPtr<int> ptr2 = UnqPtr<int>(data);
