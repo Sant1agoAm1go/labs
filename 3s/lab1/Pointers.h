@@ -88,6 +88,11 @@ class ShrdPtr {
         this->counter = new int(0);
     }
 
+    ShrdPtr(std::nullptr_t) {
+        this->ptr = nullptr;
+        this->counter = new int(0);
+    }
+
     ShrdPtr(const ShrdPtr<T>& other) {
         this->ptr = other.ptr;
         this->counter = other.counter;
@@ -234,7 +239,7 @@ class WeakPtr {
 
         ShrdPtr<T> Lock() {
             if(Expired()) {
-                return ShrdPtr<T>();
+                return ShrdPtr<T>(nullptr);
             }
             ShrdPtr<T> ptr = nullptr;
             ptr.ptr = this->ptr;
