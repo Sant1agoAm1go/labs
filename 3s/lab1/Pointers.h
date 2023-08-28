@@ -241,11 +241,11 @@ class WeakPtr {
             if(Expired()) {
                 return ShrdPtr<T>(nullptr);
             }
-            ShrdPtr<T> ptr = nullptr;
-            ptr.ptr = this->ptr;
-            ptr.counter = this->counter;
+            ShrdPtr<T> pointer = nullptr;
+            pointer.ptr = this->ptr;
+            pointer.counter = this->counter;
             (*counter)++; 
-            return ptr;
+            return pointer;
 
         }
 
