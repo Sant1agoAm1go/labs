@@ -120,7 +120,7 @@ void heap_sort_smart(ShrdPtr<int> arr, int n) {
 
 int main() {
     srand(time(nullptr));
-    int len = 1000000;
+    int len = 10000000;
     int count = 200;
     double avg_raw = 0;
     double avg_smart = 0;
@@ -146,8 +146,8 @@ int main() {
         avg_smart += smart_res;
         delete data;
     }
-    //avg_raw/=count;
-    //avg_smart/=count;
+    avg_raw/=count;
+    avg_smart/=count;
     printf("raw ptr: %.8lf\nsmart ptr: %.8lf\n", avg_raw, avg_smart);
     return 0;
 }
