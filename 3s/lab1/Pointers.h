@@ -23,7 +23,7 @@ class UnqPtr {
 
         ~UnqPtr() {
             std::cout << "Deleting unique pointer..." << std::endl;
-            delete[] ptr; 
+            delete ptr; 
         }
 
         T* Release() {
@@ -32,8 +32,9 @@ class UnqPtr {
             return tmp;
         }
 
-        void Reset() {
-            delete[] ptr;
+        void Reset(T* other) {
+            delete ptr;
+	    ptr = other;
         }
 
         void Swap(UnqPtr<T>& other) {
@@ -109,7 +110,7 @@ class ShrdPtr {
             (*counter)--;
             if(*counter <= 0) {
                 //std::cout << "Deleting shared pointer..." << std::endl;
-                delete[] ptr; 
+                delete ptr; 
                 delete counter;
             }
         }
@@ -128,7 +129,7 @@ class ShrdPtr {
             (*counter)--;
             if(*counter <= 0) {
                 std::cout << "Deleting shared pointer..." << std::endl;
-                delete[] ptr; 
+                delete ptr; 
                 delete counter;
             }
         }
@@ -154,7 +155,7 @@ class ShrdPtr {
             (*counter)--;
             if(*counter <= 0) {
                 std::cout << "Deleting shared pointer..." << std::endl;
-                delete[] ptr; 
+                delete ptr; 
                 delete counter;
             }
         }
@@ -169,7 +170,7 @@ class ShrdPtr {
             (*counter)--;
             if(*counter <= 0) {
                 std::cout << "Deleting shared pointer..." << std::endl;
-                delete[] ptr; 
+                delete ptr; 
                 delete counter;
             }
         }
