@@ -120,8 +120,8 @@ void heap_sort_smart(ShrdPtr<int> arr, int n) {
 
 int main() {
     srand(time(nullptr));
-    int len = 10000000;
-    int count = 200;
+    int len = 100000;
+    int count = 1000;
     double avg_raw = 0;
     double avg_smart = 0;
     for(int i = 0; i < count; i++) {
