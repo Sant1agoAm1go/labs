@@ -397,15 +397,15 @@ class MemorySpan {
 		this->ptr = MsPtr<T>();
 	}
 
-	MemorySpan(T* other, int count) { //	Копировать элементы из переданного массива
+	MemorySpan(T* other, int count) { 
 		this->ptr = MsPtr<T>(other, count);
 	}
 
-	MemorySpan(const DynamicArray<T>& other) {  // Копирующий конструктор
+	MemorySpan(const DynamicArray<T>& other) {  
     	this->ptr = MsPtr<T>(other);
     }
 
-	MemorySpan(const MemorySpan<T>& other) { //Копирующий конструктор
+	MemorySpan(const MemorySpan<T>& other) { 
         this->ptr = MsPtr<T>(other.ptr);
 	}
 
@@ -422,12 +422,14 @@ class MemorySpan {
 
     ShrdPtr<T> Copy(int index) {
         ShrdPtr<T> pointer = nullptr;
-            pointer.ptr = *(this->ptr.ptr[index]);
-            pointer.counter = new int(1);
-            return pointer;
+        pointer.ptr = new T((*(this->ptr.ptr))[index]);
+        pointer.counter = new int(1);
+        return pointer;
     }  
+
     UnqPtr<T> Get(int index) {
-        return UnqPtr<T>(*(this->ptr.ptr[index]));
+        return UnqPtr<T>(new T((*(this->ptr.ptr))[index]));
     }
+
     MsPtr<T> Locate(int index);
 };
