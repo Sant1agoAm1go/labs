@@ -420,7 +420,14 @@ class MemorySpan {
         }
 	}
 
-    ShrdPtr<T> Copy(size_t);  
-    UnqPtr<T> Get(size_t); 
-    MsPtr<T> Locate(size_t);
+    ShrdPtr<T> Copy(int index) {
+        ShrdPtr<T> pointer = nullptr;
+            pointer.ptr = *(this->ptr.ptr[index]);
+            pointer.counter = new int(1);
+            return pointer;
+    }  
+    UnqPtr<T> Get(int index) {
+        return UnqPtr<T>(*(this->ptr.ptr[index]));
+    }
+    MsPtr<T> Locate(int index);
 };
