@@ -12,6 +12,12 @@ class UnqPtr {
             ptr = nullptr;
         }
 
+        
+        UnqPtr(UnqPtr<T>& other) {
+            this->ptr = other.ptr;
+            other.ptr = nullptr;
+        }
+
         UnqPtr(UnqPtr<T>&& other) {
             this->ptr = other.ptr;
             other.ptr = nullptr;
@@ -45,6 +51,12 @@ class UnqPtr {
 
         T* Get() {
             return this->ptr;
+        }
+
+        UnqPtr<T>& operator=(UnqPtr<T>& other) {
+            this->ptr = other.ptr;
+            other.ptr = nullptr;
+            return *this;
         }
 
         UnqPtr<T>& operator=(UnqPtr<T>&& other) {
