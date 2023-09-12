@@ -39,8 +39,9 @@ class UnqPtr {
             return tmp;
         }
 
-        void Reset() {
+        void Reset(T* other) {
             delete ptr;
+            ptr = other;
         }
 
         void Swap(UnqPtr<T>& other) {
