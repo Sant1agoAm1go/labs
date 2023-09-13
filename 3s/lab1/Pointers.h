@@ -422,16 +422,7 @@ class MemorySpan {
         this->ptr = MsPtr<T>(other.ptr);
 	}
 
-    ~MemorySpan() {
-        if(ptr.counter) {
-            (*(ptr.counter))--;
-            if(*(ptr.counter) <= 0) {
-                //std::cout << "Deleting shared pointer..." << std::endl;
-                delete this->ptr.ptr; 
-                delete this->ptr.counter;
-            }
-        }
-	}
+    ~MemorySpan() = default;
 
     ShrdPtr<T> Copy(int index) {
         ShrdPtr<T> pointer = nullptr;
