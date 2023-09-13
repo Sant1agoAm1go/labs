@@ -424,16 +424,18 @@ class MemorySpan {
 
     ~MemorySpan() = default;
 
-    ShrdPtr<T> Copy(int index) {
+    ShrdPtr<T>& Copy(int index) {
         ShrdPtr<T> pointer = nullptr;
         pointer.ptr = new T((*(this->ptr.ptr))[index]);
         pointer.counter = new int(1);
         return pointer;
     }  
 
-    UnqPtr<T> Get(int index) {
+    UnqPtr<T>& Get(int index) {
         return UnqPtr<T>(new T((*(this->ptr.ptr))[index]));
     }
 
-    MsPtr<T> Locate(int index);
+    MsPtr<T>& Locate() {
+	return this->ptr;
+    } 
 };
