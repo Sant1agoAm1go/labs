@@ -357,7 +357,7 @@ class MsPtr {
         if(counter) {
             (*counter)--;
             if(*counter <= 0) {
-                std::cout << "Deleting shared pointer..." << std::endl;
+                std::cout << "Deleting master pointer..." << std::endl;
                 delete ptr; 
                 delete counter;
             }
@@ -372,7 +372,7 @@ class MsPtr {
         if(counter) {
             (*counter)--;
             if(*counter <= 0) {
-                std::cout << "Deleting shared pointer..." << std::endl;
+                std::cout << "Deleting master pointer..." << std::endl;
                 delete ptr; 
                 delete counter;
             }
@@ -398,11 +398,11 @@ class MsPtr {
         if(index < 0) {
             throw std::out_of_range("Out of range");
         }
-        return this->ptr[index];
+        return (*(this->ptr))[index];
     }
 };
 template<typename T> 
-class MemorySpan {
+class MemorySpan { 
     private:
     MsPtr<T> ptr;
     public:
@@ -422,16 +422,7 @@ class MemorySpan {
         this->ptr = MsPtr<T>(other.ptr);
 	}
 
-    ~MemorySpan() {
-        if(ptr.counter) {
-            (*(ptr.counter))--;
-            if(*(ptr.counter) <= 0) {
-                //std::cout << "Deleting shared pointer..." << std::endl;
-                delete this->ptr.ptr; 
-                delete this->ptr.counter;
-            }
-        }
-	}
+    ~MemorySpan() = default;
 
     ShrdPtr<T> Copy(int index) {
         ShrdPtr<T> pointer = nullptr;
@@ -440,9 +431,16 @@ class MemorySpan {
         return pointer;
     }  
 
-    UnqPtr<T> Get(int index) {
+    /*UnqPtr<T> Get(int index) {
         return UnqPtr<T>(new T((*(this->ptr.ptr))[index]));
+    }*/
+
+    T& Get (int index) {
+        return this->ptr[index];
     }
 
-    MsPtr<T> Locate(int index);
+    /*MsPtr<T> Locate(int index) {
+
+	return MsPtr<T>(new T((this->ptr)[index]));
+    }*/
 };
