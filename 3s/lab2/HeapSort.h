@@ -18,13 +18,13 @@ class HeapSorter : public ISorter <T> {
             int l = 2*i + 1; 
             int r = 2*i + 2; 
 
-            if (l < len && cmp(seq->Get(l),seq->Get(largest)) > 0)
+            if (l < len && cmp((*seq)[l],(*seq)[largest]) > 0)
                 largest = l;
-            if (r < len && cmp(seq->Get(r),seq->Get(largest)) > 0)
+            if (r < len && cmp((*seq)[r],(*seq)[largest]) > 0)
                 largest = r;
 
             if (largest != i) {
-                Swap(seq->Get(i), seq->Get(largest));
+                Swap((*seq)[i], (*seq)[largest]);
                 Heapify(seq, cmp, len, largest);
             }
         }
@@ -32,7 +32,7 @@ class HeapSorter : public ISorter <T> {
             for (int i = len / 2 - 1; i >= 0; i--)
                 Heapify(seq, cmp, len, i);
             for (int i=len-1; i>=0; i--) {
-                Swap(seq->Get(0), seq->Get(i));
+                Swap((*seq)[0], (*seq)[i]);
                 Heapify(seq, cmp, i, 0);
             }
         }
