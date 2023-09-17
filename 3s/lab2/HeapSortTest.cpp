@@ -26,9 +26,12 @@ int main() {
     }
     UnqPtr<ISorter<int>> sorter (new HeapSorter<int>);
     UnqPtr<Sequence<int>> seq = new ArraySequence<int>(data.Get(), len);
-    std::cout << "Before sort: " << seq.Get() << std::endl;
+    //std::cout << "Before sort: " << seq.Get() << std::endl;
+    clock_t start = clock();
     Sequence<int>* result = sorter->Sort(seq.Get(), cmp_int_rev);
-    std::cout << "After sort: " << result << std::endl;
+    double time = (double) (clock() - start) / CLOCKS_PER_SEC;
+    std::cout << "time of sort: " << time << std::endl;
+    //std::cout << "After sort: " << result << std::endl;
     std::cout << "Everything is fine" << std::endl;
     return 0;
 }
