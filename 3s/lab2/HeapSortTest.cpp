@@ -1,19 +1,19 @@
 #include <iostream>
 #include "HeapSort.h"
-int cmp_int(const int& p1, const int& p2) {
-	return p1 - p2;  	
+int cmp_int(const int& a, const int& b) {
+	return a - b;  	
 }
 
-int cmp_int_rev(const int& p1, const int& p2) {
-	return (p1 - p2)*(-1);  	
+int cmp_int_rev(const int& a, const int& b) {
+	return (a - b)*(-1);  	
 }
 
-int cmp_double(const double& p1, const double& p2) {
-	return (p1 - p2 >= 0) ? 1 : -1;
+int cmp_double(const double& a, const double& b) {
+	return (a - b >= 0) ? 1 : -1;
 }
 
-int cmp_double_rev(const double& p1, const double& p2) {
-    return (p1 - p2 >= 0) ? -1 : 1;
+int cmp_double_rev(const double& a, const double& b) {
+    return (a - b >= 0) ? -1 : 1;
 }
 int main() {
     srand(time(nullptr));
