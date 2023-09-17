@@ -109,16 +109,16 @@ public:
 		Sequence<int> * seq = new ArraySequence(new [] {1,2,3,4,5});
 	}*/ 
 
-	/*Item<T>* operator[](int index) {
+	T& operator[](int index) {
         if(index < 0 || index >= this->GetLength()) {
 			throw std::out_of_range("Out of range");
 		}
-        Item<T>* ptr = this->;
+        Item<T>* ptr = this->list->GetFirstItem();
         for (int i = 0; i < index; i++) {
             ptr = ptr->next;
         }
-        return ptr;
-	}*/
+        return ptr->data;
+	}
 
 	Sequence<T>* operator+(const LinkedListSequence<T>* other) {
 		Sequence <T>* result = new LinkedListSequence<T>();
