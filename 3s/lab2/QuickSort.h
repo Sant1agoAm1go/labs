@@ -3,13 +3,6 @@
 #include "ArraySequence.h"
 #include "ListSequence.h"
 #include "Pointers.h"
-template <typename T>
-void Swap(T& a, T& b) {
-	T temp = a;
-	a = b;
-	b = temp;
-}
-
 template <typename T> 
 class QuickSorter : public ISorter <T> {
     private:
