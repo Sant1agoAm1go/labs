@@ -22,8 +22,17 @@ int main() {
     int len, count, sort;
     double avg = 0;
     UnqPtr<ISorter<int>> sorter;
-    std::cin >> len >> count >> sort;
-    std::cin.clear();
+    std::cout << "Enter lenght: ";
+    std::cin >> len;
+    std::cout << "\n";
+
+    std::cout << "Enter count: ";
+    std::cin >> count; 
+    std::cout << "\n";
+
+    std::cout << "Enter sort (1 - heap, 2 - shell, 3 - quick): ";
+    std::cin >> sort;
+    std::cout << "\n";
     switch(sort) {
         case 1:
             sorter = (new HeapSorter<int>);
