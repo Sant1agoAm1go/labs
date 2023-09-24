@@ -121,6 +121,8 @@ int main(int argc, char **argv) {
             	break;
 
     	}
+		write_point("output2.txt", points[i], elem_count);
+
     }
 
 	for(int i = 0; i < arr_count; i++) {
@@ -136,6 +138,5 @@ int main(int argc, char **argv) {
     avg/=arr_count;
     printf("На сортировку %d элементов ушло %lf секунд\n", elem_count, avg);
     //point_array_print("After sort:\n", arr, len_point);
-	//write_point(output, arr, len_point);
     return 0;
 }

@@ -75,7 +75,7 @@ void insertion_sort(Point *base, size_t len, int(*compar)(const Point *, const P
 }
 
 void write_point(const char *path, Point *base, size_t len) { 
-	FILE *fptr = fopen(path, "w"); 
+	FILE *fptr = fopen(path, "a"); 
 	for (size_t i = 0; i < len; i++) { 
 		Point p = base[i]; 
 		fprintf(fptr, "%s:%s:%d\n",p.fio , p.number, p.age); 
