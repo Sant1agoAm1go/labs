@@ -301,7 +301,6 @@ class MsPtr {
     MsPtr(T* other, int count) {
         this->ptr = new DynamicArray<T>(other, count);
         this->counter = new int(1);
-        delete[] other;
     }
 
     MsPtr(const DynamicArray<T>& other) {
@@ -402,6 +401,7 @@ class MsPtr {
         return (*(this->ptr))[index];
     }
 };
+
 template<typename T> 
 class MemorySpan { 
     private:
@@ -432,14 +432,17 @@ class MemorySpan {
         return (this->ptr)[index];
     }
 
-    ShrdPtr<T> Copy(int index) {
+    /*ShrdPtr<T> Copy(int index) {
         ShrdPtr<T> pointer = nullptr;
         pointer.ptr = new T(this->ptr[index]);
         pointer.counter = new int(1);
         return pointer;
-    }  
+    }*/  
 
     T& Get (int index) {
+        if(index < 0) {
+            throw std::out_of_range("Out of range");
+        }
         return this->ptr[index];
     }
 

@@ -39,9 +39,9 @@ class UnqPtr {
             return tmp;
         }
 
-        void Reset(T* other) {
+        void Reset() {
             delete ptr;
-            ptr = other;
+            ptr = nullptr;
         }
 
         void Swap(UnqPtr<T>& other) {
@@ -122,7 +122,7 @@ class ShrdPtr {
         if(counter) {
             (*counter)--;
             if(*counter <= 0) {
-                //std::cout << "Deleting shared pointer..." << std::endl;
+                std::cout << "Deleting shared pointer..." << std::endl;
                 delete ptr; 
                 delete counter;
             }
@@ -312,7 +312,7 @@ class MsPtr {
         if(counter) {
             (*counter)--;
             if(*counter <= 0) {
-                //std::cout << "Deleting shared pointer..." << std::endl;
+                std::cout << "Deleting master pointer..." << std::endl;
                 delete ptr; 
                 delete counter;
             }
@@ -331,7 +331,7 @@ class MsPtr {
         if(counter) {
             (*counter)--;
             if(*counter <= 0) {
-                std::cout << "Deleting shared pointer..." << std::endl;
+                std::cout << "Deleting master pointer..." << std::endl;
                 delete ptr; 
                 delete counter;
             }
@@ -349,7 +349,7 @@ class MsPtr {
         other.counter = tmp_counter;
     }
 
-    T* Get() {
+    DynamicArray<T>* Get() {
         return this->ptr;
     }
 
@@ -357,7 +357,7 @@ class MsPtr {
         if(counter) {
             (*counter)--;
             if(*counter <= 0) {
-                std::cout << "Deleting master pointer..." << std::endl;
+                //std::cout << "Deleting master pointer..." << std::endl;
                 delete ptr; 
                 delete counter;
             }
@@ -372,7 +372,7 @@ class MsPtr {
         if(counter) {
             (*counter)--;
             if(*counter <= 0) {
-                std::cout << "Deleting master pointer..." << std::endl;
+                //std::cout << "Deleting master pointer..." << std::endl;
                 delete ptr; 
                 delete counter;
             }
@@ -401,6 +401,7 @@ class MsPtr {
         return (*(this->ptr))[index];
     }
 };
+
 template<typename T> 
 class MemorySpan { 
     private:
@@ -424,23 +425,28 @@ class MemorySpan {
 
     ~MemorySpan() = default;
 
-    ShrdPtr<T> Copy(int index) {
+    T& operator[](int index) {
+        if(index < 0) {
+            throw std::out_of_range("Out of range");
+        }
+        return (this->ptr)[index];
+    }
+
+    /*ShrdPtr<T> Copy(int index) {
         ShrdPtr<T> pointer = nullptr;
         pointer.ptr = new T((*(this->ptr.ptr))[index]);
         pointer.counter = new int(1);
         return pointer;
-    }  
-
-    /*UnqPtr<T> Get(int index) {
-        return UnqPtr<T>(new T((*(this->ptr.ptr))[index]));
-    }*/
+    }*/  
 
     T& Get (int index) {
+        if(index < 0) {
+            throw std::out_of_range("Out of range");
+        }
         return this->ptr[index];
     }
 
-    /*MsPtr<T> Locate(int index) {
-
-	return MsPtr<T>(new T((this->ptr)[index]));
-    }*/
+    MsPtr<T> Get() {
+	return this->ptr;
+    }
 };

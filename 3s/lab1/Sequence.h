@@ -40,6 +40,8 @@ public:
 		  stream << seq->GetLast() << "}" << std::endl;
 		  return stream;
 	}
+
+    virtual T& operator[](int index) = 0;
     
     /*template < typename... Args> 
 	Sequence<T>* Append(Args... args) {
