@@ -29,6 +29,7 @@ void TestUnqPtr() {
     assert(ptr2.Get() == nullptr);
     ptr.Reset();
     assert(ptr.Get() == nullptr);
+    delete[] data;
 }
 
 void TestShrdPtr() {
@@ -61,20 +62,21 @@ void TestShrdPtr() {
     assert(ptr2.Get() == nullptr);
     ptr.Reset();
     assert(ptr.Get() == nullptr);
+    delete[] data;
 }
 
 void TestMemorySpan() {
-    int* data2 = new int[5];
+    int* data = new int[5];
     for(int i = 0; i < 5; i++) {
-        data2[i] = rand() % 100;
+        data[i] = rand() % 100;
     }
-    MemorySpan<int> span = MemorySpan<int>(data2, 5);
-    assert(span.Get(0) == data2[0]);
-    assert(span.Get(1) == data2[1]);
-    assert(span.Get(2) == data2[2]);
-    assert(span.Get(3) == data2[3]);
-    assert(span.Get(4) == data2[4]);
-    delete[] data2;
+    MemorySpan<int> span = MemorySpan<int>(data, 5);
+    assert(span.Get(0) == data[0]);
+    assert(span.Get(1) == data[1]);
+    assert(span.Get(2) == data[2]);
+    assert(span.Get(3) == data[3]);
+    assert(span.Get(4) == data[4]);
+    delete[] data;
     }
 int main() {
     TestUnqPtr();
