@@ -46,16 +46,18 @@ int main() {
     }
     
     for(int j = 0; j < count; j++) {
-    MsPtr<int> data = MsPtr<int>(new int[len], len);
-    for(int i = 0; i < len; i++) {
-        data[i] = rand() % 100;
-    }
-    UnqPtr<Sequence<int>> seq = new ArraySequence<int>(*(data.Get()));
-    //std::cout << "Before sort: " << seq.Get() << std::endl;
-    clock_t start = clock();
-    UnqPtr<Sequence<int>> result = sorter->Sort(seq.Get(), cmp_int_rev);
-    double time = (double) (clock() - start) / CLOCKS_PER_SEC;
-    avg+=time;
+        int* data2 = new int[len];
+        MsPtr<int> data = MsPtr<int>(data2, len);
+        for(int i = 0; i < len; i++) {
+            data[i] = rand() % 100;
+        }
+        UnqPtr<Sequence<int>> seq = new ArraySequence<int>(*(data.Get()));
+        //std::cout << "Before sort: " << seq.Get() << std::endl;
+        clock_t start = clock();
+        UnqPtr<Sequence<int>> result = sorter->Sort(seq.Get(), cmp_int_rev);
+        double time = (double) (clock() - start) / CLOCKS_PER_SEC;
+        avg+=time;
+        delete[] data2;
     }
     avg/=count;
     std::cout << "time of sort: " << avg << std::endl;
