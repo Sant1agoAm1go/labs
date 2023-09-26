@@ -5,7 +5,7 @@
 #include <fstream>
 //#include "Generator.h"
     int map(int a) {
-        a = rand() % 100;
+        a = a*3;
         return a;
     }
     Sequence<int>* Generation(int length, int* data, int (*func)(int)) {
