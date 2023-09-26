@@ -2,6 +2,7 @@
 #include "HeapSort.h"
 #include "ShellSort.h"
 #include "QuickSort.h"
+#include <chrono>
 int cmp_int(const int& a, const int& b) {
 	return a - b;  	
 }
@@ -20,7 +21,7 @@ int cmp_double_rev(const double& a, const double& b) {
 int main() {
     srand(time(nullptr));
     int len, count, sort;
-    double avg = 0;
+    double avg = 0, avg2 = 0;
     UnqPtr<ISorter<int>> sorter;
     std::cout << "Enter lenght: ";
     std::cin >> len;
@@ -53,13 +54,20 @@ int main() {
         }
         UnqPtr<Sequence<int>> seq = new ArraySequence<int>(*(data.Get()));
         //std::cout << "Before sort: " << seq.Get() << std::endl;
-        clock_t start = clock();
+        
+        //clock_t start = clock();
+        auto start2 = std::chrono::steady_clock::now();
         UnqPtr<Sequence<int>> result = sorter->Sort(seq.Get(), cmp_int_rev);
-        double time = (double) (clock() - start) / CLOCKS_PER_SEC;
-        avg+=time;
+        std::chrono::duration<double> duration = std::chrono::steady_clock::now() - start2;
+        avg2+= duration.count();
+        //double time = (double) (clock() - start) / CLOCKS_PER_SEC;
+        //avg+=time;
+
         delete[] data2;
     }
-    avg/=count;
-    std::cout << "time of sort: " << avg << std::endl;
+    //avg/=count;
+    avg2/=count;
+    //std::cout << "time of sort: " << avg << std::endl;
+     std::cout << "time of sort: " << avg2 << std::endl;
     return 0;
 }
