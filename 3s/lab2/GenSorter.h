@@ -42,8 +42,8 @@ class GenSorter {
         void GetSortedSequence(int length, int (*cmp)(const T&, const T&)) {
             UnqPtr<Sequence<T>> seq = Generation(length);
             UnqPtr<Sequence<T>> result = Sort(seq.Get(), cmp);
-            WriteSeq("test.txt", seq.Get(), length);
-            WriteSeq("test.txt", result.Get(), length);
+            WriteSeq("test.csv", seq.Get(), length);
+            WriteSeq("test.csv", result.Get(), length);
         }
 
         ~GenSorter() = default;

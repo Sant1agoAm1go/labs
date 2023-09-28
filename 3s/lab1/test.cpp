@@ -77,7 +77,7 @@ void TestMemorySpan() {
     assert(span.Get(3) == data[3]);
     assert(span.Get(4) == data[4]);
     delete[] data;
-    }
+}
 int main() {
     TestUnqPtr();
     std::cout << "Test of UnqPtr completed successfully" << std::endl;
