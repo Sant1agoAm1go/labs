@@ -3,6 +3,7 @@
 #include "ArraySequence.h"
 #include "Pointers.h"
 #include "ISorter.h"
+#include <math.h>
 #include <fstream>
 template <typename T> 
 class GenSorter {
@@ -11,7 +12,7 @@ class GenSorter {
         Sequence<T>* Generation(int length) {
             int* data = new int[length];
                 for(int i = 0; i < length; i++) {
-                 data[i] = rand() % 100;
+                 data[i] = rand() % ((int)(std::pow(length,2)));
             }
             Sequence<T>* seq = new ArraySequence<T>(data,length);
             delete[] data;
