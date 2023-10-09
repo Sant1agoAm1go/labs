@@ -11,7 +11,7 @@ class GenSorter {
         Sequence<T>* Generation(int length) {
             int* data = new int[length];
                 for(int i = 0; i < length; i++) {
-                 data[i] = rand() % (length*rand());
+                 data[i] = rand() % 100;
             }
             Sequence<T>* seq = new ArraySequence<T>(data,length);
             delete[] data;
@@ -43,10 +43,6 @@ class GenSorter {
             sorter = generator.sorter;
         }
 
-        GenSorter(GenSorter<T>& generator) {
-            sorter = generator.sorter;
-        }
-
         GenSorter(GenSorter<T>&& generator) {
             sorter = std::move(generator.sorter);
         }
@@ -59,8 +55,13 @@ class GenSorter {
             WriteSeq("test.csv", result.Get(), length);
         }
 
-        GenSorter<T>& operator=(GenSorter<T>&& generator) {
+        
+        GenSorter<T>& operator=(const GenSorter<T>& generator) {
             sorter = generator.sorter;
+        }
+
+        GenSorter<T>& operator=(GenSorter<T>&& generator) {
+            sorter = std::move(generator.sorter);
         }
 
         ~GenSorter() = default;
