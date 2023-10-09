@@ -15,7 +15,7 @@ int main() {
     srand(time(nullptr));
     int length;
     std::cin >> length;
-    GenSorter<int> generator = GenSorter<int>(new QuickSorter<int>);
+    GenSorter<int> generator = std::move(GenSorter<int>(new QuickSorter<int>));
     while(length > 0) {
         generator.GetSortedSequence(length,cmp_int_rev);
         length--;

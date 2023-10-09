@@ -11,7 +11,7 @@ class GenSorter {
         Sequence<T>* Generation(int length) {
             int* data = new int[length];
                 for(int i = 0; i < length; i++) {
-                 data[i] = rand() % 100;
+                 data[i] = rand() % (length*rand());
             }
             Sequence<T>* seq = new ArraySequence<T>(data,length);
             delete[] data;
@@ -39,11 +39,28 @@ class GenSorter {
             sorter = UnqPtr<ISorter<T>>(sort);
         }
 
+        GenSorter(const GenSorter<T>& generator) {
+            sorter = generator.sorter;
+        }
+
+        GenSorter(GenSorter<T>& generator) {
+            sorter = generator.sorter;
+        }
+
+        GenSorter(GenSorter<T>&& generator) {
+            sorter = std::move(generator.sorter);
+        }
+
+
         void GetSortedSequence(int length, int (*cmp)(const T&, const T&)) {
             UnqPtr<Sequence<T>> seq = Generation(length);
             UnqPtr<Sequence<T>> result = Sort(seq.Get(), cmp);
             WriteSeq("test.csv", seq.Get(), length);
             WriteSeq("test.csv", result.Get(), length);
+        }
+
+        GenSorter<T>& operator=(GenSorter<T>&& generator) {
+            sorter = generator.sorter;
         }
 
         ~GenSorter() = default;
