@@ -11,7 +11,7 @@ class GenSorter {
         Sequence<T>* Generation(int length) {
             int* data = new int[length];
                 for(int i = 0; i < length; i++) {
-                 data[i] = rand() % 100;
+                 data[i] = rand() % length;
             }
             Sequence<T>* seq = new ArraySequence<T>(data,length);
             delete[] data;
