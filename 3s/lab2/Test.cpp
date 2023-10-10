@@ -62,7 +62,6 @@ int main() {
         avg2+= duration.count();
         //double time = (double) (clock() - start) / CLOCKS_PER_SEC;
         //avg+=time;
-
         delete[] data2;
     }
     //avg/=count;
