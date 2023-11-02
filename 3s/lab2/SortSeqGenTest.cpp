@@ -3,7 +3,7 @@
 #include "ArraySequence.h"
 #include "Pointers.h"
 #include <fstream>
-#include "GenSorter.h"
+#include "SortSeqGen.h"
 #include "HeapSort.h"
 #include "ShellSort.h"
 #include "QuickSort.h"
@@ -15,7 +15,7 @@ int main() {
     srand(time(nullptr));
     int length;
     std::cin >> length;
-    GenSorter<int> generator = GenSorter<int>(new QuickSorter<int>);
+    SortSeqGen<int> generator = SortSeqGen<int>(new QuickSorter<int>);
     while(length > 0) {
         generator.GetSortedSequence(length,cmp_int_rev);
         length--;

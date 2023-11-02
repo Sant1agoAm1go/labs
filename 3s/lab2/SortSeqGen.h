@@ -6,7 +6,7 @@
 #include <math.h>
 #include <fstream>
 template <typename T> 
-class GenSorter {
+class SortSeqGen {
     private:
         UnqPtr<ISorter<T>> sorter;
         Sequence<T>* Generation(int length) {
@@ -33,18 +33,18 @@ class GenSorter {
             return result;
         }
     public:
-        GenSorter() {
+        SortSeqGen() {
             sorter = nullptr;
         }
-        GenSorter(ISorter<T>* sort) {
+        SortSeqGen(ISorter<T>* sort) {
             sorter = UnqPtr<ISorter<T>>(sort);
         }
 
-        GenSorter(const GenSorter<T>& generator) {
+        SortSeqGen(const SortSeqGen<T>& generator) {
             sorter = generator.sorter;
         }
 
-        GenSorter(GenSorter<T>&& generator) {
+        SortSeqGen(SortSeqGen<T>&& generator) {
             sorter = std::move(generator.sorter);
         }
 
@@ -57,13 +57,13 @@ class GenSorter {
         }
 
         
-        GenSorter<T>& operator=(const GenSorter<T>& generator) {
+        SortSeqGen<T>& operator=(const SortSeqGen<T>& generator) {
             sorter = generator.sorter;
         }
 
-        GenSorter<T>& operator=(GenSorter<T>&& generator) {
+        SortSeqGen<T>& operator=(SortSeqGen<T>&& generator) {
             sorter = std::move(generator.sorter);
         }
-
-        ~GenSorter() = default;
+        
+        ~SortSeqGen() = default;
 };
