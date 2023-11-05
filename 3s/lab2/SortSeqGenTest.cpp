@@ -13,9 +13,26 @@ int cmp_int_rev(const int& a, const int& b) {
 }
 int main() {
     srand(time(nullptr));
-    int length;
+    int length, sort;
+    UnqPtr<ISorter<int>> sorter;
+    std::cout << "Enter length: ";
     std::cin >> length;
-    SortSeqGen<int> generator = SortSeqGen<int>(new QuickSorter<int>);
+    std::cout << "\n";
+    std::cout << "Enter sort (1 - heap, 2 - shell, 3 - quick): ";
+    std::cin >> sort;
+    std::cout << "\n";
+    switch(sort) {
+        case 1:
+            sorter = (new HeapSorter<int>);
+            break;
+        case 2:
+            sorter = (new ShellSorter<int>);
+            break;
+        case 3:
+            sorter = (new QuickSorter<int>);
+            break;
+    }
+    SortSeqGen<int> generator = SortSeqGen<int>(sorter.Get());
     while(length > 0) {
         generator.GetSortedSequence(length,cmp_int_rev);
         length--;

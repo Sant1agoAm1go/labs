@@ -46,6 +46,7 @@ class SortSeqGen {
 
         SortSeqGen(SortSeqGen<T>&& generator) {
             sorter = std::move(generator.sorter);
+            generator.sorter = nullptr;
         }
 
 
@@ -63,6 +64,7 @@ class SortSeqGen {
 
         SortSeqGen<T>& operator=(SortSeqGen<T>&& generator) {
             sorter = std::move(generator.sorter);
+            generator.sorter = nullptr;
         }
         
         ~SortSeqGen() = default;
