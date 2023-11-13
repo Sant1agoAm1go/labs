@@ -34,6 +34,7 @@ class SortSeqGen {
             Sequence<int>* result = (sorter.Get())->Sort(seq,cmp);
             return result;
         }
+        
         SortSeqGen() {
             sorter = nullptr;
         }

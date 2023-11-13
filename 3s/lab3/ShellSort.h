@@ -1,7 +1,6 @@
 #pragma once
 #include "ISorter.h"
 #include "ArraySequence.h"
-#include "ListSequence.h"
 #include "Pointers.h"
 template <typename T> 
 class ShellSorter : public ISorter <T> {

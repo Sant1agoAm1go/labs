@@ -1,4 +1,5 @@
 #include "Sequence.h"
+#include "ArraySequence.h"
 #include "ISorter.h"
 #include <utility>
 template <typename T>
@@ -23,7 +24,7 @@ class SortedSequence {
         }
 
         SortedSequence(SortedSequence<T>&& other) {
-            this->sequence = std::exchange(cother.sequence, nullptr);
+            this->sequence = std::exchange(other.sequence, nullptr);
             this->sorter = std::exchange(other.sorter, nullptr);
             this->comparator = std::exchange(other.comparator, nullptr);
         }
@@ -35,7 +36,7 @@ class SortedSequence {
         }
 
         SortedSequence<T>& operator=(SortedSequence<T>&& other) {
-            this->sequence = std::exchange(cother.sequence, nullptr);
+            this->sequence = std::exchange(other.sequence, nullptr);
             this->sorter = std::exchange(other.sorter, nullptr);
             this->comparator = std::exchange(other.comparator, nullptr);
         }
@@ -45,7 +46,7 @@ class SortedSequence {
         }
 
         bool IsEmpty() {
-            return sequence->GetLength() > 0;
+            return sequence->GetLength() < 0;
         }
 
         T& Get(int index) {
@@ -63,7 +64,7 @@ class SortedSequence {
         int IndexOf(T element) {
             for(int i = 0; i < this->GetLength(); i++) {
                 if(element == this->Get(i)) {
-                    return i
+                    return i;
                 }
             }
             return -1;
@@ -90,13 +91,22 @@ class SortedSequence {
                 return;
             }
 
-            for(int i == 0; i < sequence->GetLength(); i++) {
+            for(int i = 0; i < sequence->GetLength(); i++) {
                 if(comparator(element, sequence->Get(i)) <= 0) {
                     sequence->InsertAt(element, i);
                     break;
                 }
             }
         }
+
+        friend std::ostream& operator << (std::ostream& stream, SortedSequence<T>& seq) {
+    	    stream << "{";
+    	    for(int i = 0; i < seq.GetLength() - 1; i++) {
+            stream << seq.Get(i) << ", ";
+    	    }
+		    stream << seq.GetLast() << "}" << std::endl;
+		    return stream;
+	    }
 
         ~SortedSequence() {
             delete sequence;
