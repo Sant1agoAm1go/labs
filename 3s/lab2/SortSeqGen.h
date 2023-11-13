@@ -5,6 +5,7 @@
 #include "ISorter.h"
 #include <math.h>
 #include <fstream>
+#include <utility>
 template <typename T> 
 class SortSeqGen {
     private:
@@ -63,8 +64,8 @@ class SortSeqGen {
         }
 
         SortSeqGen<T>& operator=(SortSeqGen<T>&& generator) {
-            sorter = std::move(generator.sorter);
-            generator.sorter = nullptr;
+            sorter = std::exchange(generator.sorter, nullptr);
+            //generator.sorter = nullptr;
         }
         
         ~SortSeqGen() = default;
