@@ -34,5 +34,6 @@ int main() {
     std::cout << seq.IndexOf(500) << "\n";
     std::cout << seq;
     assert(seq.GetLength() == 13);
+    assert(seq.IndexOf(0) == -1);
     return 0;
 }
