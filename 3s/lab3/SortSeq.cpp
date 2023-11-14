@@ -21,19 +21,21 @@ int cmp_double_rev(const double& a, const double& b) {
 }
 
 int main() {
-    srand(time(nullptr));
-    UnqPtr<ISorter<int>> sorter = new ShellSorter<int>;
-    SortSeqGen<int> generator = SortSeqGen<int>(sorter.Get());
-    SortedSequence<int> seq = SortedSequence<int>(generator.Generation(10), sorter.Get(), cmp_int_rev);
+    //srand(time(nullptr));
+    ISorter<int>* sorter = new ShellSorter<int>;
+    SortSeqGen<int> generator = SortSeqGen<int>(sorter);
+    SortedSequence<int> seq = SortedSequence<int>(generator.Generation(10), sorter, cmp_int_rev);
     assert(seq.IsEmpty() == false);
     assert(seq.GetLength() == 10);
     std::cout << seq << "\n";
-    seq.Add(500);
+    seq.Add(364);
     seq.Add(2000);
     seq.Add(1);
     std::cout << seq.IndexOf(500) << "\n";
     std::cout << seq;
     assert(seq.GetLength() == 13);
+    assert(seq.IndexOf(2000) == 0);
+    assert(seq.IndexOf(1) == 12);
     assert(seq.IndexOf(0) == -1);
     return 0;
 }
