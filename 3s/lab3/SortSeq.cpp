@@ -21,7 +21,7 @@ int cmp_double_rev(const double& a, const double& b) {
 }
 
 int main() {
-    //srand(time(nullptr));
+    srand(time(nullptr));
     SortSeqGen<int> generator = SortSeqGen<int>(new ShellSorter<int>);
     UnqPtr<Sequence<int>> ptr = generator.Generation(10);
     SortedSequence<int> seq = SortedSequence<int>(ptr.Get(), new ShellSorter<int>, cmp_int_rev);

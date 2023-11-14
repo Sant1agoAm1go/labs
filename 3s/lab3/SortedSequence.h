@@ -41,7 +41,7 @@ class SortedSequence {
             this->comparator = std::exchange(other.comparator, nullptr);
         }
 
-        int GetLength() {
+        int GetLength() const {
             return sequence->GetLength();
         }
 
@@ -49,15 +49,15 @@ class SortedSequence {
             return sequence->GetLength() < 0;
         }
 
-        T& Get(int index) {
+        T& Get(int index) const {
             return sequence->Get(index);
         }
 
-        T& GetFirst() {
+        T& GetFirst() const {
             return sequence->GetFirst();
         }
 
-        T& GetLast() {
+        T& GetLast() const {
             return sequence->GetLast();
         }
 
@@ -99,7 +99,7 @@ class SortedSequence {
             }
         }
 
-        friend std::ostream& operator << (std::ostream& stream, SortedSequence<T>& seq) {
+        friend std::ostream& operator << (std::ostream& stream, const SortedSequence<T>& seq) {
     	    stream << "{";
     	    for(int i = 0; i < seq.GetLength() - 1; i++) {
             stream << seq.Get(i) << ", ";

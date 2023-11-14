@@ -12,6 +12,9 @@ class UnqPtr {
             ptr = nullptr;
         }
 
+        UnqPtr(std::nullptr_t) {
+            ptr = nullptr;
+        }
         
         UnqPtr(UnqPtr<T>& other) {
             this->ptr = other.ptr;
@@ -220,6 +223,11 @@ class WeakPtr {
         int* counter;
     public: 
         WeakPtr() {
+            ptr = nullptr;
+            counter = nullptr;
+        }
+
+        WeakPtr(std::nullptr_t) {
             ptr = nullptr;
             counter = nullptr;
         }
