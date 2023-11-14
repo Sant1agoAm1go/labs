@@ -11,7 +11,7 @@ public:
 
 	virtual bool ContainsKey(const Tkey& key) const = 0;
 
-	virtual IDict<Tkey, Tvalue>* Add(Pair<Tkey, Tvalue> record) = 0;
+	virtual IDictionary<Tkey, Tvalue>* Add(Pair<Tkey, Tvalue> record) = 0;
 
 	virtual void Remove(const Tkey& key) = 0;
 };

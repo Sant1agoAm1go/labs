@@ -79,7 +79,7 @@ public:
 			this->items->Get(i) = this->items->Get(i+1);  
 		} 
 
-		this->items->Resize(this->items->GetSize()--);
+		this->items->Resize(this->items->GetSize()-1);
 	}
 
 	Sequence <T>* Concat(Sequence <T>* other) override {

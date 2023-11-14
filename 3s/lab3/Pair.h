@@ -2,10 +2,9 @@
 #include <utility>
 #include <ostream>
 template <typename T1, typename T2> class Pair {
-private:
+public:
     T1 item1;
     T2 item2; 
-public:
 
     Pair() {
         item1 = T1();
@@ -27,11 +26,11 @@ public:
         item2 = std::exchange(other.item2, 0);
     }
 
-    T1& Get1() const {
+    T1 Get1() const {
         return item1;
     }
 
-    T2& Get2() const {
+    T2 Get2() const {
         return item2;
     }
 
@@ -43,15 +42,18 @@ public:
     Pair<T1,T2>& operator=(const Pair<T1,T2>& other) {
         item1 = other.item1;
         item2 = other.item2;
+        return *this;
     }
 
     Pair<T1,T2>& operator=(Pair<T1,T2>&& other) {
         item1 = std::exchange(other.item1, 0);
         item2 = std::exchange(other.item2, 0);
+        return *this;
     }
 
     friend std::ostream& operator <<(std::ostream& stream, const Pair<T1,T2>& pair) {
-        stream << "{" << pair.Get1() << "," << pair.Get2() << "}"; 
+        stream << "{" << pair.Get1() << "," << pair.Get2() << "}";
+        return stream; 
     }
 
     /*Pair<T1,T2> Get() {

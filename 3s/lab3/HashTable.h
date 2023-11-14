@@ -70,7 +70,7 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
             for(int i = 0; i < CollisionList.GetLength(); i++) {
                 Pair<Tkey,Tvalue>& record = CollisionList.Get(i);
                 if(record.Get1() == key) {
-                    return record.Get2();
+                    return record.item2;
                 }
             }
             throw std::out_of_range("Value was not found");
@@ -96,7 +96,7 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
             return count > 0.8*this->GetCapacity();
         }
 
-    IDict<Tkey, Tvalue>* Add(Pair<Tkey, Tvalue> record) {
+    IDictionary<Tkey, Tvalue>* Add(Pair<Tkey, Tvalue> record) {
         if (AssociativeArray->GetSize() == 0) {
             AssociativeArray->Resize(1);
         }
@@ -117,7 +117,7 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
             delete this->AssociativeArray;
             this->AssociativeArray = std::exchange(newTable, nullptr);
         }
-        ((*AssociativeArray)[Hash(record.GetLeft())]).Append(record);
+        ((*AssociativeArray)[Hash(record.Get1())]).Append(record);
         this->count++;
         return this;
     }
