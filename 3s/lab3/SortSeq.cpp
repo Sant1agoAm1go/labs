@@ -22,7 +22,7 @@ int cmp_double_rev(const double& a, const double& b) {
 
 int main() {
     srand(time(nullptr));
-    SortSeqGen<int> generator = SortSeqGen<int>(new ShellSorter<int>);
+    SortSeqGen<int> generator = SortSeqGen<int>(new ShellSorter<int>());
     UnqPtr<Sequence<int>> ptr = generator.Generation(10);
     SortedSequence<int> seq = SortedSequence<int>(ptr.Get(), new ShellSorter<int>, cmp_int_rev);
     assert(seq.IsEmpty() == false);
@@ -31,7 +31,7 @@ int main() {
     seq.Add(364);
     seq.Add(2000);
     seq.Add(1);
-    std::cout << seq.IndexOf(500) << "\n";
+    std::cout << seq.IndexOf(364) << "\n";
     std::cout << seq;
     assert(seq.GetLength() == 13);
     assert(seq.IndexOf(2000) == 0);

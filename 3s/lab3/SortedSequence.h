@@ -1,3 +1,4 @@
+#pragma once
 #include "Sequence.h"
 #include "ArraySequence.h"
 #include "ISorter.h"
@@ -39,6 +40,11 @@ class SortedSequence {
             this->sequence = std::exchange(other.sequence, nullptr);
             this->sorter = std::exchange(other.sorter, nullptr);
             this->comparator = other.comparator;
+        }
+
+        T& operator[](int index) const {
+            return sequence->Get(index);
+
         }
 
         int GetLength() const {
@@ -102,7 +108,7 @@ class SortedSequence {
         friend std::ostream& operator << (std::ostream& stream, const SortedSequence<T>& seq) {
     	    stream << "{";
     	    for(int i = 0; i < seq.GetLength() - 1; i++) {
-            stream << seq.Get(i) << ", ";
+            stream << seq[i] << ", ";
     	    }
 		    stream << seq.GetLast() << "}" << std::endl;
 		    return stream;

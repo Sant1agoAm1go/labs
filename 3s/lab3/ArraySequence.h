@@ -4,6 +4,7 @@
 template <typename T> class ArraySequence : public Sequence<T> {
 private:
 	DynamicArray<T>* items;
+	int length;
 public:
 	ArraySequence() {
 		this->items = new DynamicArray<T>();
@@ -67,6 +68,18 @@ public:
 			this->items->Set(i,this->items->Get(i-1));
 		}
 		this->items->Set(index, item);
+	}
+
+	void Remove(int index) {
+		if(index < 0 || index >= this->GetLength()) {
+			throw std::out_of_range("Out of range");
+		}
+
+		for(int i = index; i < this->GetLength() - 1; i++) {
+			this->items->Get(i) = this->items->Get(i+1);  
+		} 
+
+		this->items->Resize(this->items->GetSize()--);
 	}
 
 	Sequence <T>* Concat(Sequence <T>* other) override {
