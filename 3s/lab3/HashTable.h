@@ -18,8 +18,8 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
             hasher = new STLHasher<Tkey>();
         }
 
-        HashTable(int count, int capacity) {
-            this->count = count;
+        HashTable(int capacity) {
+            this->count = 0;
             this->AssociativeArray = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>(capacity);
             this->hasher = new STLHasher<Tkey>();
         }
@@ -108,7 +108,7 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
             DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>* newTable;
             newTable->Resize(AssociativeArray->GetSize() * 2);
             for (int i = 0; i < AssociativeArray->GetSize(); i++) {
-                ArraySequence<Pair<Tkey, Tvalue>>& CollisionList = (*AssociativeArray)[Hash(record.Get1())];
+                ArraySequence<Pair<Tkey, Tvalue>>& CollisionList = AssociativeArray->Get(i);
                 for (int i = 0; i < CollisionList.GetLength(); i++) {
                     Pair<Tkey, Tvalue>& ListRecord = CollisionList.Get(i);
                     ((*newTable)[hasher->Hash(ListRecord.Get1()) % newTable->GetSize()]).Append(ListRecord);

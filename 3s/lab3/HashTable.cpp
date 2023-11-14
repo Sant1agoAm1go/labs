@@ -2,7 +2,7 @@
 #include "HashTable.h"
 #include "IDictionary.h"
 int main() {
-    HashTable<int,int> table = HashTable<int,int>(0, 100);
+    HashTable<int,int> table = HashTable<int,int>(100);
     table.Add(Pair<int,int>(0,1));
     table.Add(Pair<int,int>(1,2));
     table.Add(Pair<int,int>(2,3));
