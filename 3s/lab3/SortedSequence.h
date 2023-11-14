@@ -26,7 +26,7 @@ class SortedSequence {
         SortedSequence(SortedSequence<T>&& other) {
             this->sequence = std::exchange(other.sequence, nullptr);
             this->sorter = std::exchange(other.sorter, nullptr);
-            this->comparator = std::exchange(other.comparator, nullptr);
+            this->comparator = other.comparator;
         }
 
         SortedSequence<T>& operator=(const SortedSequence<T>& other) {
@@ -38,7 +38,7 @@ class SortedSequence {
         SortedSequence<T>& operator=(SortedSequence<T>&& other) {
             this->sequence = std::exchange(other.sequence, nullptr);
             this->sorter = std::exchange(other.sorter, nullptr);
-            this->comparator = std::exchange(other.comparator, nullptr);
+            this->comparator = other.comparator;
         }
 
         int GetLength() const {
