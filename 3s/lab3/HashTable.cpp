@@ -11,6 +11,7 @@ int main() {
     std::cout << table.Get(1) << std::endl;
     std::cout << table.Get(2) << std::endl;
     std::cout << table.Get(3) << std::endl;
-    std::cout << table.ContainsKey(4) << std::endl;
+    assert(table.ContainsKey(3) == true);
+    assert(table.ContainsKey(4) == false);
     return 0;
 }
