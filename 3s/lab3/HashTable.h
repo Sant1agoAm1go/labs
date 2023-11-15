@@ -15,12 +15,14 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
         HashTable() {
             count = 0;
             this->AssociativeArray = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>(1);
+            //this->AssociativeArray->Resize(1);
             hasher = new STLHasher<Tkey>();
         }
 
         HashTable(int capacity) {
             this->count = 0;
             this->AssociativeArray = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>(capacity);
+            //this->AssociativeArray->Resize(capacity);
             this->hasher = new STLHasher<Tkey>();
         }
 

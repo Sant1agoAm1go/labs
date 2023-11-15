@@ -23,7 +23,7 @@ public:
 
 	}
 
-	DynamicArray(int size) { //	Создать массив заданной длины
+	DynamicArray(int size) { 
 	
 		data = new T[size];
 		length = size;
@@ -32,13 +32,24 @@ public:
 		}
 	}
 
-	DynamicArray(const DynamicArray<T>& other) {  // Копирующий конструктор
+	DynamicArray(const DynamicArray<T>& other) {  
 		length = other.length;
 		data = new T[length];
 		for (int i = 0; i < length; i++) {
 			this->data[i] = other.Get(i);
 			//this->data[i] = other.data[i];
 		}
+	}
+
+	DynamicArray(DynamicArray<T>&& other) {  
+		length = other.length;
+		data = new T[length];
+		for (int i = 0; i < length; i++) {
+			this->data[i] = other.Get(i);
+			//this->data[i] = other.data[i];
+		}
+		other.data = nullptr;
+		other.length = 0;
 	}
 	
 	~DynamicArray() {
@@ -83,6 +94,25 @@ public:
 		}
 		this->data = newData;
 		this->length = newSize;
+	}
+
+	DynamicArray<T>& operator=(const DynamicArray<T>& other) {
+		delete[] data;
+		length = other.length;
+		data = new T[length];
+		for (int i = 0; i < length; i++) {
+			this->data[i] = other.Get(i);
+		}
+		return *this;
+	}
+
+	DynamicArray<T>& operator=(DynamicArray<T>&& other) {
+		delete[] data;
+		length = other.length;
+		data = other.data;
+		other.data = nullptr;
+		other.length = 0;
+		return *this;
 	}
 
 	T& operator[](int index) {
