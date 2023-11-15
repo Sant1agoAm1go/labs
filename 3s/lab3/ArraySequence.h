@@ -32,7 +32,7 @@ public:
 	}
 
 	ArraySequence(ArraySequence<T>&& other) {
-		this->items = new DynamicArray<T>(*other.items);
+		this->items = other.items;
 		other.items = nullptr;
 	}
 
@@ -44,7 +44,7 @@ public:
 
 	ArraySequence<T>& operator=(ArraySequence<T>&& other) {
 		delete items;
-		this->items = new DynamicArray<T>(*other.items);
+		this->items = other.items;
 		other.items = nullptr;
 		return *this;
 	}
