@@ -20,7 +20,7 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
         }
 
         HashTable(int capacity) {
-            this->count = 0;
+            count = 0;
             this->associativeArray = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>(capacity);
             //this->associativeArray->Resize(capacity);
             this->hasher = new STLHasher<Tkey>();
@@ -105,7 +105,6 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
         if (ContainsKey(record.Get1())) {
             throw std::invalid_argument("Key already is in table");
         }
-
         if (NeedToReconstruct()) {
             DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>* newTable = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>(associativeArray->GetSize() * 2);
             //newTable->Resize(associativeArray->GetSize() * 2);

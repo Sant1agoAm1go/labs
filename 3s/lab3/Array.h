@@ -43,11 +43,7 @@ public:
 
 	DynamicArray(DynamicArray<T>&& other) {  
 		length = other.length;
-		data = new T[length];
-		for (int i = 0; i < length; i++) {
-			this->data[i] = other.Get(i);
-			//this->data[i] = other.data[i];
-		}
+		data = other.data;
 		other.data = nullptr;
 		other.length = 0;
 	}

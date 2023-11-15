@@ -31,6 +31,11 @@ public:
 		}*/
 	}
 
+	ArraySequence(ArraySequence<T>&& other) {
+		this->items = new DynamicArray<T>(*other.items);
+		other.items = nullptr;
+	}
+
 	ArraySequence<T>& operator=(const ArraySequence<T>& other) {
 		delete items;
 		this->items = new DynamicArray<T>(*other.items);

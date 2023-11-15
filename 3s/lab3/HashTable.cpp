@@ -32,5 +32,6 @@ int main() {
     assert(table.ContainsKey(4) == false);
     assert(table.GetCount() == 7);
     assert(table.GetCapacity() == 16);
+    std::cout << "Tests successfully completed" << std::endl;
     return 0;
 }
