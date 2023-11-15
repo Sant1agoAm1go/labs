@@ -118,7 +118,7 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
             this->AssociativeArray = std::exchange(newTable, nullptr);
         }
         ((*AssociativeArray)[Hash(record.Get1())]).Append(record);
-        this->count++;
+        this->count = this->count + 1;
         return this;
     }
 
