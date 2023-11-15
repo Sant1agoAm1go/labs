@@ -10,6 +10,10 @@ public:
 		this->items = new DynamicArray<T>();
 	}
 
+	ArraySequence(std::nullptr_t) {
+		this->items = new DynamicArray<T>();
+	}
+
 	ArraySequence(T* other, int count) { //	Копировать элементы из переданного массива
 		this->items = new DynamicArray<T>(other, count);
 	}
@@ -186,6 +190,19 @@ public:
 		for (int i = 0; i < other.GetLength(); i++)
 			this->Append(other->Get(i));
 		return *((Sequence<T>*)this);
+	}
+
+	bool operator==(const ArraySequence<T>& other) {
+		if (this->GetLength() != other.GetLength())
+			return false;
+		for (int i = 0; i < this->GetLength(); i++)
+			if (this->Get(i) != other.Get(i))
+				return false;
+		return true;
+	}
+
+	bool operator!=(const ArraySequence<T>& other) {
+		return !(this->items == other.items);
 	}
 
 };

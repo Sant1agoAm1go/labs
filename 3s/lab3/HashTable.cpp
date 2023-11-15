@@ -2,7 +2,7 @@
 #include "HashTable.h"
 #include "IDictionary.h"
 int main() {
-    HashTable<int,int> table = HashTable<int,int>(100);
+    HashTable<int,int> table = HashTable<int,int>(1);
     table.Add(Pair<int,int>(0,128));
     table.Add(Pair<int,int>(1,256));
     table.Add(Pair<int,int>(2,-1));
@@ -28,5 +28,9 @@ int main() {
     assert(table.ContainsKey(6) == true);
     assert(table.ContainsKey(7) == true);
     assert(table.ContainsKey(8) == false);
+    std::cout << table.GetCount() << std::endl;
+    std::cout << table.GetCapacity() << std::endl;
+    table.Remove(4);
+    assert(table.ContainsKey(4) == false);
     return 0;
 }

@@ -142,6 +142,19 @@ public:
 		return *this;
 	}
 
+	bool operator==(const DynamicArray<T>& other) {
+		if (this->length != other.length)
+			return false;
+		for (int i = 0; i < this->length; i++)
+			if (this->data[i] != other.data[i])
+				return false;
+		return true;
+	}
+
+	bool operator!=(const DynamicArray<T>& other) {
+		return !(*this == other);
+	}
+
 	friend std::ostream& operator << (std::ostream& stream, const DynamicArray<T>& arr) {
 		for(int i = 0; i < arr.GetSize(); i++) {
     		stream << arr.Get(i) << std::endl;
