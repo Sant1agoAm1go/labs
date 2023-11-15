@@ -3,7 +3,6 @@
 #include "IDictionary.h"
 int main() {
     HashTable<int,int> table = HashTable<int,int>(100);
-    std::cout << "aboba" << std::endl;
     table.Add(Pair<int,int>(0,128));
     table.Add(Pair<int,int>(1,256));
     table.Add(Pair<int,int>(2,-1));
@@ -20,5 +19,14 @@ int main() {
     std::cout << table.Get(5) << std::endl;
     std::cout << table.Get(6) << std::endl;
     std::cout << table.Get(7) << std::endl;
+    assert(table.ContainsKey(0) == true);
+    assert(table.ContainsKey(1) == true);
+    assert(table.ContainsKey(2) == true);
+    assert(table.ContainsKey(3) == true);
+    assert(table.ContainsKey(4) == true);
+    assert(table.ContainsKey(5) == true);
+    assert(table.ContainsKey(6) == true);
+    assert(table.ContainsKey(7) == true);
+    assert(table.ContainsKey(8) == false);
     return 0;
 }
