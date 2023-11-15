@@ -11,14 +11,14 @@ int main() {
     table.Add(Pair<int,int>(5,1024));
     table.Add(Pair<int,int>(6,-32));
     table.Add(Pair<int,int>(7,-64));
-    std::cout << table.Get(0) << std::endl;
-    std::cout << table.Get(1) << std::endl;
-    std::cout << table.Get(2) << std::endl;
-    std::cout << table.Get(3) << std::endl;
-    std::cout << table.Get(4) << std::endl;
-    std::cout << table.Get(5) << std::endl;
-    std::cout << table.Get(6) << std::endl;
-    std::cout << table.Get(7) << std::endl;
+    assert(table.Get(0) == 128);
+    assert(table.Get(1) == 256);
+    assert(table.Get(2) == -1);
+    assert(table.Get(3) == 0);
+    assert(table.Get(4) == 512);
+    assert(table.Get(5) == 1024);
+    assert(table.Get(6) == -32);
+    assert(table.Get(7) == -64);
     assert(table.ContainsKey(0) == true);
     assert(table.ContainsKey(1) == true);
     assert(table.ContainsKey(2) == true);
@@ -28,9 +28,9 @@ int main() {
     assert(table.ContainsKey(6) == true);
     assert(table.ContainsKey(7) == true);
     assert(table.ContainsKey(8) == false);
-    std::cout << table.GetCount() << std::endl;
-    std::cout << table.GetCapacity() << std::endl;
     table.Remove(4);
     assert(table.ContainsKey(4) == false);
+    assert(table.GetCount() == 7);
+    assert(table.GetCapacity() == 16);
     return 0;
 }

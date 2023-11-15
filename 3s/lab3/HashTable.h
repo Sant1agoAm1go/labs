@@ -130,12 +130,9 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
     }
 
     void Remove(const Tkey& key) {
-        if (ContainsKey(key) == false) {
+        if (ContainsKey(key) == false) 
             throw std::out_of_range("Key was not found");
-        }
-
         ArraySequence<Pair<Tkey, Tvalue>>& CollisionList = (*associativeArray)[Hash(key)];
-
         for (int i = 0; i < CollisionList.GetLength(); i++) {
             if ((CollisionList[i]).Get1() == key) {
                 CollisionList.Remove(i);
