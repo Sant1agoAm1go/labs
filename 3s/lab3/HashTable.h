@@ -112,8 +112,8 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
                 ArraySequence<Pair<Tkey, Tvalue>>& CollisionList = associativeArray->Get(i);
                 if(CollisionList.GetLength()!=0 && CollisionList != ArraySequence<Pair<Tkey, Tvalue>>()) {
                     for (int i = 0; i < CollisionList.GetLength(); i++) {
-                        Pair<Tkey, Tvalue>& ListRecord = CollisionList.Get(i);
-                        ((*newTable)[hasher->Hash(ListRecord.Get1()) % newTable->GetSize()]).Append(ListRecord);
+                        Pair<Tkey, Tvalue>& listRecord = CollisionList.Get(i);
+                        ((*newTable)[hasher->Hash(listRecord.Get1()) % newTable->GetSize()]).Append(listRecord);
                     }
                 }
                 else {
