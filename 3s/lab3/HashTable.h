@@ -109,7 +109,7 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
             DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>* newTable = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>(associativeArray->GetSize() * 2);
             //newTable->Resize(associativeArray->GetSize() * 2);
             for (int i = 0; i < associativeArray->GetSize(); i++) {
-                ArraySequence<Pair<Tkey, Tvalue>>& CollisionList = associativeArray->Get(i);
+                ArraySequence<Pair<Tkey, Tvalue>>& CollisionList = (*associativeArray)[i];
                 if(CollisionList.GetLength()!=0 && CollisionList != ArraySequence<Pair<Tkey, Tvalue>>()) {
                     for (int i = 0; i < CollisionList.GetLength(); i++) {
                         Pair<Tkey, Tvalue>& listRecord = CollisionList.Get(i);
