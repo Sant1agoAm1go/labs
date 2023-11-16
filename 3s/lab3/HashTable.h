@@ -68,9 +68,9 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
         }
         
         Tvalue& Get(const Tkey& key) const {
-            ArraySequence<Pair<Tkey, Tvalue>>& CollisionList = (*associativeArray)[Hash(key)];
-            for(int i = 0; i < CollisionList.GetLength(); i++) {
-                Pair<Tkey,Tvalue>& record = CollisionList.Get(i);
+            ArraySequence<Pair<Tkey, Tvalue>>& collisionArray = (*associativeArray)[Hash(key)];
+            for(int i = 0; i < collisionArray.GetLength(); i++) {
+                Pair<Tkey,Tvalue>& record = collisionArray.Get(i);
                 if(record.Get1() == key) {
                     return record.item2;
                 }
@@ -79,9 +79,9 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
         }
 
         bool ContainsKey(const Tkey& key) const {
-            ArraySequence<Pair<Tkey, Tvalue>>& CollisionList = (*associativeArray)[Hash(key)];
-            for(int i = 0; i < CollisionList.GetLength(); i++) {
-                Pair<Tkey,Tvalue>& record = CollisionList.Get(i);
+            ArraySequence<Pair<Tkey, Tvalue>>& collisionArray = (*associativeArray)[Hash(key)];
+            for(int i = 0; i < collisionArray.GetLength(); i++) {
+                Pair<Tkey,Tvalue>& record = collisionArray.Get(i);
                 if(record.Get1() == key) {
                     return true;
                 }
@@ -109,10 +109,10 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
             DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>* newTable = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>(associativeArray->GetSize() * 2);
             //newTable->Resize(associativeArray->GetSize() * 2);
             for (int i = 0; i < associativeArray->GetSize(); i++) {
-                ArraySequence<Pair<Tkey, Tvalue>>& CollisionList = (*associativeArray)[i];
-                if(CollisionList.GetLength()!=0 && CollisionList != ArraySequence<Pair<Tkey, Tvalue>>()) {
-                    for (int i = 0; i < CollisionList.GetLength(); i++) {
-                        Pair<Tkey, Tvalue>& listRecord = CollisionList.Get(i);
+                ArraySequence<Pair<Tkey, Tvalue>>& collisionArray = (*associativeArray)[i];
+                if(collisionArray.GetLength()!=0 && collisionArray != ArraySequence<Pair<Tkey, Tvalue>>()) {
+                    for (int i = 0; i < collisionArray.GetLength(); i++) {
+                        Pair<Tkey, Tvalue>& listRecord = collisionArray.Get(i);
                         ((*newTable)[hasher->Hash(listRecord.Get1()) % newTable->GetSize()]).Append(listRecord);
                     }
                 }
@@ -131,10 +131,10 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
     void Remove(const Tkey& key) {
         if (ContainsKey(key) == false) 
             throw std::out_of_range("Key was not found");
-        ArraySequence<Pair<Tkey, Tvalue>>& CollisionList = (*associativeArray)[Hash(key)];
-        for (int i = 0; i < CollisionList.GetLength(); i++) {
-            if ((CollisionList[i]).Get1() == key) {
-                CollisionList.Remove(i);
+        ArraySequence<Pair<Tkey, Tvalue>>& collisionArray = (*associativeArray)[Hash(key)];
+        for (int i = 0; i < collisionArray.GetLength(); i++) {
+            if ((collisionArray[i]).Get1() == key) {
+                collisionArray.Remove(i);
                 break;
             }
         }
