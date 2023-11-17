@@ -98,46 +98,46 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
             return count > 0.8*this->GetCapacity();
         }
 
-    IDictionary<Tkey, Tvalue>* Add(Pair<Tkey, Tvalue> record) {
-        if (associativeArray->GetSize() == 0) {
-            associativeArray->Resize(1);
-        }
-        if (ContainsKey(record.Get1())) {
-            throw std::invalid_argument("Key already is in table");
-        }
-        if (NeedToReconstruct()) {
-            DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>* newTable = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>(associativeArray->GetSize() * 2);
-            //newTable->Resize(associativeArray->GetSize() * 2);
-            for (int i = 0; i < associativeArray->GetSize(); i++) {
-                ArraySequence<Pair<Tkey, Tvalue>>& collisionArray = (*associativeArray)[i];
-                if(collisionArray.GetLength()!=0 && collisionArray != ArraySequence<Pair<Tkey, Tvalue>>()) {
-                    for (int i = 0; i < collisionArray.GetLength(); i++) {
-                        Pair<Tkey, Tvalue>& listRecord = collisionArray.Get(i);
-                        ((*newTable)[hasher->Hash(listRecord.Get1()) % newTable->GetSize()]).Append(listRecord);
-                    }
-                }
-                else {
-                    continue;
-                }
-            } 
-            delete this->associativeArray;
-            this->associativeArray = newTable;
-        }
-        ((*associativeArray)[Hash(record.Get1())]).Append(record);
-        this->count++;
-        return this;
-    }
-
-    void Remove(const Tkey& key) {
-        if (ContainsKey(key) == false) 
-            throw std::out_of_range("Key was not found");
-        ArraySequence<Pair<Tkey, Tvalue>>& collisionArray = (*associativeArray)[Hash(key)];
-        for (int i = 0; i < collisionArray.GetLength(); i++) {
-            if ((collisionArray[i]).Get1() == key) {
-                collisionArray.Remove(i);
-                break;
+        IDictionary<Tkey, Tvalue>* Add(Pair<Tkey, Tvalue> record) {
+            if (associativeArray->GetSize() == 0) {
+                associativeArray->Resize(1);
             }
+            if (ContainsKey(record.Get1())) {
+                throw std::invalid_argument("Key already is in table");
+            }
+            if (NeedToReconstruct()) {
+                DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>* newTable = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>(associativeArray->GetSize() * 2);
+                //newTable->Resize(associativeArray->GetSize() * 2);
+                for (int i = 0; i < associativeArray->GetSize(); i++) {
+                    ArraySequence<Pair<Tkey, Tvalue>>& collisionArray = (*associativeArray)[i];
+                    if(collisionArray.GetLength()!=0 && collisionArray != ArraySequence<Pair<Tkey, Tvalue>>()) {
+                        for (int i = 0; i < collisionArray.GetLength(); i++) {
+                            Pair<Tkey, Tvalue>& listRecord = collisionArray.Get(i);
+                            ((*newTable)[hasher->Hash(listRecord.Get1()) % newTable->GetSize()]).Append(listRecord);
+                        }
+                    }
+                    else {
+                        continue;
+                    }
+                } 
+                delete this->associativeArray;
+                this->associativeArray = newTable;
+            }
+            ((*associativeArray)[Hash(record.Get1())]).Append(record);
+            this->count++;
+            return this;
         }
-        this->count--;
-    }
+
+        void Remove(const Tkey& key) {
+            if (ContainsKey(key) == false) 
+                throw std::out_of_range("Key was not found");
+            ArraySequence<Pair<Tkey, Tvalue>>& collisionArray = (*associativeArray)[Hash(key)];
+            for (int i = 0; i < collisionArray.GetLength(); i++) {
+                if ((collisionArray[i]).Get1() == key) {
+                    collisionArray.Remove(i);
+                    break;
+                }
+            }
+            this->count--;
+        }
 };
