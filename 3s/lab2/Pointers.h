@@ -55,18 +55,21 @@ class UnqPtr {
         }
 
         UnqPtr<T>& operator=(UnqPtr<T>& other) {
+            delete ptr;
             this->ptr = other.ptr;
             other.ptr = nullptr;
             return *this;
         }
 
         UnqPtr<T>& operator=(UnqPtr<T>&& other) {
+            delete ptr;
             this->ptr = other.ptr;
             other.ptr = nullptr;
             return *this;
         }
 
         UnqPtr<T>& operator=(T* other) {
+            delete ptr;
             this->ptr = other;
             return *this;
         }
@@ -172,6 +175,8 @@ class ShrdPtr {
                 delete counter;
             }
         }
+        delete ptr;
+        delete counter;
         this->ptr = other.ptr;
         this->counter = other.counter;
         (*this->counter)++;
@@ -187,6 +192,8 @@ class ShrdPtr {
                 delete counter;
             }
         }
+        delete ptr;
+        delete counter;
         this->ptr = other;
         this->counter = new int(1);
         return *this;
@@ -264,12 +271,16 @@ class WeakPtr {
         }
 
         WeakPtr<T>& operator=(const ShrdPtr<T>& other) {
+            delete ptr;
+            delete counter;
             this->ptr = other.ptr;
             this->counter = other.counter;
             return *this;
         }    
 
         WeakPtr<T>& operator=(const WeakPtr<T>& other) {
+            delete ptr;
+            delete counter;
             this->ptr = other.ptr;
             this->counter = other.counter;
             return *this;
@@ -282,124 +293,128 @@ class MsPtr {
         DynamicArray<T>* ptr;
         int* counter;
     public:
-    MsPtr() {
-        this->ptr = new DynamicArray<T>();
-        this->counter = new int(0);
-    }
+        MsPtr() {
+            this->ptr = new DynamicArray<T>();
+            this->counter = new int(0);
+        }
 
-    MsPtr(std::nullptr_t) {
-        this->ptr = nullptr;
-        this->counter = new int(0);
-    }
+        MsPtr(std::nullptr_t) {
+            this->ptr = nullptr;
+            this->counter = new int(0);
+        }
 
-    MsPtr(const MsPtr<T>& other) {
-        this->ptr = other.ptr;
-        this->counter = other.counter;
-        (*this->counter)++;
-    }
+        MsPtr(const MsPtr<T>& other) {
+            this->ptr = other.ptr;
+            this->counter = other.counter;
+            (*this->counter)++;
+        }
 
-    MsPtr(T* other, int count) {
-        this->ptr = new DynamicArray<T>(other, count);
-        this->counter = new int(1);
-    }
+        MsPtr(T* other, int count) {
+            this->ptr = new DynamicArray<T>(other, count);
+            this->counter = new int(1);
+        }
 
-    MsPtr(const DynamicArray<T>& other) {
-        this->ptr = new DynamicArray<T>(other);
-        this->counter = new int(1);
-    }
+        MsPtr(const DynamicArray<T>& other) {
+            this->ptr = new DynamicArray<T>(other);
+            this->counter = new int(1);
+        }
 
-    ~MsPtr() {
-        if(counter) {
-            (*counter)--;
-            if(*counter <= 0) {
-                //std::cout << "Deleting master pointer..." << std::endl;
-                delete ptr; 
-                delete counter;
+        ~MsPtr() {
+            if(counter) {
+                (*counter)--;
+                if(*counter <= 0) {
+                    //std::cout << "Deleting master pointer..." << std::endl;
+                    delete ptr; 
+                    delete counter;
+                }
             }
         }
-    }
 
-    int UseCount() {
-        return *this->counter;
-    }
+        int UseCount() {
+            return *this->counter;
+        }
 
-    bool Unique() {
-        return *this->counter == 1;
-    }
+        bool Unique() {
+            return *this->counter == 1;
+        }
 
-    void Reset() {
-        if(counter) {
-            (*counter)--;
-            if(*counter <= 0) {
-                //std::cout << "Deleting master pointer..." << std::endl;
-                delete ptr; 
-                delete counter;
+        void Reset() {
+            if(counter) {
+                (*counter)--;
+                if(*counter <= 0) {
+                    //std::cout << "Deleting master pointer..." << std::endl;
+                    delete ptr; 
+                    delete counter;
+                }
             }
+            this->ptr = nullptr;
+            this->counter = nullptr;
         }
-        this->ptr = nullptr;
-        this->counter = nullptr;
-    }
 
-    void Swap(MsPtr<T>& other) {
-        T* tmp = this->ptr;
-        int* tmp_counter = this->counter; 
-        this->ptr = other.ptr;
-        other.ptr = tmp;
-        this->counter = other.counter;
-        other.counter = tmp_counter;
-    }
+        void Swap(MsPtr<T>& other) {
+            T* tmp = this->ptr;
+            int* tmp_counter = this->counter; 
+            this->ptr = other.ptr;
+            other.ptr = tmp;
+            this->counter = other.counter;
+            other.counter = tmp_counter;
+        }
 
-    DynamicArray<T>* Get() {
-        return this->ptr;
-    }
+        DynamicArray<T>* Get() {
+            return this->ptr;
+        }
 
-    MsPtr<T>& operator=(const MsPtr<T>& other) {
-        if(counter) {
-            (*counter)--;
-            if(*counter <= 0) {
-                //std::cout << "Deleting master pointer..." << std::endl;
-                delete ptr; 
-                delete counter;
+        MsPtr<T>& operator=(const MsPtr<T>& other) {
+            if(counter) {
+                (*counter)--;
+                if(*counter <= 0) {
+                    //std::cout << "Deleting master pointer..." << std::endl;
+                    delete ptr; 
+                    delete counter;
+                }
             }
+            delete ptr;
+            delete counter;
+            this->ptr = other.ptr;
+            this->counter = other.counter;
+            (*this->counter)++;
+            return *this;
         }
-        this->ptr = other.ptr;
-        this->counter = other.counter;
-        (*this->counter)++;
-        return *this;
-    }
 
-    MsPtr<T>& operator=(T* other) {
-        if(counter) {
-            (*counter)--;
-            if(*counter <= 0) {
-                //std::cout << "Deleting master pointer..." << std::endl;
-                delete ptr; 
-                delete counter;
+        MsPtr<T>& operator=(T* other) {
+            if(counter) {
+                (*counter)--;
+                if(*counter <= 0) {
+                    //std::cout << "Deleting master pointer..." << std::endl;
+                    delete ptr; 
+                    delete counter;
+                }
             }
+            delete ptr;
+            delete counter;
+            this->ptr = other;
+            this->counter = new int(1);
+            return *this;
         }
-        this->ptr = other;
-        this->counter = new int(1);
-        return *this;
-    }
 
-    operator bool() {
-        return this->ptr;
-    }
-
-    T& operator*() {
-        return *(this->ptr);
-    }
-
-    T* operator->() {
-        return this->ptr;
-    }
-
-    T& operator[](int index) {
-        if(index < 0) {
-            throw std::out_of_range("Out of range");
+        operator bool() {
+            return this->ptr;
         }
-        return (*(this->ptr))[index];
-    }
+
+        T& operator*() {
+            return *(this->ptr);
+        }
+
+        T* operator->() {
+            return this->ptr;
+        }
+
+        T& operator[](int index) {
+            if(index < 0) {
+                throw std::out_of_range("Out of range");
+            }
+            return (*(this->ptr))[index];
+        }
 };
 
 template<typename T> 
@@ -407,46 +422,46 @@ class MemorySpan {
     private:
     MsPtr<T> ptr;
     public:
-	MemorySpan() {
-		this->ptr = MsPtr<T>();
-	}
-
-	MemorySpan(T* other, int count) { 
-		this->ptr = MsPtr<T>(other, count);
-	}
-
-	MemorySpan(const DynamicArray<T>& other) {  
-    	this->ptr = MsPtr<T>(other);
-    }
-
-	MemorySpan(const MemorySpan<T>& other) { 
-        this->ptr = MsPtr<T>(other.ptr);
-	}
-
-    ~MemorySpan() = default;
-
-    T& operator[](int index) {
-        if(index < 0) {
-            throw std::out_of_range("Out of range");
+        MemorySpan() {
+            this->ptr = MsPtr<T>();
         }
-        return (this->ptr)[index];
-    }
 
-    /*ShrdPtr<T> Copy(int index) {
-        ShrdPtr<T> pointer = nullptr;
-        pointer.ptr = new T(this->ptr[index]);
-        pointer.counter = new int(1);
-        return pointer;
-    }*/  
-
-    T& Get (int index) {
-        if(index < 0) {
-            throw std::out_of_range("Out of range");
+        MemorySpan(T* other, int count) { 
+            this->ptr = MsPtr<T>(other, count);
         }
-        return this->ptr[index];
-    }
 
-    MsPtr<T> Get() {
-	return this->ptr;
-    }
+        MemorySpan(const DynamicArray<T>& other) {  
+            this->ptr = MsPtr<T>(other);
+        }
+
+        MemorySpan(const MemorySpan<T>& other) { 
+            this->ptr = MsPtr<T>(other.ptr);
+        }
+
+        ~MemorySpan() = default;
+
+        T& operator[](int index) {
+            if(index < 0) {
+                throw std::out_of_range("Out of range");
+            }
+            return (this->ptr)[index];
+        }
+
+        /*ShrdPtr<T> Copy(int index) {
+            ShrdPtr<T> pointer = nullptr;
+            pointer.ptr = new T(this->ptr[index]);
+            pointer.counter = new int(1);
+            return pointer;
+        }*/  
+
+        T& Get (int index) {
+            if(index < 0) {
+                throw std::out_of_range("Out of range");
+            }
+            return this->ptr[index];
+        }
+
+        MsPtr<T> Get() {
+        return this->ptr;
+        }
 };
