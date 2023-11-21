@@ -7,21 +7,22 @@
 #include "Array.h"
 template <typename Tkey, typename Tvalue>
 class HashTable : public IDictionary<Tkey, Tvalue> {
+    using CollisionList = ArraySequence<Pair<Tkey, Tvalue>>;
     private:
-        DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>* associativeArray;
+        DynamicArray<CollisionList>* associativeArray;
         IHasher<Tkey>* hasher;
         int count;
     public:
         HashTable() {
             count = 0;
-            this->associativeArray = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>(1);
+            this->associativeArray = new DynamicArray<CollisionList>(1);
             //this->associativeArray->Resize(1);
             hasher = new STLHasher<Tkey>();
         }
 
         HashTable(int capacity) {
             count = 0;
-            this->associativeArray = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>(capacity);
+            this->associativeArray = new DynamicArray<CollisionList>(capacity);
             //this->associativeArray->Resize(capacity);
             this->hasher = new STLHasher<Tkey>();
         }
@@ -68,7 +69,7 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
         }
         
         Tvalue& Get(const Tkey& key) const {
-            ArraySequence<Pair<Tkey, Tvalue>>& collisionArray = (*associativeArray)[Hash(key)];
+            CollisionList& collisionArray = (*associativeArray)[Hash(key)];
             for(int i = 0; i < collisionArray.GetLength(); i++) {
                 Pair<Tkey,Tvalue>& record = collisionArray.Get(i);
                 if(record.Get1() == key) {
@@ -79,7 +80,7 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
         }
 
         bool ContainsKey(const Tkey& key) const {
-            ArraySequence<Pair<Tkey, Tvalue>>& collisionArray = (*associativeArray)[Hash(key)];
+            CollisionList& collisionArray = (*associativeArray)[Hash(key)];
             for(int i = 0; i < collisionArray.GetLength(); i++) {
                 Pair<Tkey,Tvalue>& record = collisionArray.Get(i);
                 if(record.Get1() == key) {
@@ -106,11 +107,11 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
                 throw std::invalid_argument("Key already is in table");
             }
             if (NeedToReconstruct()) {
-                DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>* newTable = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>(associativeArray->GetSize() * 2);
+                DynamicArray<CollisionList>* newTable = new DynamicArray<CollisionList>(associativeArray->GetSize() * 2);
                 //newTable->Resize(associativeArray->GetSize() * 2);
                 for (int i = 0; i < associativeArray->GetSize(); i++) {
-                    ArraySequence<Pair<Tkey, Tvalue>>& collisionArray = (*associativeArray)[i];
-                    if(collisionArray.GetLength()!=0 && collisionArray != ArraySequence<Pair<Tkey, Tvalue>>()) {
+                    CollisionList& collisionArray = (*associativeArray)[i];
+                    if(collisionArray.GetLength()!=0 && collisionArray != CollisionList()) {
                         for (int i = 0; i < collisionArray.GetLength(); i++) {
                             Pair<Tkey, Tvalue>& listRecord = collisionArray.Get(i);
                             ((*newTable)[hasher->Hash(listRecord.Get1()) % newTable->GetSize()]).Append(listRecord);
@@ -131,7 +132,7 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
         void Remove(const Tkey& key) {
             if (ContainsKey(key) == false) 
                 throw std::out_of_range("Key was not found");
-            ArraySequence<Pair<Tkey, Tvalue>>& collisionArray = (*associativeArray)[Hash(key)];
+            CollisionList& collisionArray = (*associativeArray)[Hash(key)];
             for (int i = 0; i < collisionArray.GetLength(); i++) {
                 if ((collisionArray[i]).Get1() == key) {
                     collisionArray.Remove(i);
