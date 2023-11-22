@@ -20,9 +20,10 @@ int cmp_double_rev(const double& a, const double& b) {
 }
 int main() {
     srand(time(nullptr));
-    int len, count, sort;
+    int len, count, sort, comparator;
     double avg = 0;
     UnqPtr<ISorter<int>> sorter;
+    void* compar;
     std::cout << "Enter lenght: ";
     std::cin >> len;
     std::cout << "\n";
@@ -43,6 +44,18 @@ int main() {
             break;
         case 3:
             sorter = (new QuickSorter<int>);
+            break;
+    }
+
+     std::cout << "Enter comparator (1 - cmp_int, 2 - cmp_int_rev): " << std::endl;
+    std::cin >> comparator;
+    std::cout << "\n";
+    switch(comparator) {
+        case 1:
+            compar = (void*) cmp_int;
+            break;
+        case 2:
+            compar = (void*) cmp_int_rev;
             break;
     }
     

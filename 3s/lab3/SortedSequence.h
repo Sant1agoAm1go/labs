@@ -31,12 +31,16 @@ class SortedSequence {
         }
 
         SortedSequence<T>& operator=(const SortedSequence<T>& other) {
+            delete sequence;
+            delete sorter;
             this->sequence = other.sequence;
             this->sorter = other.sorter;
             this->comparator = other.comparator;
         }
 
         SortedSequence<T>& operator=(SortedSequence<T>&& other) {
+            delete sequence;
+            delete sorter;
             this->sequence = std::exchange(other.sequence, nullptr);
             this->sorter = std::exchange(other.sorter, nullptr);
             this->comparator = other.comparator;
