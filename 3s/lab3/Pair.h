@@ -16,6 +16,11 @@ public:
         item2 = value2;
     }
 
+    Pair(T1&& value1, T2&& value2) {
+        item1 = value1;
+        item2 = value2;
+    }
+
     Pair(const Pair<T1,T2>& other) {
         item1 = other.item1;
         item2 = other.item2;
