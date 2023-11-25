@@ -58,18 +58,21 @@ class UnqPtr {
         }
 
         UnqPtr<T>& operator=(UnqPtr<T>& other) {
+            delete ptr;
             this->ptr = other.ptr;
             other.ptr = nullptr;
             return *this;
         }
 
         UnqPtr<T>& operator=(UnqPtr<T>&& other) {
+            delete ptr;
             this->ptr = other.ptr;
             other.ptr = nullptr;
             return *this;
         }
 
         UnqPtr<T>& operator=(T* other) {
+            delete ptr;
             this->ptr = other;
             return *this;
         }
