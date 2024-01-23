@@ -60,12 +60,6 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
             this->count = std::exchange(other.count, 0);
         }
 
-        HashTable(IHasher<Tkey>* other) {
-            count = 0;
-            associativeArray = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>();
-            hasher = other;
-        }
-
         int GetCount() const {
             return count;
         }

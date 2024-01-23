@@ -56,6 +56,10 @@ public:
         return *this;
     }
 
+    bool operator==(const Pair<T1,T2>& other) const {
+        return (this->Get1()==other.Get1() && this->Get2()==other.Get2());
+    }
+
     friend std::ostream& operator <<(std::ostream& stream, const Pair<T1,T2>& pair) {
         stream << "{" << pair.Get1() << "," << pair.Get2() << "}";
         return stream; 
