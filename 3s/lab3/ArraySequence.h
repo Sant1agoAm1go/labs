@@ -143,9 +143,9 @@ public:
 	}
 
 	T Reduce(T (*func)(T,T), T start) override {
-		/*for (int i = 0; i < this->GetLength(); i++) {
+		for (int i = 0; i < this->GetLength(); i++) {
 			start = func(this->Get(i), start);
-		}*/
+		}
 		return start;
 	}
 

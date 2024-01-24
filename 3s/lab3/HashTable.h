@@ -27,6 +27,12 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
             this->hasher = new STLHasher<Tkey>();
         }
 
+        HashTable(IHasher<Tkey>* other) {
+            count = 0;
+            associativeArray = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>();
+            hasher = other;
+        }
+
         HashTable(const HashTable<Tkey, Tvalue>& other) {
             this->associativeArray = other.associativeArray;
             this->hasher = other.hasher;
@@ -58,12 +64,6 @@ class HashTable : public IDictionary<Tkey, Tvalue> {
             delete this->hasher;
             this->hasher = std::exchange(other.hasher, nullptr);
             this->count = std::exchange(other.count, 0);
-        }
-
-        HashTable(IHasher<Tkey>* other) {
-            count = 0;
-            associativeArray = new DynamicArray<ArraySequence<Pair<Tkey, Tvalue>>>();
-            hasher = other;
         }
 
         int GetCount() const {

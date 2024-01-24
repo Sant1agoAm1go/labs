@@ -9,7 +9,7 @@ public:
 	
 	DynamicArray() {
 		data = new T[1];
-		//data[0] = T();
+		data[0] = T();
 		length = 0;
 	}
 
