@@ -1,8 +1,4 @@
-#ifndef LABA4_H
-#define LABA4_H
-
-//#define _CRT_SECURE_NO_WARNINGS
-
+#pragma once
 #include <iostream>
 using namespace std;
 #include <vector>
@@ -17,5 +13,4 @@ using namespace std;
 #include "Node.h"
 #include "Graph.h"
 
-#endif LABA4_H
 
