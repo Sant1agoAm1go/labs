@@ -1,14 +1,16 @@
 #pragma once
+
 #include "Sequence.h"
+#include <functional>
+
 template <typename T>
-void Swap(T& a, T& b) {
-	T temp = a;
-	a = b;
-	b = temp;
-}
-template <typename T> 
-class ISorter {
-    public:
-        virtual ~ISorter() {}
-        virtual Sequence<T>* Sort(Sequence<T>* seq, int (*cmp)(const T&, const T&)) = 0;
+class ISorter
+{
+public:
+	virtual ~ISorter() { }
+
+	virtual Sequence<T>* SortCopy(Sequence<T>* sequence, std::function<int(const T&, const T&)> comp) = 0;
+
+	virtual void Sort(Sequence<T>* sequence, std::function<int(const T&, const T&)> comp) = 0;
+
 };

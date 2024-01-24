@@ -1,10 +1,8 @@
 #pragma once
-
 #include "ArraySequence.h"
 #include "IDictionary.h"
-#include "ISortedSequence.h"
+#include "SortedSequence.h"
 #include "HashTable.h"
-#include "IHasher.h"
 #include <utility>
 
 template <typename Tkey> 
@@ -29,26 +27,26 @@ public:
 		delete elems;
 		delete range;
 	}
-	int NumberRange(std::pair<Tkey, Tkey> range) {
+	int NumberRange(Pair<Tkey, Tkey> range) {
 		int number = 0;
 		for (int i = 0; i < elems->GetLength(); i++) {
-			if (range.first <= elems->Get(i) && elems->Get(i) <= range.second) {
+			if (range.Get1() < elems->Get(i) && elems->Get(i) < range.Get2()) {
 				number++;
 			}
 		}
 		return number;
 	}
-	IDictionary<std::pair<Tkey, Tkey>, int>* BuildHistogram(IHasher<std::pair<Tkey, Tkey>>* hasher) {
-		IDictionary<std::pair<Tkey, Tkey>, int>* hist = new HashTable<std::pair<Tkey, Tkey>, int>(hasher);
+	IDictionary<Pair<Tkey, Tkey>, int>* BuildHistogram(IHasher<Pair<Tkey, Tkey>>* other) {
+		IDictionary<Pair<Tkey, Tkey>, int>* hist = new HashTable<Pair<Tkey, Tkey>, int>(other);
 		for (int i = 0; i < range->GetLength() - 1; i++) {
-			std::pair<Tkey, Tkey> span(range->Get(i), range->Get(i + 1));
-			hist->Add(std::make_pair(span, NumberRange(span)));
+			Pair<Tkey, Tkey> span(range->Get(i), range->Get(i + 1));
+			hist->Add({span, NumberRange(span)});
 		}
 		return hist;
 	}
-	void OutPut(IDictionary<std::pair<Tkey, Tkey>, int>* histogram) {
+	void OutPut(IDictionary<Pair<Tkey, Tkey>, int>* histogram) {
 		for (int i = 0; i < range->GetLength() - 1; i++) {
-			std::cout << range->Get(i) << "-" << range->Get(i + 1) << ":" << histogram->Get(std::make_pair(range->Get(i), range->Get(i + 1))) << std::endl;
+			std::cout << range->Get(i) << "-" << range->Get(i + 1) << ":" << histogram->Get({range->Get(i), range->Get(i + 1)}) << std::endl;
 		}
 	}
 };

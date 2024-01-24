@@ -1,6 +1,6 @@
 #pragma once
 #include "Sequence.h"
-#include "DynamicArray.h"
+#include "Array.h"
 template <typename T> class ArraySequence : public Sequence<T> {
 private:
 	DynamicArray<T>* items;
@@ -19,11 +19,16 @@ public:
 	}
 
 	ArraySequence(const DynamicArray<T>& other) {  // Копирующий конструктор
-		this->items = new DynamicArray<T>(other);
-	}
+    	this->items = new DynamicArray<T>(other);
+    }
 
 	ArraySequence(const ArraySequence<T>& other) { //Копирующий конструктор
-		this->items = new DynamicArray<T>(*other.items);
+                this->items = new DynamicArray<T>(*other.items);
+                //this->items = other.items;
+		/*this->items = new DynamicArray<T>(other.GetLength(), -1);
+		for(int i = 0; i < other.GetLength(); i++) {
+			this->items->Set(i, other.Get(i));
+		}*/
 	}
 
 	ArraySequence(ArraySequence<T>&& other) {
@@ -48,19 +53,12 @@ public:
 		delete items;
 	}
 
-	Sequence<T>* Create() override {
-		return (Sequence<T>*) new ArraySequence<T>();
-	}
-	Sequence<T>* Copy() override {
-		return (Sequence<T>*) new ArraySequence<T>(*this);
-	}
-
 	T& GetFirst() const override {
 		return this->items->Get(0);
 	}
 
-	T& GetLast() const override {
-		return this->Get(items->GetSize() - 1);
+	T& GetLast () const override{
+		return this->Get(items->GetSize()-1);
 	}
 
 	T& Get(int index) const override {
@@ -70,90 +68,81 @@ public:
 	int GetLength() const override {
 		return this->items->GetSize();
 	}
-
-
+	
+	
 	void Append(T item) override {
-		this->items->Resize(this->items->GetSize() + 1);
-		this->items->Set(this->items->GetSize() - 1, item);
-
+		this->items->Resize(this->items->GetSize()+1);
+		this->items->Set(this->items->GetSize()-1, item);
+		
 	}
 
 	void Prepend(T item) override {
-		this->items->Resize(this->items->GetSize() + 1);
-		for (int i = this->items->GetSize() - 1; i > 0; i--) {
-			this->items->Set(i, this->items->Get(i - 1));
+		this->items->Resize(this->items->GetSize()+1);
+		for(int i = this->items->GetSize() - 1; i > 0; i--) {
+			this->items->Set(i,this->items->Get(i-1));
 		}
 		this->items->Set(0, item);
 	}
 
 	void InsertAt(T item, int index) override {
-		this->items->Resize(this->items->GetSize() + 1);
-		for (int i = this->items->GetSize() - 1; i > index; i--) {
-			this->items->Set(i, this->items->Get(i - 1));
+		this->items->Resize(this->items->GetSize()+1);
+		for(int i = this->items->GetSize() - 1; i > index; i--) {
+			this->items->Set(i,this->items->Get(i-1));
 		}
 		this->items->Set(index, item);
 	}
 
 	void Remove(int index) {
-		if (index < 0 || index >= this->GetLength()) {
+		if(index < 0 || index >= this->GetLength()) {
 			throw std::out_of_range("Out of range");
 		}
 
-		for (int i = index; i < this->GetLength() - 1; i++) {
-			this->items->Get(i) = this->items->Get(i + 1);
-		}
+		for(int i = index; i < this->GetLength() - 1; i++) {
+			this->items->Get(i) = this->items->Get(i+1);  
+		} 
 
-		this->items->Resize(this->items->GetSize() - 1);
-	}
-
-	void RemoveItem(T item) {
-		for (int i = 0; i < this->GetLength(); i++) {
-			if (items->Get(i) == item) {
-				this->Remove(i);
-				return;
-			}
-		}
+		this->items->Resize(this->items->GetSize()-1);
 	}
 
 	Sequence <T>* Concat(Sequence <T>* other) override {
-		Sequence <T>* result = new ArraySequence<T>();
-		for (int i = 0; i < this->GetLength(); i++)
-			result->Append(this->Get(i));
-		for (int i = 0; i < other->GetLength(); i++)
-			result->Append(other->Get(i));
-		return result;
+        Sequence <T>* result = new ArraySequence<T>();
+        for (int i = 0; i < this->GetLength(); i++)
+            result->Append(this->Get(i));
+        for (int i = 0; i < other->GetLength(); i++)
+            result->Append(other->Get(i));
+        return result;
 	}
 
 	Sequence <T>* GetSubsequence(int startIndex, int endIndex) override {
-		if (startIndex < 0 || endIndex < 0 || startIndex >= this->GetLength() || endIndex >= this->GetLength()) {
-			throw std::out_of_range("Out of range");
-		}
-		Sequence <T>* result = new ArraySequence<T>();
-		for (int i = startIndex; i <= endIndex; i++) {
-			result->Append(this->Get(i));
-		}
-		return result;
-	}
+        if(startIndex < 0 || endIndex < 0 || startIndex >= this->GetLength() || endIndex >= this->GetLength()) {
+            throw std::out_of_range("Out of range");
+        }
+        Sequence <T>* result = new ArraySequence<T>();
+        for (int i = startIndex; i <= endIndex; i++) {
+            result->Append(this->Get(i));
+        }
+        return result;
+    }
 
-	Sequence <T>* Map(T(*func)(T)) override {
-		Sequence <T>* result = new ArraySequence<T>();
+	Sequence <T>* Map(T (*func)(T)) override {
+		Sequence <T>* result = new ArraySequence<T>(); 
 		for (int i = 0; i < this->GetLength(); i++) {
-			result->Append(func(this->Get(i)));
-		}
+            result->Append(func(this->Get(i)));
+        }
 		return result;
 	}
 
 	Sequence <T>* Where(bool (*func)(T)) override {
 		Sequence <T>* result = new ArraySequence<T>();
 		for (int i = 0; i < this->GetLength(); i++) {
-			if (func(this->Get(i))) {
-				result->Append(this->Get(i));
+			if(func(this->Get(i))) {
+            	result->Append(this->Get(i));
 			}
-		}
+        }
 		return result;
 	}
 
-	T Reduce(T(*func)(T, T), T start) override {
+	T Reduce(T (*func)(T,T), T start) override {
 		for (int i = 0; i < this->GetLength(); i++) {
 			start = func(this->Get(i), start);
 		}
@@ -161,33 +150,33 @@ public:
 	}
 
 	Sequence <T>* Slice(int index, int number, Sequence<T>* seq) override {
-		if (std::abs(index) > this->GetLength() || index + number > this->GetLength()) {
+		if(std::abs(index) > this->GetLength() || index+number > this->GetLength()) {
 			throw std::out_of_range("Out of range");
 		}
 		Sequence <T>* result = new ArraySequence<T>();
 		int resInd = 0;
-		if (index >= 0) {
-			for (int i = 0; i < index; i++) {
-				result->InsertAt(this->Get(i), resInd);
-				resInd++;
+		if(index >= 0) {
+			for(int i = 0; i < index; i++) {
+					result->InsertAt(this->Get(i), resInd);
+					resInd++;
 			}
-			for (int i = index + number; i < this->GetLength(); i++) {
-				result->InsertAt(this->Get(i), resInd);
-				resInd++;
+			for(int i = index+number; i < this->GetLength(); i++) {
+					result->InsertAt(this->Get(i), resInd);
+					resInd++;
 			}
-			if (seq->GetLength() != 0) {
+			if(seq->GetLength() != 0) {
 				int seqInd = 0;
-				for (int i = index; i <= index + seq->GetLength() - 1; i++) {
+				for(int i = index; i <= index+seq->GetLength()-1; i++) {
 					result->InsertAt(seq->Get(seqInd), i);
 					seqInd++;
 				}
-			}
+			} 
 		}
 		return result;
 	}
 
 	T& operator[](int index) {
-		if (index < 0 || index >= this->GetLength()) {
+		if(index < 0 || index >= this->GetLength()) {
 			throw std::out_of_range("Out of range");
 		}
 		return this->Get(index);
@@ -222,4 +211,27 @@ public:
 	}
 
 };
+
+
+
+
+
+		/*else {
+			for(int i = this->GetLength()-1; i > this->GetLength() - index; i--) {
+				result->InsertAt(this->Get(i), resInd);
+				resInd++;
+			}
+			for(int i = index-number; i > 0 ; i++) {
+				result->InsertAt(this->Get(i), resInd);
+				resInd++;
+			}
+			if(seq->GetLength() != 0) {
+				int seqInd = 0;
+				for(int i = this->GetLength() - index; i >= this->GetLength()-seq->GetLength(); i--) {
+					result->InsertAt(seq->Get(seqInd), i);
+					seqInd++;
+				
+				}
+			}
+		}*/
 

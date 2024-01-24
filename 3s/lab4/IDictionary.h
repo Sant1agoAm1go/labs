@@ -1,5 +1,5 @@
 #pragma once
-#include "Pair.h"
+
 template <typename Tkey, typename Tvalue>
 class IDictionary {
 public:
@@ -11,7 +11,7 @@ public:
 
 	virtual bool ContainsKey(const Tkey& key) const = 0;
 
-	virtual IDictionary<Tkey, Tvalue>* Add(Pair<Tkey, Tvalue> record) = 0;
+	virtual void Add(std::pair<Tkey, Tvalue> record) = 0;
 
 	virtual void Remove(const Tkey& key) = 0;
 };

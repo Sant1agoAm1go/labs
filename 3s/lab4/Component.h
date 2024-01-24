@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>
 
 template<typename ID, typename T>
@@ -7,6 +6,7 @@ class Node {
 private:
 	ID id;
 	T data;
+	int degree;
 public:
 	Node(T data, ID id) {
 		this->data = data;
@@ -21,6 +21,9 @@ public:
 	}
 	T& GetData() {
 		return data;
+	}
+	void SetDegree(int number) {
+		degree = number;
 	}
 	T& operator=(const Node<ID,T>& other) {
 		this->data = data;
@@ -62,11 +65,17 @@ public:
 		this->start = other.start;
 		this->end = other.end;
 	}
-	Node<ID, T>* GetStart() {
+	Node<ID, T>* GetStartPoint() {
 		return start;
 	}
-	Node<ID, T>* GetEnd() {
+	Node<ID, T>* GetEndPoint() {
 		return end;
+	}
+	Node<ID, T> GetStart() {
+		return *(this->start);
+	}
+	Node<ID, T> GetEnd() {
+		return *(this->end);
 	}
 	E& GetData() {
 		return data;

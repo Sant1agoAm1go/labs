@@ -43,15 +43,16 @@ public:
 		other.items = nullptr;
 		return *this;
 	}
+
+	~ArraySequence() {
+		delete items;
+	}
+
 	Sequence<T>* Create() override {
 		return (Sequence<T>*) new ArraySequence<T>();
 	}
 	Sequence<T>* Copy() override {
 		return (Sequence<T>*) new ArraySequence<T>(*this);
-	}
-
-	~ArraySequence() {
-		delete items;
 	}
 
 	T& GetFirst() const override {
@@ -103,6 +104,15 @@ public:
 		}
 
 		this->items->Resize(this->items->GetSize() - 1);
+	}
+
+	void RemoveItem(T item) {
+		for (int i = 0; i < this->GetLength(); i++) {
+			if (items->Get(i) == item) {
+				this->Remove(i);
+				return;
+			}
+		}
 	}
 
 	Sequence <T>* Concat(Sequence <T>* other) override {
