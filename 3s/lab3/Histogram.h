@@ -11,7 +11,7 @@ template <typename Tkey>
 class Histogram {
 private:
 	Sequence<Tkey>* elems;
-	SortedSequence<Tkey>* range;
+	SortedSequence<Tkey>* range; //ranges
 public:
 	Histogram(Sequence<Tkey>* other, SortedSequence<int>* other_range) {
 		elems = other;
@@ -29,7 +29,7 @@ public:
 		delete elems;
 		delete range;
 	}
-	int NumberRange(std::pair<Tkey, Tkey> range) {
+	int NumberRange(std::pair<Tkey, Tkey> range) { //GetRangeItemsCount
 		int number = 0;
 		for (int i = 0; i < elems->GetLength(); i++) {
 			if (range.first <= elems->Get(i) && elems->Get(i) <= range.second) {

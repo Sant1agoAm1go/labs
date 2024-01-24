@@ -21,9 +21,9 @@ int main() {
 	Sequence<int>* value = new ArraySequence<int>(data, 20);
 	Sequence<int>* lim = new ArraySequence<int>(data2, 3);
 	SortedSequence<int>* range = new SortedSequence<int>(lim, sort, cmp_int);
-	Histogram<int> hist1(value, range);
+	Histogram<int> histogram(value, range);
 	IHasher<std::pair<int, int>>* hasher = new PairHasher<int>();
-	IDictionary<std::pair<int, int>, int>* dict = hist1.BuildHistogram(hasher);
-	hist1.Output(dict);
+	IDictionary<std::pair<int, int>, int>* dict = histogram.BuildHistogram(hasher);
+	histogram.Output(dict);
 	return 0;
 }
