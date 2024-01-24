@@ -24,6 +24,6 @@ int main() {
 	Histogram<int> hist1(value, range);
 	IHasher<std::pair<int, int>>* hasher = new PairHasher<int>();
 	IDictionary<std::pair<int, int>, int>* dict = hist1.BuildHistogram(hasher);
-	hist1.OutPut(dict);
+	hist1.Output(dict);
 	return 0;
 }

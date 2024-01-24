@@ -46,7 +46,7 @@ public:
 		}
 		return hist;
 	}
-	void OutPut(IDictionary<std::pair<Tkey, Tkey>, int>* histogram) {
+	void Output(IDictionary<std::pair<Tkey, Tkey>, int>* histogram) {
 		for (int i = 0; i < range->GetLength() - 1; i++) {
 			std::cout << range->Get(i) << "-" << range->Get(i + 1) << ":" << histogram->Get(std::make_pair(range->Get(i), range->Get(i + 1))) << std::endl;
 		}
