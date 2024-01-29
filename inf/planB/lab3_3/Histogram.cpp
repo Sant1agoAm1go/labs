@@ -15,8 +15,9 @@ int main() {
 	Sequence<int>* value = new ArraySequence<int>(data, 7);
 	Sequence<int>* lim = new ArraySequence<int>(data2, 3);
 	SortedSequence<int>* range = new SortedSequence<int>(lim, sort, cmp_int);
-	Histogram<int> hist(value, range);
+	Histogram<int> histogram(value, range);
 	IHasher<Pair<int,int>>* hasher = new PairHasher<int>();
-	IDictionary<Pair<int, int>, int>* dict = hist.BuildHistogram(hasher);
+	IDictionary<Pair<int, int>, int>* dict = histogram.BuildHistogram(hasher);
+	histogram.Output(dict);
 	return 0;
 }

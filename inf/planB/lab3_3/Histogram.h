@@ -44,7 +44,7 @@ public:
 		}
 		return hist;
 	}
-	void OutPut(IDictionary<Pair<Tkey, Tkey>, int>* histogram) {
+	void Output(IDictionary<Pair<Tkey, Tkey>, int>* histogram) {
 		for (int i = 0; i < range->GetLength() - 1; i++) {
 			std::cout << range->Get(i) << "-" << range->Get(i + 1) << ":" << histogram->Get({range->Get(i), range->Get(i + 1)}) << std::endl;
 		}

@@ -27,8 +27,8 @@ public:
     }
 
     Pair(Pair<T1,T2>&& other) {
-        item1 = std::exchange(other.item1, 0);
-        item2 = std::exchange(other.item2, 0);
+        item1 = std::move(other.item1);
+        item2 = std::move(other.item2);
     }
 
     T1 Get1() const {
@@ -47,12 +47,6 @@ public:
     Pair<T1,T2>& operator=(const Pair<T1,T2>& other) {
         item1 = other.item1;
         item2 = other.item2;
-        return *this;
-    }
-
-    Pair<T1,T2>& operator=(Pair<T1,T2>&& other) {
-        item1 = std::exchange(other.item1, 0);
-        item2 = std::exchange(other.item2, 0);
         return *this;
     }
 
