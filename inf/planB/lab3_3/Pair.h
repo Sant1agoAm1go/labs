@@ -50,6 +50,12 @@ public:
         return *this;
     }
 
+    Pair<T1,T2>& operator=(Pair<T1,T2>&& other) {
+        item1 = std::move(other.item1);
+        item2 = std::move(other.item2);
+        return *this;
+    }
+
     bool operator==(const Pair<T1,T2>& other) const {
         return (this->Get1()==other.Get1() && this->Get2()==other.Get2());
     }
