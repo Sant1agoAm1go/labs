@@ -4,7 +4,6 @@
 template <typename T> class ArraySequence : public Sequence<T> {
 private:
 	DynamicArray<T>* items;
-	int length;
 public:
 	ArraySequence() {
 		this->items = new DynamicArray<T>();
