@@ -32,7 +32,7 @@ public:
 	int NumberRange(std::pair<Tkey, Tkey> range) { //GetRangeItemsCount
 		int number = 0;
 		for (int i = 0; i < elems->GetLength(); i++) {
-			if (range.first <= elems->Get(i) && elems->Get(i) <= range.second) {
+			if (range.first <= elems->Get(i) && elems->Get(i) < range.second) {
 				number++;
 			}
 		}

@@ -5,8 +5,8 @@
 #include "IDictionary.h"
 #include "ArraySequence.h"
 #include "DynamicArray.h"
-
 #define Default 10
+
 template <typename Tkey, typename Tvalue>
 class HashTable : public IDictionary<Tkey, Tvalue> {
 private:
