@@ -23,13 +23,11 @@ int main() {
             exit(1);
     }
 
-    auto caller = [](const auto& obj) ->int { return obj.GetLenght(); };
+    auto caller = [](const auto& obj) ->int { return obj.GetLength(); };
     auto var = std::visit(caller, vec);
 
     for(int i = 0; i < var ; i++)
-
-    //auto lol = vec.index();
-    //std::cout << lol << std::endl;
+    std::cout << vec.index() << std::endl;
 
     return 0;
 }
